@@ -7,6 +7,7 @@
                  :key="`question${i}`">
                 <QuestionCard
                     :question="question.question"
+                    :inactive="selectedIndex !== i"
                 ></QuestionCard>
             </div>
         </div>

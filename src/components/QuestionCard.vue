@@ -1,31 +1,9 @@
 <template>
-    <div class="questionCard">
+    <div class="questionCard" :class="{ 'inactive': inactive }">
         <div class="questionText">
             <p>{{ question }}</p>
         </div>
         <div class="questionResponse">
-<!--            <ul>-->
-<!--                <li>-->
-<!--                    <input type="radio" id="f-option" name="selector">-->
-<!--                    <label for="f-option">Yes</label>-->
-
-<!--                    <div class="check"></div>-->
-<!--                </li>-->
-
-<!--                <li>-->
-<!--                    <input type="radio" id="s-option" name="selector">-->
-<!--                    <label for="s-option">No</label>-->
-
-<!--                    <div class="check"><div class="inside"></div></div>-->
-<!--                </li>-->
-
-<!--                <li>-->
-<!--                    <input type="radio" id="t-option" name="selector">-->
-<!--                    <label for="t-option">N/A</label>-->
-
-<!--                    <div class="check"><div class="inside"></div></div>-->
-<!--                </li>-->
-<!--            </ul>-->
             <div class="responseDiv"
                  id="yes"
                  v-on:click="selection('yes')">
@@ -52,6 +30,10 @@
             question: {
                 type: String,
                 required: true
+            },
+            inactive: {
+                type: Boolean,
+                default: () => false
             }
         },
         methods: {
@@ -74,7 +56,12 @@
     background-color: #FEFEFE;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     display: flex;
+    user-select: none;
     /*flex-direction: column;*/
+}
+.inactive {
+    opacity: 0.4;
+    pointer-events: none;
 }
 .questionText {
     width: calc(100% - 52px);
