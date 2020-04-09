@@ -5,11 +5,11 @@
                  v-for="(question, i) in questions"
                  :key="`question${i}`">
                 <QuestionCard
-                    :question="question.question"
-                    :inactive="selectedIndex !== i"
-                    :index="i"
-                    @selection="questionSelected"
-                    @inactiveClick="selectedIndex = i"
+                        :question="question.question"
+                        :inactive="selectedIndex !== i"
+                        :index="i"
+                        @selection="questionSelected"
+                        @inactiveClick="selectedIndex = i"
                 ></QuestionCard>
             </div>
         </div>
@@ -21,12 +21,16 @@
     import QuestionCard from './QuestionCard'
 
     export default {
-        name: 'Questionaire',
+        name: 'QuestionairePage',
         components: {QuestionCard},
         modules: {
             QuestionCard
         },
         props: {
+            questions: {
+                type: Array,
+                required: true
+            },
             margin: {
                 type: Object,
                 default: () => ({
@@ -38,10 +42,10 @@
             }
         },
         watch: {
-          selectedIndex: function () {
-              console.log('selectedINdex', this.selectedIndex)
-              this.arrangeQuestions()
-          }
+            selectedIndex: function () {
+                console.log('selectedINdex', this.selectedIndex)
+                this.arrangeQuestions()
+            }
         },
         data: () => {
             return {
@@ -693,52 +697,52 @@
 </script>
 
 <style scoped>
-.questionHolder {
-    border: 1px solid #CCC;
-    position: relative;
-    width: 100%;
-    height: 100%;
-    max-height: 100%;
-    overflow: hidden;
-    perspective: 1000px;
-}
-.questionCarousel {
-    width: max(75%, 400px);
-    height: 96px;
-    position: absolute;
-    top: calc(50% - 48px);
-    left: calc(50% -  max(37.5%, 200px));
-    /*transform: translateZ(-288px);*/
-    transform-style: preserve-3d;
-    transition: transform .3s;
-}
-.questionContainer {
-     position: absolute;
-     width: calc(100% - 24px);
-     height: 72px;
-     left: 12px;
-     top: 12px;
-     /*border: 2px solid black;*/
-     /*background-color: #CDCDCD;*/
-     text-align: center;
-     transition: transform .3s, opacity 1s;
- }
-/*.questionContainer:nth-child(9n+1) { transform: rotateX(  0deg) translateZ(288px); }*/
-/*.questionContainer:nth-child(9n+2) { transform: rotateX( 40deg) translateZ(288px); }*/
-/*.questionContainer:nth-child(9n+3) { transform: rotateX( 80deg) translateZ(288px); }*/
-/*.questionContainer:nth-child(9n+4) { transform: rotateX(120deg) translateZ(288px); }*/
-/*.questionContainer:nth-child(9n+5) { transform: rotateX(160deg) translateZ(288px); }*/
-/*.questionContainer:nth-child(9n+6) { transform: rotateX(200deg) translateZ(288px); }*/
-/*.questionContainer:nth-child(9n+7) { transform: rotateX(240deg) translateZ(288px); }*/
-/*.questionContainer:nth-child(9n+8) { transform: rotateX(280deg) translateZ(288px); }*/
-/*.questionContainer:nth-child(9n+9) { transform: rotateX(320deg) translateZ(288px); }*/
-/*.questionContainer:nth-child(9n+1) { transform: translateY( 0px) translateZ(0px);}*/
-/*.questionContainer:nth-child(9n+2) { transform: translateY( 230px) }*/
-/*.questionContainer:nth-child(9n+3) { transform: translateY( 230px) }*/
-/*.questionContainer:nth-child(9n+4) { transform: translateY( 230px) }*/
-/*.questionContainer:nth-child(9n+5) { transform: translateY( 230px) }*/
-/*.questionContainer:nth-child(9n+6) { transform: translateY( 230px) }*/
-/*.questionContainer:nth-child(9n+7) { transform: translateY( 230px) }*/
-/*.questionContainer:nth-child(9n+8) { transform: translateY( 230px) }*/
-/*.questionContainer:nth-child(9n+9) { transform: translateY( 230px) }*/
+    .questionHolder {
+        border: 1px solid #CCC;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        max-height: 100%;
+        overflow: hidden;
+        perspective: 1000px;
+    }
+    .questionCarousel {
+        width: max(75%, 400px);
+        height: 96px;
+        position: absolute;
+        top: calc(50% - 48px);
+        left: calc(50% -  max(37.5%, 200px));
+        /*transform: translateZ(-288px);*/
+        transform-style: preserve-3d;
+        transition: transform .3s;
+    }
+    .questionContainer {
+        position: absolute;
+        width: calc(100% - 24px);
+        height: 72px;
+        left: 12px;
+        top: 12px;
+        /*border: 2px solid black;*/
+        /*background-color: #CDCDCD;*/
+        text-align: center;
+        transition: transform .3s, opacity 1s;
+    }
+    /*.questionContainer:nth-child(9n+1) { transform: rotateX(  0deg) translateZ(288px); }*/
+    /*.questionContainer:nth-child(9n+2) { transform: rotateX( 40deg) translateZ(288px); }*/
+    /*.questionContainer:nth-child(9n+3) { transform: rotateX( 80deg) translateZ(288px); }*/
+    /*.questionContainer:nth-child(9n+4) { transform: rotateX(120deg) translateZ(288px); }*/
+    /*.questionContainer:nth-child(9n+5) { transform: rotateX(160deg) translateZ(288px); }*/
+    /*.questionContainer:nth-child(9n+6) { transform: rotateX(200deg) translateZ(288px); }*/
+    /*.questionContainer:nth-child(9n+7) { transform: rotateX(240deg) translateZ(288px); }*/
+    /*.questionContainer:nth-child(9n+8) { transform: rotateX(280deg) translateZ(288px); }*/
+    /*.questionContainer:nth-child(9n+9) { transform: rotateX(320deg) translateZ(288px); }*/
+    /*.questionContainer:nth-child(9n+1) { transform: translateY( 0px) translateZ(0px);}*/
+    /*.questionContainer:nth-child(9n+2) { transform: translateY( 230px) }*/
+    /*.questionContainer:nth-child(9n+3) { transform: translateY( 230px) }*/
+    /*.questionContainer:nth-child(9n+4) { transform: translateY( 230px) }*/
+    /*.questionContainer:nth-child(9n+5) { transform: translateY( 230px) }*/
+    /*.questionContainer:nth-child(9n+6) { transform: translateY( 230px) }*/
+    /*.questionContainer:nth-child(9n+7) { transform: translateY( 230px) }*/
+    /*.questionContainer:nth-child(9n+8) { transform: translateY( 230px) }*/
+    /*.questionContainer:nth-child(9n+9) { transform: translateY( 230px) }*/
 </style>
