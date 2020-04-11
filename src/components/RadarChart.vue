@@ -9,6 +9,10 @@
     export default {
         name: 'RadarChart',
         props: {
+            radarChartValues: {
+                type: Object,
+                required: true
+            },
             maxValue: {
                 type: Number,
                 default: () => 100
@@ -61,6 +65,33 @@
             radarChartData: function () {
                 this.initializeValues()
                 this.transformRadarChart()
+            },
+            radarChartValues: function () {
+                console.log('radarChartVa;llues', this.radarChartValues)
+                this.radarChartData = [{
+                        axis: 'Analysis',
+                        key: 'analysis',
+                        value: this.radarChartValues.analysis
+                    }, {
+                        axis: 'Insight',
+                        key: 'insight',
+                        value: this.radarChartValues.insight
+                    }, {
+                        axis: 'Strategy',
+                        key: 'strategy',
+                        value: this.radarChartValues.strategy
+                    }, {
+                        axis: 'Technology / Efficiency & Systems',
+                        key: 'tes',
+                        value: this.radarChartValues.tes
+                    }, {
+                        axis: 'Customer Experience',
+                        key: 'custexp',
+                        value: this.radarChartValues.custexp
+                    }
+                ]
+                // this.initializeValues()
+                // this.transformRadarChart()
             }
         },
         data: () => {
@@ -80,39 +111,32 @@
                 feMergeNode_1: null,
                 feMergeNode_2: null,
                 //
-                radarChartValues: {
-                    analysis: 60,
-                    insight: 43,
-                    strategy: 11,
-                    tes: 39,
-                    custExp: 90
-                },
                 overallMaturityScore: 0,
                 radarChartData: [
                     {
                         axis: 'Analysis',
                         key: 'analysis',
-                        value: 10
+                        value: 0
                     },
                     {
                         axis: 'Insight',
                         key: 'insight',
-                        value: 10
+                        value: 0
                     },
                     {
                         axis: 'Strategy',
                         key: 'strategy',
-                        value: 10
+                        value: 0
                     },
                     {
                         axis: 'Technology / Efficiency & Systems',
                         key: 'tes',
-                        value: 10
+                        value: 0
                     },
                     {
                         axis: 'Customer Experience',
-                        key: 'custExp',
-                        value: 10
+                        key: 'custexp',
+                        value: 0
                     }
                 ],
                 measures: [],
@@ -160,35 +184,6 @@
                 this.radian = radian
 
             },
-            generateData: function () {
-                this.radarChartData = [
-                    {
-                        axis: 'Analysis',
-                        key: 'analysis',
-                        value: Math.floor(Math.random() * 101)
-                    },
-                    {
-                        axis: 'Insight',
-                        key: 'insight',
-                        value: Math.floor(Math.random() * 101)
-                    },
-                    {
-                        axis: 'Strategy',
-                        key: 'strategy',
-                        value: Math.floor(Math.random() * 101)
-                    },
-                    {
-                        axis: 'Technology / Efficiency & Systems',
-                        key: 'tes',
-                        value: Math.floor(Math.random() * 101)
-                    },
-                    {
-                        axis: 'Customer Experience',
-                        key: 'custExp',
-                        value: Math.floor(Math.random() * 101)
-                    }
-                ]
-            },
             renderRadarChart: function () {
                 // let data = this.radarChartData
                 // let measures = this.measures
@@ -206,16 +201,6 @@
                     .append('svg')
                     .attr('class', 'radarChartSVG')
                     .attr('id', 'radar-chart-svg')
-                svg
-                    .append('rect')
-                    .attr('width', 39)
-                    .attr('height', 39)
-                    .attr('x', 0)
-                    .attr('y', 0)
-                    .attr('fill', '#121212')
-                    .on('click', () => {
-                        this.generateData()
-                    })
 
                 let radarG = svg
                     .append('g')
@@ -282,7 +267,7 @@
                     .attr('transform', `translate(${width / 2 + margin.left},${height / 2 + margin.top})`)
 
                 let radiusScale = d3.scaleLinear()
-                    .domain([0, maxValue])
+                    .domain([-10, maxValue])
                     .range([0, radius])
 
                 let radarLine = d3.radialLine()
@@ -296,6 +281,7 @@
             },
             drawRadarChart: function () {
                 let data = this.radarChartData
+                // let values = this.radarChartValues
                 let measures = this.measures
                 // let radarG = this.radarG
                 let axisG = this.axisG
@@ -305,7 +291,7 @@
                 let radius = this.radius
                 let radian = this.radian
 
-                let gridLevels = this.gridLevels
+                let gridLevels = this.gridLevels + 1
                 let gridOpacity = this.gridOpacity
                 let gridMax = this.maxValue
                 let labelFactor = this.labelFactor
@@ -344,7 +330,7 @@
 
                 let chartGrid = axisG
                     .selectAll('.gridLevels')
-                    .data(d3.range(1, (gridLevels + 1)).reverse())
+                    .data(d3.range(0, (gridLevels + 1)).reverse())
                 chartGrid
                     .exit()
                     .transition()
@@ -381,7 +367,7 @@
                     .duration(200)
                     .attr('x', 4)
                     .attr('y', d => ((0 - d) * radius) / gridLevels - 4)
-                    .text(d => gridMax * d / gridLevels)
+                    .text(d => gridMax * (d - 1) / (gridLevels - 1))
 
                 let chartLines = axisG
                     .selectAll('.axis')
@@ -510,7 +496,7 @@
                             .duration(200)
                             .attr('x', x)
                             .attr('y', y)
-                            .text(d.value)
+                            .text(d3.format('.2f')(d.value))
                     })
                     .on('mouseout', function () {
                         tooltip

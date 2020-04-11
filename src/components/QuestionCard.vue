@@ -1,7 +1,7 @@
 <template>
     <div class="questionCard" :class="{ 'inactive': inactive }" :id="`questionCard${index}`">
         <div class="questionText">
-            <p>{{ question }}</p>
+            <p>{{ question.question }}</p>
         </div>
         <div class="questionResponse">
             <div class="responseDiv"
@@ -34,7 +34,7 @@
         name: 'QuestionCard',
         props: {
             question: {
-                type: String,
+                type: Object,
                 required: true
             },
             inactive: {
@@ -53,9 +53,9 @@
                na: false
            },
            responses: {
-               yes: null,
-               no: null,
-               na: null
+               yes: 'none',
+               no: 'none',
+               na: 'none'
            },
             selectionMade: false
         }),
@@ -73,7 +73,8 @@
                 })
 
                 selected[response] = true
-                this.$emit('selection', response, this.index)
+                console.log('clicked', this.question)
+                this.$emit('selection', response, this.index, this.question.type)
                 this.selectionMade = true
                 console.log('clicked', response)
             },

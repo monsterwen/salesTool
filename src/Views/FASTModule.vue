@@ -1,25 +1,22 @@
 <template>
     <div class="fastModule" id="fast-module">
-        <div class="moduleHolder">
-            <Questionaire></Questionaire>
+        <div class="fastHeader">
+            <div class="brierleyHolder">
+                <BrierleyLogo></BrierleyLogo>
+            </div>
         </div>
-        <div class="moduleHolder">
-            <RadarChart></RadarChart>
+        <div class="fastContainer">
+            <FASTInterface></FASTInterface>
         </div>
     </div>
 </template>
 
 <script>
-    import RadarChart from '../components/RadarChart'
-    import Questionaire from '../components/Questionaire'
-
+    import BrierleyLogo from '../components/BrierleyLogo'
+    import FASTInterface from '../components/FASTInterface'
     export default {
         name: 'FASTModule',
-        components: {Questionaire, RadarChart},
-        modules: {
-            RadarChart,
-            Questionaire
-        },
+        components: {FASTInterface, BrierleyLogo},
         data: () => ({
             radarMargins: {
                 top: 12,
@@ -33,14 +30,36 @@
 
 <style scoped>
 .fastModule {
-    width: 100%;
+    width: calc(100% - 53px);
     height: 100%;
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row;
+    padding: 0 26px 0 26px;
+    background-color: #73c9d7;
 }
-.moduleHolder {
-    width: 50%;
-    max-width: 50%;
-    flex-basis: 50%;
+.fastHeader {
+    width: calc(100%);
+    height: 78px;
+    margin: 0 0px 0 0px;
+    flex-basis: calc(100% + 104px);
+    background-color: #E0E0E0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.brierleyHolder {
+    height: 100%;
+    width: 192px;
+    margin: 12px 12px 6px 12px;
+}
+.fastContainer {
+    width: 100%;
+    height: min(calc(100% - 84px), 700px);
+    flex-basis: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    background-color: #f0f0f0;
 }
 </style>
