@@ -39,7 +39,7 @@
             },
             colorRange: {
                 type: Array,
-                default: () => ['#D83737', '#e3b513', '#A5BB00']
+                default: () => ['#D83737', '#FFBF00', '#A5BB00']
             }
         },
         watch: {

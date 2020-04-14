@@ -70,7 +70,7 @@
             },
             colorRange: {
                 type: Array,
-                default: () => ['#D83737', '#E3B513', '#A5BB00']
+                default: () => ['#D83737', '#FFBF00', '#A5BB00']
             }
         },
         watch: {
@@ -421,8 +421,8 @@
                     .style('font-size', '11px')
                     .attr('text-anchor', 'middle')
                     .attr('dy', '0.35em')
-                    .attr('x', (d, i) => radiusScale(gridMax * labelFactor) * (Math.cos(radian * i - Math.PI / 2) * 1.01))
-                    .attr('y', (d, i) => radiusScale(gridMax * labelFactor) * (Math.sin(radian * i - Math.PI / 2) * 1.01))
+                    .attr('x', (d, i) => radiusScale(gridMax * labelFactor) * (Math.cos(radian * i - Math.PI / 2) * 1.02))
+                    .attr('y', (d, i) => radiusScale(gridMax * labelFactor) * (Math.sin(radian * i - Math.PI / 2) * 1.02))
                     .text(d => d)
                     .call(this.wrap, wrapWidth)
 
