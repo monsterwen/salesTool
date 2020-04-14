@@ -30,6 +30,8 @@
 </template>
 
 <script>
+    import * as d3 from 'd3'
+
     export default {
         name: 'QuestionCard',
         props: {
@@ -61,9 +63,25 @@
         }),
         mounted: function () {
             this.selectResponses()
+            this.scaleText()
         },
         methods: {
             selectResponses: function () {
+            },
+            scaleText: function () {
+                let container = d3.select(`#questionCard${this.index}`)
+                let text = container.select('.questionText')
+
+                let containerDimensions = container.node().getBoundingClientRect()
+                let textDimensions = text.node().getBoundingClientRect()
+
+                let heightRatio = containerDimensions.height / textDimensions.height
+
+                if (heightRatio < 1) {
+                    console.log('text height', heightRatio)
+                    text
+                        .style('font-size', `${heightRatio * 16}px`)
+                }
             },
             selection: function (response) {
                 let selected = this.selected
@@ -103,6 +121,7 @@
 .questionCard {
     width: 100%;
     height: 100%;
+    max-height: 100%;
     border-radius: 5px 3px 5px 3px;
     color: #565656;
     font-size: 16px;
@@ -112,6 +131,7 @@
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     display: flex;
     user-select: none;
+    overflow: hidden;
     /*flex-direction: column;*/
 }
 .inactive {
@@ -194,7 +214,7 @@
 }
 
 p {
-     text-align:center;
+     text-align: center;
      vertical-align: middle;
      display: table-cell;
      cursor: pointer;

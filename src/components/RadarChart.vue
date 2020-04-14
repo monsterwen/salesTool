@@ -49,16 +49,28 @@
                 type: Number,
                 default: () => 20
             },
+            score: {
+                type: Number,
+                default: () => 0
+            },
             margin: {
                 type: Object,
                 default: () => {
                     return {
-                        top: 48,
-                        right: 48,
-                        bottom: 48,
-                        left: 48
+                        top: 32,
+                        right: 24,
+                        bottom: 24,
+                        left: 24
                     }
                 }
+            },
+            scoreRange: {
+                type: Array,
+                default: () => [0, 200, 500]
+            },
+            colorRange: {
+                type: Array,
+                default: () => ['#D83737', '#E3B513', '#A5BB00']
             }
         },
         watch: {
@@ -147,6 +159,7 @@
                 radius: 0,
                 radian: 0,
                 // scales
+                colorScale: null,
                 radiusScale: null,
                 radarLine: null
             }
@@ -266,6 +279,10 @@
                 this.radarG
                     .attr('transform', `translate(${width / 2 + margin.left},${height / 2 + margin.top})`)
 
+                let colorScale = d3.scaleLinear()
+                    .domain(this.scoreRange)
+                    .range(this.colorRange)
+
                 let radiusScale = d3.scaleLinear()
                     .domain([-10, maxValue])
                     .range([0, radius])
@@ -275,6 +292,7 @@
                     .radius(d => radiusScale(d.value))
                     .angle((d, i) => radian * i)
 
+                this.colorScale = colorScale
                 this.radiusScale = radiusScale
                 this.radarLine = radarLine
                 this.drawRadarChart()
@@ -292,6 +310,8 @@
                 let radian = this.radian
 
                 let gridLevels = this.gridLevels + 1
+                let gridSpacing = radius / gridLevels
+                let fontSize = Math.min(16, (gridSpacing * 0.9))
                 let gridOpacity = this.gridOpacity
                 let gridMax = this.maxValue
                 let labelFactor = this.labelFactor
@@ -302,6 +322,7 @@
                 // eslint-disable-next-line no-unused-vars
                 let wrapWidth = this.wrapWidth
 
+                let colorScale = this.colorScale
                 let radiusScale = this.radiusScale
                 let radarLine = this.radarLine
 
@@ -365,9 +386,10 @@
                 chartLabels
                     .transition()
                     .duration(200)
-                    .attr('x', 4)
-                    .attr('y', d => ((0 - d) * radius) / gridLevels - 4)
+                    .attr('x', 2)
+                    .attr('y', d => ((0 - d) * radius) / gridLevels - 1)
                     .text(d => gridMax * (d - 1) / (gridLevels - 1))
+                    .style('font-size', `${fontSize}px`)
 
                 let chartLines = axisG
                     .selectAll('.axis')
@@ -399,8 +421,8 @@
                     .style('font-size', '11px')
                     .attr('text-anchor', 'middle')
                     .attr('dy', '0.35em')
-                    .attr('x', (d, i) => radiusScale(gridMax * labelFactor) * Math.cos(radian * i - Math.PI / 2))
-                    .attr('y', (d, i) => radiusScale(gridMax * labelFactor) * Math.sin(radian * i - Math.PI / 2))
+                    .attr('x', (d, i) => radiusScale(gridMax * labelFactor) * (Math.cos(radian * i - Math.PI / 2) * 1.01))
+                    .attr('y', (d, i) => radiusScale(gridMax * labelFactor) * (Math.sin(radian * i - Math.PI / 2) * 1.01))
                     .text(d => d)
                     .call(this.wrap, wrapWidth)
 
@@ -419,7 +441,7 @@
                     .transition()
                     .duration(200)
                     .attr('d', d => radarLine(d))
-                    .style('fill', '#8EAC1D')
+                    .style('fill', colorScale(this.score))
                     .style('fill-opacity', areaOpacity)
                     .style('filter', 'url(#glow)')
 
@@ -439,7 +461,7 @@
                     .duration(200)
                     .attr('d', d => radarLine(d))
                     .style('stroke-width', `${lineWidth}px`)
-                    .style('stroke', '#8EAC1D')
+                    .style('stroke', colorScale(this.score))
                     .style('fill', 'none')
                     .style('filter', 'url(#glow)')
                     // .style('')
@@ -461,7 +483,7 @@
                     .attr('r', pointRadius)
                     .attr('cx', (d, i) => radiusScale(d.value) * Math.cos(radian * i - Math.PI/2))
                     .attr('cy', (d, i) => radiusScale(d.value) * Math.sin(radian * i - Math.PI/2))
-                    .style('fill', '#8EAC1D')
+                    .style('fill', colorScale(this.score))
                     .style('fill-opacity', 0.8)
                     .style('filter', 'url(#glow)')
 

@@ -34,6 +34,7 @@ export default {
 .bigHolder {
     width: 100vw;
     height: 100vh;
+    background-color: #73c9d7;
 }
 .axisLabel {
     fill: #656565;

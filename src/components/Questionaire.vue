@@ -1,9 +1,9 @@
 <template>
     <div class="questionHolder">
-        <div class="questionCarousel">
-            <div class="questionContainer"
+        <div class="questionCarousel" :key="category">
+            <div class="questionContainer actualQuestion"
                  v-for="(question, i) in questions"
-                 :key="`question${i}`">
+                 :key="`${category}${i}`">
                 <QuestionCard
                     :question="question"
                     :inactive="selectedIndex !== i"
@@ -48,10 +48,17 @@
             }
         },
         watch: {
-          selectedIndex: function () {
-              console.log('selectedINdex', this.selectedIndex)
-              this.arrangeQuestions()
-          }
+            category: function () {
+                console.log('=======questions', this.category, this.questions)
+                // this.initializeValues()
+                this.selectedIndex = 0
+                // this.arrangeQuestions()
+            },
+            // selectedIndex: function () {
+            //     // this.initializeValues()
+            //     console.log('selectedINdex', this.selectedIndex)
+            //     this.arrangeQuestions()
+            // }
         },
         data: () => {
             return {
@@ -566,6 +573,10 @@
                 questionCards: null
             }
         },
+        updated: function () {
+            this.initializeValues()
+            this.arrangeQuestions()
+        },
         mounted: function () {
             // let selectedIndex = this.selectedIndex
             // let questionCards = questionCarousel
@@ -577,27 +588,9 @@
 
             // console.log('height', width, height)
             this.initializeValues()
-            this.createQuestionStatistics()
             this.arrangeQuestions()
         },
         methods: {
-            createQuestionStatistics: function () {
-                let questions = this.questions
-
-                let questionTotals = {
-                    analysis: 0,
-                    insight: 0,
-                    strategy: 0,
-                    tes: 0,
-                    custexp: 0
-                }
-
-                questions.forEach(d => {
-                    questionTotals[d.type] = questionTotals[d.type] + 1
-                })
-
-                this.questionTotals = questionTotals
-            },
             initializeValues: function () {
                 let questions = this.questions
                 let questionNum = questions.length
@@ -626,10 +619,12 @@
                 this.questionNum = questionNum
             },
             arrangeQuestions: function () {
+                console.log('arrangeQuestions', this.category)
                 // let div = this.div
                 let selectedIndex = this.selectedIndex
                 // let questionCarousel = this.questionCarousel
                 let questionCards = this.questionCards
+                console.log('arrangeQuestions', this.category, questionCards, selectedIndex)
 
                 let margin = this.margin
                 // let width = this.width
@@ -644,10 +639,22 @@
                         translateZ = Math.abs(distance) * (0 - 84)
                         d3.select(this)
                             .style('transform', `translateY(${translateY}px) translateZ(${translateZ}px)`)
+                        d3.select(this)
+                            .classed('moved', true)
                     })
                 if (selectedIndex === this.questions.length) {
-                    this.$emit('reload', this.category)
+                    this.resetCarosel()
                 }
+            },
+            resetCarosel: function () {
+                // this.questionCards
+                //     .each(function () {
+                //         d3.select(this)
+                //             .style('transform', `translateY(0px) translateZ(0px)`)
+                //     })
+                // // this.questionCards.remove()
+                // this.questionCarousel.selectAll('.actualQuestion').remove()
+                this.$emit('reload', this.category)
             },
             questionSelected: function (response, index, type) {
                 this.selectedIndex = this.selectedIndex + 1
@@ -657,51 +664,6 @@
                 // this.calculateScores()
                 // console.log('questionSelected', this.questions)
             }
-            // calculateScores: function () {
-            //     let questions = this.questions
-            //     let questionTotals = this.questionTotals
-            //     let responses = {
-            //         yes: {
-            //             analysis: 0,
-            //             insight: 0,
-            //             strategy: 0,
-            //             tes: 0,
-            //             custexp: 0
-            //         },
-            //         no: {
-            //             analysis: 0,
-            //             insight: 0,
-            //             strategy: 0,
-            //             tes: 0,
-            //             custexp: 0
-            //         },
-            //         na: {
-            //             analysis: 0,
-            //             insight: 0,
-            //             strategy: 0,
-            //             tes: 0,
-            //             custexp: 0
-            //         }
-            //     }
-            //
-            //     questions.forEach(d => {
-            //         responses[d.response][d.type] = responses[d.response][d.type] + 1
-            //     })
-            //
-            //     let analysisDenom = questionTotals.analysis - responses.na.analysis
-            //     let insightDenom = questionTotals.insight - responses.na.insight
-            //     let strategyDenom = questionTotals.strategy - responses.na.strategy
-            //     let tesDenom = questionTotals.tes - responses.na.tes
-            //     let custexpDenom = questionTotals.custexp - responses.na.custexp
-            //
-            //     this.scores.analysis = analysisDenom ? responses.yes.analysis / analysisDenom : null
-            //     this.scores.insight = insightDenom ? responses.yes.insight / insightDenom : null
-            //     this.scores.strategy = strategyDenom ? responses.yes.strategy / strategyDenom : null
-            //     this.scores.tes = tesDenom ? responses.yes.tes / tesDenom : null
-            //     this.scores.custexp = custexpDenom ? responses.yes.custexp / custexpDenom : null
-            //
-            //
-            // }
         }
     }
 </script>
@@ -720,7 +682,7 @@
     width: max(75%, 400px);
     height: 96px;
     position: absolute;
-    top: calc(50% - 108px);
+    top: calc(50% - 72px);
     left: calc(50% -  max(37.5%, 200px));
     /*transform: translateZ(-288px);*/
     transform-style: preserve-3d;

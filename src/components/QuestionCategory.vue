@@ -1,5 +1,6 @@
 <template>
     <div class="questionCategory"
+         :class="{ 'selected': selected }"
         :id="questionKey">
         <div class="questionName">
             <p>{{ questionName }}</p>
@@ -32,9 +33,13 @@
             questionTotal: {
                 type: Number
             },
+            selected: {
+                type: Boolean,
+                default: () => false
+            },
             colorRange: {
                 type: Array,
-                default: () => ['#D83737', '#CFCFCF', '#8EAC1D']
+                default: () => ['#D83737', '#e3b513', '#A5BB00']
             }
         },
         watch: {
@@ -54,7 +59,6 @@
             colorScale: null
         }),
         mounted: function () {
-            // this.createMeterElements()
         },
         methods: {
             createMeterElements: function () {
@@ -65,7 +69,7 @@
                 let dimensions = div.node().getBoundingClientRect()
                 let width = dimensions.width
                 let height = dimensions.height
-
+                console.log('width', width)
                 let progressScale = d3.scaleLinear()
                     .domain([0, this.questionTotal])
                     .range([0, width])
@@ -96,9 +100,16 @@
                 this.progressScale = progressScale
                 this.colorScale = colorScale
 
+                this.meterDiv = div
                 this.rect = rect
             },
             updateMeter: function () {
+                console.log('updatemeter', this.progressScale.range(), this.questionTotal)
+                let dimensions = this.meterDiv.node().getBoundingClientRect()
+                let width = dimensions.width
+
+                this.progressScale.range([0, width])
+
                 this.rect
                     .transition()
                     .duration(300)
@@ -115,14 +126,20 @@
 <style scoped>
 
 .questionCategory {
-    flex-basis: 20%;
-    width: 20%;
+    flex-basis: 100%;
+    width: 100%;
     height: 100%;
     background-color: #EDEDED;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    transition: background-color 0.2s ease-in-out;
+    transition: background-color 0.5s ease-in-out;
+}
+.questionCategory :hover {
+    background-color: #d7d7d7;
+}
+.selected {
+    background-color: #b7b7b7;
 }
 
 .questionName {

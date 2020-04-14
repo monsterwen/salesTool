@@ -1,55 +1,86 @@
 <template>
     <div class="fastHolder">
+<!--        <div class="fastHeader">-->
+<!--        </div>-->
         <div class="moduleHolder flexHolder">
             <div class="questionFlex questionHeader">
-                <QuestionCategory
-                    questionName="Analysis"
-                    questionKey="analysis"
-                    :categoryScore="scores.analysis"
-                    :questionNumber="questionProgress.analysis"
-                    :questionTotal="questionTotals.analysis">
-                </QuestionCategory>
-                <QuestionCategory
-                    questionName="Insight"
-                    questionKey="insight"
-                    :categoryScore="scores.insight"
-                    :questionNumber="questionProgress.insight"
-                    :questionTotal="questionTotals.insight">
-                </QuestionCategory>
-                <QuestionCategory
-                    questionName="Strategy"
-                    questionKey="strategy"
-                    :categoryScore="scores.strategy"
-                    :questionNumber="questionProgress.strategy"
-                    :questionTotal="questionTotals.strategy">
-                </QuestionCategory>
-                <QuestionCategory
-                    questionName="Technology / Efficiency"
-                    questionKey="tes"
-                    :categoryScore="scores.tes"
-                    :questionNumber="questionProgress.tes"
-                    :questionTotal="questionTotals.tes">
-                </QuestionCategory>
-                <QuestionCategory
-                    questionName="Customer Experience"
-                    questionKey="custexp"
-                    :categoryScore="scores.custexp"
-                    :questionNumber="questionProgress.custexp"
-                    :questionTotal="questionTotals.custexp">
-                </QuestionCategory>
+                <div class="categoryHolder">
+                    <QuestionCategory
+                            questionName="Analysis"
+                            questionKey="analysis"
+                            :selected="selectedCategory === 'analysis' && !summary"
+                            :categoryScore="scores.analysis"
+                            :questionNumber="questionProgress.analysis"
+                            :questionTotal="questionTotals.analysis">
+                    </QuestionCategory>
+                </div>
+                <div class="categoryHolder">
+                    <QuestionCategory
+                            questionName="Insight"
+                            questionKey="insight"
+                            :selected="selectedCategory === 'insight' && !summary"
+                            :categoryScore="scores.insight"
+                            :questionNumber="questionProgress.insight"
+                            :questionTotal="questionTotals.insight">
+                    </QuestionCategory>
+                </div>
+                <div class="categoryHolder">
+                    <QuestionCategory
+                            questionName="Strategy"
+                            questionKey="strategy"
+                            :selected="selectedCategory === 'strategy' && !summary"
+                            :categoryScore="scores.strategy"
+                            :questionNumber="questionProgress.strategy"
+                            :questionTotal="questionTotals.strategy">
+                    </QuestionCategory>
+                </div>
+                <div class="categoryHolder">
+                    <QuestionCategory
+                            questionName="Technology / Efficiency"
+                            questionKey="tes"
+                            :selected="selectedCategory === 'tes' && !summary"
+                            :categoryScore="scores.tes"
+                            :questionNumber="questionProgress.tes"
+                            :questionTotal="questionTotals.tes">
+                    </QuestionCategory>
+                </div>
+                <div class="categoryHolder">
+                    <QuestionCategory
+                            questionName="Customer Experience"
+                            questionKey="custexp"
+                            :selected="selectedCategory === 'custexp' && !summary"
+                            :categoryScore="scores.custexp"
+                            :questionNumber="questionProgress.custexp"
+                            :questionTotal="questionTotals.custexp">
+                    </QuestionCategory>
+                </div>
             </div>
             <div class="questionFlex questionContainer">
                 <Questionaire
                     :questions="questions[selectedCategory]"
                     :category="selectedCategory"
-                    @selection="questionSelected">
+                    @selection="questionSelected"
+                    @reload="changeCategory">
                 </Questionaire>
             </div>
         </div>
         <div class="moduleHolder">
-            <RadarChart
-                :radarChartValues="scores">
-            </RadarChart>
+            <div class="questionFlex questionHeader">
+                <QuestionCategory
+                        questionName="Summary"
+                        questionKey="summary"
+                        :selected="summary"
+                        :categoryScore="scores.total / categories.length"
+                        :questionNumber="questionProgress.total"
+                        :questionTotal="questionTotals.total">
+                </QuestionCategory>
+            </div>
+            <div class="questionFlex questionContainer">
+                <RadarChart
+                    :radarChartValues="scores"
+                    :score="scores.total">
+                </RadarChart>
+            </div>
         </div></div>
 </template>
 
@@ -66,6 +97,7 @@
             Questionaire
         },
         data: () => ({
+            summary: false,
             questions: {
                 analysis: [
                     {
@@ -544,7 +576,8 @@
                 insight: 0,
                 strategy: 0,
                 tes: 0,
-                custexp: 0
+                custexp: 0,
+                total: 0
             },
             radarChartValues: {},
             questionProgress: {
@@ -552,7 +585,8 @@
                 insight: 0,
                 strategy: 0,
                 tes: 0,
-                custexp: 0
+                custexp: 0,
+                total: 0
             },
 
             questionTotals: {},
@@ -569,6 +603,21 @@
           this.createQuestionStatistics()
         },
         methods: {
+            changeCategory: function (prevCat) {
+                let index = this.categories.indexOf(prevCat)
+
+                if (index !== this.categories.length - 1) {
+                    this.selectedCategory = this.categories[index + 1]
+                } else {
+                    this.scores.total = (this.scores.analysis +
+                    this.scores.insight +
+                    this.scores.strategy +
+                    this.scores.tes +
+                    this.scores.custexp)
+                    this.summary = true
+                    this.questionProgress.total = this.questionTotals.total
+                }
+            },
             createQuestionStatistics: function () {
                 let questions = this.questions
 
@@ -577,8 +626,14 @@
                     insight: questions.insight.length,
                     strategy: questions.strategy.length,
                     tes: questions.tes.length,
-                    custexp: questions.custexp.length
+                    custexp: questions.custexp.length,
+                    total: (questions.analysis.length +
+                        questions.insight.length +
+                        questions.strategy.length +
+                        questions.tes.length +
+                        questions.custexp.length)
                 }
+                console.log('====04040404====', this.questionTotals)
             },
             questionSelected: function (response, index, type) {
                 // this.selectedIndex = this.selectedIndex + 1
@@ -652,6 +707,11 @@
                 scores.custexp = custexpDenom ? (responses.yes.custexp / custexpDenom) * 100 : 0
 
                 this.scores = scores
+                this.scores.total = (this.scores.analysis +
+                    this.scores.insight +
+                    this.scores.strategy +
+                    this.scores.tes +
+                    this.scores.custexp)
                 console.log('scoresscores', this.scores.analysis)
             }
         }
@@ -664,11 +724,13 @@
     height: 100%;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 }
 .moduleHolder {
     width: 50%;
     max-width: 50%;
     flex-basis: 50%;
+    max-height: 100%;
 }
 .flexHolder {
     display: flex;
@@ -683,9 +745,14 @@
     flex-direction: row;
     flex-wrap: nowrap;
     height: 52px;
+    max-width: 100%;
+    flex-basis: 100%;
 }
 .questionContainer {
-    height: calc(100% - 52px);
-    width: 100%;
+    height: calc(100% - 58px);
+    max-height: calc(100% - 58px);
+    width: calc(100% - 12px);
+    border: 6px solid #DEDEDE;
+    border-top: 0;
 }
 </style>
