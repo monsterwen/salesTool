@@ -28,6 +28,7 @@
 .bigHolder {
     width: 100vw;
     height: 100vh;
+    background-color: #73c9d7;
 }
 .axisLabel {
     fill: #656565;
@@ -41,5 +42,24 @@
 }
 .hidden {
     display: none;
+}
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
 </style>

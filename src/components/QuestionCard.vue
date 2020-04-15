@@ -1,53 +1,127 @@
 <template>
-    <div class="questionCard" :class="{ 'inactive': inactive }">
+    <div class="questionCard" :class="{ 'inactive': inactive }" :id="`questionCard${index}`">
         <div class="questionText">
-            <p>{{ question }}</p>
+            <p>{{ question.question }}</p>
         </div>
         <div class="questionResponse">
             <div class="responseDiv"
+                 :class="{ 'selected': selected.yes, 'deselected': !selected.yes && selectionMade }"
                  id="yes"
                  v-on:click="selection('yes')">
                 <p>Yes</p>
             </div>
             <div class="responseDiv"
                  id="no"
+                 :class="{ 'selected': selected.no, 'deselected': !selected.no && selectionMade }"
                  v-on:click="selection('no')">
                 <p>No</p>
             </div>
             <div class="responseDiv"
                  id="na"
+                 :class="{ 'selected': selected.na, 'deselected': !selected.na && selectionMade }"
                  v-on:click="selection('na')">
                 <p>N/A</p>
             </div>
         </div>
+        <div class="inactiveOverlay"
+             :class="{ 'hidden': !inactive }"
+             v-on:click="inactiveClick()"></div>
     </div>
 </template>
 
 <script>
+    import * as d3 from 'd3'
+
     export default {
         name: 'QuestionCard',
         props: {
             question: {
-                type: String,
+                type: Object,
                 required: true
             },
             inactive: {
                 type: Boolean,
                 default: () => false
+            },
+            index: {
+                type: Number,
+                default: () => 0
             }
         },
+        data: () => ({
+           selected: {
+               yes: false,
+               no: false,
+               na: false
+           },
+           responses: {
+               yes: 'none',
+               no: 'none',
+               na: 'none'
+           },
+            selectionMade: false
+        }),
+        mounted: function () {
+            this.selectResponses()
+            this.scaleText()
+        },
         methods: {
+            selectResponses: function () {
+            },
+            scaleText: function () {
+                let container = d3.select(`#questionCard${this.index}`)
+                let text = container.select('.questionText')
+
+                let containerDimensions = container.node().getBoundingClientRect()
+                let textDimensions = text.node().getBoundingClientRect()
+
+                let heightRatio = containerDimensions.height / textDimensions.height
+
+                if (heightRatio < 1) {
+                    console.log('text height', heightRatio)
+                    text
+                        .style('font-size', `${heightRatio * 16}px`)
+                }
+            },
             selection: function (response) {
+                let selected = this.selected
+                // let responses = this.responses
+                Object.keys(selected).forEach(d => {
+                    selected[d] = false
+                })
+
+                selected[response] = true
+                console.log('clicked', this.question)
+                this.$emit('selection', response, this.index, this.question.type)
+                this.selectionMade = true
                 console.log('clicked', response)
+            },
+            inactiveClick: function () {
+                console.log('inactiveClick')
+                this.$emit('inactiveClick')
             }
         }
     }
 </script>
 
 <style scoped>
+.inactiveOverlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.hidden {
+    display: none;
+}
+.deselected {
+    opacity: 0.4;
+}
 .questionCard {
     width: 100%;
     height: 100%;
+    max-height: 100%;
     border-radius: 5px 3px 5px 3px;
     color: #565656;
     font-size: 16px;
@@ -57,6 +131,7 @@
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     display: flex;
     user-select: none;
+    overflow: hidden;
     /*flex-direction: column;*/
 }
 .inactive {
@@ -84,10 +159,11 @@
     flex-basis: 100%;
     font-size: 0.8em;
     display: table;
-    transition: box-shadow 5s ease-in-out,
-        background-color 5s ease-in-out,
+    transition: box-shadow 0.2s ease-in-out,
+        background-color 0.2s ease-in-out,
         transform 0.1s,
-        border-radius 0.1s;
+        border-radius 0.1s,
+        opacity 0.1s;
 }
 .responseDiv:first-child {
     border-radius: 0px 3px 0px 0px;
@@ -97,7 +173,7 @@
 }
 .responseDiv:hover {
     z-index: 999;
-    transform: scale(1.1, 1.1);
+    transform: scale(1.05, 1.05);
     border-radius: 5px 3px 5px 3px;
 }
 #yes {
@@ -124,12 +200,25 @@
     background-color: rgba(207, 207, 207, 0.8);
     box-shadow: inset 0 0 2px 2px rgba(207, 207, 207, 0.8);
 }
-p {
-    text-align:center;
-    vertical-align: middle;
-    display: table-cell;
-    cursor: pointer;
+#yes.selected {
+    background-color: rgba(142, 172, 29, 0.9);
+    box-shadow: 0 0 2px 0px rgba(142, 172, 29, 0.9);
 }
+#no.selected {
+    background-color: rgba(216, 55, 55, 0.9);
+    box-shadow: 0 0 2px 0px rgba(216, 55, 55, 0.9);
+}
+#na.selected {
+    background-color: rgba(207, 207, 207, 0.9);
+    box-shadow: 0 0 2px 0px rgba(207, 207, 207, 0.9);
+}
+
+p {
+     text-align: center;
+     vertical-align: middle;
+     display: table-cell;
+     cursor: pointer;
+ }
 ul {
     list-style-type: none;
     margin: 0;
@@ -208,5 +297,6 @@ input[type=radio]:checked ~ .check::before{
 input[type=radio]:checked ~ label{
     color: #0DFF92;
 }
+
 
 </style>
