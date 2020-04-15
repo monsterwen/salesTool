@@ -1,8 +1,30 @@
 import Vue from 'vue'
 import App from './App.vue'
-
+import VueRouter from 'vue-router'
+import SignUp from './components/signup'
+import FASTModule from './Views/FASTModule'
+import JQuery from 'jquery'
+window.$ = JQuery
+Vue.use(VueRouter)
 Vue.config.productionTip = false
 
+const router = new VueRouter({
+  routes: [
+    {
+      path: '/',
+      name: 'SignUp',
+      component: SignUp,
+    },
+    {
+      path: '/fast',
+      name: 'FASTModule',
+      component: FASTModule
+    }]
+})
 new Vue({
-  render: h => h(App),
-}).$mount('#app')
+  el: "#app",
+  router,
+  render: h => h(App)
+}).$mount('#app');
+
+// import jQuery from 'jquery'

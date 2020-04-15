@@ -3,21 +3,15 @@
 <!--    <img alt="Vue logo" src="./assets/logo.png">-->
 <!--    <HelloWorld msg="Welcome to Your Vue.js App"/>-->
     <div class="bigHolder">
-        <FASTModule></FASTModule>
+        <router-view></router-view>
     </div>
   </div>
 </template>
 
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
-import FASTModule from './Views/FASTModule'
-export default {
-  name: 'App',
-  components: {
-    FASTModule,
-    // HelloWorld
-  }
-}
+// import FASTModule from './Views/FASTModule'
+
 </script>
 
 <style>
