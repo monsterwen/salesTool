@@ -264,13 +264,13 @@ Wholesale Electronic Markets and Agents and Brokers">
         margin: 0px;
     }
 
-    p {
-        font-family: Montserrat-Regular;
-        font-size: 14px;
-        line-height: 1.7;
-        color: #666666;
-        margin: 0px;
-    }
+    /*p {*/
+    /*    font-family: Montserrat-Regular;*/
+    /*    font-size: 14px;*/
+    /*    line-height: 1.7;*/
+    /*    color: #666666;*/
+    /*    margin: 0px;*/
+    /*}*/
 
     ul, li {
         margin: 0px;

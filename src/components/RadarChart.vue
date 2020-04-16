@@ -165,6 +165,11 @@
             }
         },
         mounted: function () {
+            window.addEventListener('resize', () => {
+                console.log('radarresize')
+                this.initializeValues()
+                this.transformRadarChart()
+            })
             this.initializeValues()
             this.renderRadarChart()
             this.transformRadarChart()

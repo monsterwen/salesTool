@@ -749,10 +749,12 @@
     flex-basis: 100%;
 }
 .questionContainer {
-    height: calc(100% - 58px);
-    max-height: calc(100% - 58px);
-    width: calc(100% - 12px);
+    height: calc(100% - 52px);
+    max-height: calc(100% - 52px);
+    width: calc(100% - 0px);
     border: 6px solid #DEDEDE;
     border-top: 0;
+    padding: 6px;
+    padding-top: 0;
 }
 </style>
