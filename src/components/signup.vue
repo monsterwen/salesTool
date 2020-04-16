@@ -48,16 +48,16 @@ Wholesale Electronic Markets and Agents and Brokers">
                     <span class="shadow-input1"></span>
                 </div>
                 <div>
-                    <span>Request a Demo?</span>
+                    <span router to="/fast">Request a Demo?</span>
                     <input id="checkbox" type="checkbox"/>
                     <label style="display: inline" for="checkbox" > </label>
                 </div>
                 <div style="margin-top: 10px" class="container-contact1-form-btn">
+                    <router-link to="/fast">
                     <button class="contact1-form-btn">
-						<span>
-							Start the Assessment!
-						</span>
+                                <span>Start the Assessment!</span>
                     </button>
+                    </router-link>
                 </div>
             </form>
         </div>
