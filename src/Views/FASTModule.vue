@@ -30,7 +30,7 @@
 
 <style scoped>
 .fastModule {
-    width: calc(100% - 53px);
+    width: calc(100%);
     height: 56.25vh;
     display: flex;
     flex-wrap: wrap;

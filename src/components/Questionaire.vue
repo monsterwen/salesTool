@@ -12,7 +12,7 @@
                     @inactiveClick="selectedIndex = i"
                 ></QuestionCard>
             </div>
-            <div class="questionContainer" style="background-color: #2c3e50">
+            <div class="questionContainer" style="background-color: #eaf8ff">
             </div>
         </div>
     </div>
