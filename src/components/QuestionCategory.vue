@@ -59,6 +59,7 @@
             colorScale: null
         }),
         mounted: function () {
+            window.addEventListener('resize', this.updateMeter)
         },
         methods: {
             createMeterElements: function () {
@@ -72,7 +73,7 @@
                 console.log('width', width)
                 let progressScale = d3.scaleLinear()
                     .domain([0, this.questionTotal])
-                    .range([0, width])
+                    .range([0, 100])
 
                 let colorScale = d3.scaleLinear()
                     .domain([0, 40, 100])
@@ -104,17 +105,11 @@
                 this.rect = rect
             },
             updateMeter: function () {
-                console.log('updatemeter', this.progressScale.range(), this.questionTotal)
-                let dimensions = this.meterDiv.node().getBoundingClientRect()
-                let width = dimensions.width
-
-                this.progressScale.range([0, width])
-
                 this.rect
                     .transition()
                     .duration(300)
                     .attr('fill', 'rgba(252,205,18,0.98)')
-                    .attr('width', this.progressScale(this.questionNumber))
+                    .attr('width', `${this.progressScale(this.questionNumber)}%`)
                     .transition()
                     .duration(300)
                     .attr('fill', this.colorScale(this.categoryScore))
@@ -139,7 +134,7 @@
     background-color: #d7d7d7;
 }
 .selected {
-    background-color: #b7b7b7;
+    background-color: #dcdcdc;
 }
 
 .questionName {

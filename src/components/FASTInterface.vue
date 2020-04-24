@@ -67,7 +67,7 @@
                 </Questionaire>
             </div>
         </div>
-        <div class="moduleHolder">
+        <div id="summary-hold" class="moduleHolder flexHolder questionHolder" :class="{ 'summaryFinished': summary }">
             <div class="questionFlex questionHeader">
                 <QuestionCategory
                         questionName="Summary"
@@ -91,6 +91,7 @@
     import RadarChart from '../components/RadarChart'
     import Questionaire from '../components/Questionaire'
     import QuestionCategory from './QuestionCategory'
+    import * as d3 from 'd3'
 
     export default {
         name: "FASTInterface",
@@ -605,7 +606,23 @@
         mounted: function () {
           this.createQuestionStatistics()
         },
+        watch: {
+            summary: function () {
+                // this.changeSummary()
+            }
+        },
         methods: {
+            changeSummary: function () {
+                let fastHolder = d3.select('.fastHolder')
+                let dimensions = fastHolder.node().getBoundingClientRect()
+                let width = dimensions.width - 32
+                console.log('gdsarefgdsvtgfredgtfbtrda')
+                let summaryContainer = d3.select('#summary-hold')
+
+                summaryContainer
+                  .style('width', `${width - 32}px`)
+                  .style('flex-basis', `${width - 32}px`)
+            },
             changeCategory: function (prevCat) {
                 let index = this.categories.indexOf(prevCat)
 
@@ -748,6 +765,11 @@
 .questionFinished {
     width: 32px;
     flex-basis: 32px;
+}
+.summaryFinished {
+    width: calc(100% - 32px);
+    flex-basis: calc(100% - 32px);
+    max-width: calc(100% - 32px);
 }
 .questionFlex {
     flex-basis: 100%;
