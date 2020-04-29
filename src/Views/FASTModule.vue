@@ -1,10 +1,6 @@
 <template>
     <div class="fastModule" id="fast-module">
-        <div class="fastTitle">
-            <div class="brierleyHolder">
-                <BrierleyLogo></BrierleyLogo>
-            </div>
-        </div>
+
         <div class="fastContainer">
             <FASTInterface></FASTInterface>
         </div>
@@ -12,11 +8,10 @@
 </template>
 
 <script>
-    import BrierleyLogo from '../components/BrierleyLogo'
     import FASTInterface from '../components/FASTInterface'
     export default {
         name: 'FASTModule',
-        components: {FASTInterface, BrierleyLogo},
+        components: {FASTInterface},
         data: () => ({
             radarMargins: {
                 top: 12,
@@ -36,13 +31,14 @@
     flex-wrap: wrap;
     flex-direction: row;
     padding: 0 26px 0 26px;
+    margin-bottom: 100px;
 }
 .fastTitle {
     width: calc(100%);
     height: 78px;
     margin: 0 0px 0 0px;
     flex-basis: calc(100% + 104px);
-    background-color: #E0E0E0;
+    background-color: white;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -64,4 +60,14 @@
     flex-direction: row;
     background-color: #f0f0f0;
 }
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 40%;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
 </style>

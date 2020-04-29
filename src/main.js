@@ -3,7 +3,9 @@ import App from './App.vue'
 import VueRouter from 'vue-router'
 import SignUp from './components/signup'
 import FASTModule from './Views/FASTModule'
+import Intro from './components/intro'
 import JQuery from 'jquery'
+import Test from './components/test'
 window.$ = JQuery
 Vue.use(VueRouter)
 Vue.config.productionTip = false
@@ -14,6 +16,16 @@ const router = new VueRouter({
       path: '/',
       name: 'SignUp',
       component: SignUp,
+    },
+    {
+      path: '/test',
+      name: 'test',
+      component: Test
+    },
+    {
+      path: '/intro',
+      name: 'Intro',
+      component: Intro.defalt
     },
     {
       path: '/fast',

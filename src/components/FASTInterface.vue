@@ -2,7 +2,7 @@
     <div class="fastHolder">
 <!--        <div class="fastHeader">-->
 <!--        </div>-->
-        <div class="moduleHolder flexHolder">
+        <div class="moduleHolder flexHolder card">
             <div class="questionFlex questionHeader">
                 <div class="categoryHolder">
                     <QuestionCategory
@@ -64,7 +64,8 @@
                 </Questionaire>
             </div>
         </div>
-        <div class="moduleHolder">
+        <div class="moduleHolder card">
+
             <div class="questionFlex questionHeader">
                 <QuestionCategory
                         questionName="Summary"
@@ -743,6 +744,7 @@
 .questionHeader {
     display: flex;
     flex-direction: row;
+    background-color: white;
     flex-wrap: nowrap;
     height: 52px;
     max-width: 100%;
@@ -757,4 +759,14 @@
     padding: 6px;
     padding-top: 0;
 }
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 40%;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
 </style>
