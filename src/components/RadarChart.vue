@@ -271,18 +271,19 @@
             },
             transformRadarChart: function () {
                 let margin = this.margin
-                let width = this.width
-                let height = this.height
+                // let width = this.width
+                // let height = this.height
 
                 let maxValue = this.maxValue
                 let radius = this.radius
                 let radian = this.radian
 
                 this.svg
-                    .attr('width', '100%')
-                    .attr('height', '100%')
+                    .attr('width', `${margin.left + radius * 2 + margin.right}`)
+                    .attr('height', `${margin.top + radius * 2 + margin.bottom}`)
+
                 this.radarG
-                    .attr('transform', `translate(${width / 2 + margin.left},${height / 2 + margin.top})`)
+                    .attr('transform', `translate(${radius + margin.left},${radius + margin.top})`)
 
                 let colorScale = d3.scaleLinear()
                     .domain(this.scoreRange)
