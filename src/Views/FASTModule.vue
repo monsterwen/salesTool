@@ -1,12 +1,14 @@
 <template>
-    <div class="fastModule" id="fast-module">
-        <div class="fastTitle">
-            <div class="brierleyHolder">
-                <BrierleyLogo></BrierleyLogo>
+    <div class="wrapper">
+        <div class="fastModule" id="fast-module">
+            <div class="fastTitle">
+                <div class="brierleyHolder">
+                    <BrierleyLogo></BrierleyLogo>
+                </div>
             </div>
-        </div>
-        <div class="fastContainer">
-            <FASTInterface></FASTInterface>
+            <div class="fastContainer">
+                <FASTInterface></FASTInterface>
+            </div>
         </div>
     </div>
 </template>
@@ -29,16 +31,23 @@
 </script>
 
 <style scoped>
+.wrapper {
+    width: 100%;
+}
 .fastModule {
-    width: calc(100%);
-    height: 56.25vh;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 33.337%;
+    left: 0;
+    right: 0;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
     padding: 0 26px 0 26px;
 }
 .fastTitle {
-    width: calc(100%);
+    width: 100%;
     height: 78px;
     margin: 0 0px 0 0px;
     flex-basis: calc(100% + 104px);
@@ -54,7 +63,7 @@
 }
 .fastContainer {
     width: 100%;
-    height: 100%;
+    height: calc(100% - 78px);
     /*padding-bottom: 56.25%;*/
     /*height: max(calc(100% - 84px), 700px);*/
     /*max-height: max(calc(100% - 84px), 700px);*/

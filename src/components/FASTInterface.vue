@@ -78,7 +78,7 @@
                         :questionTotal="questionTotals.total">
                 </QuestionCategory>
             </div>
-            <div class="questionFlex questionContainer">
+            <div class="questionFlex questionContainer" :class="{ 'chartFinished': summary }">
                 <RadarChart
                     :radarChartValues="scores"
                     :score="scores.total">
@@ -766,6 +766,10 @@
     width: 32px;
     flex-basis: 32px;
 }
+.chartFinished {
+    width: 50%;
+    flex-basis: 50%;
+}
 .summaryFinished {
     width: calc(100% - 32px);
     flex-basis: calc(100% - 32px);
@@ -773,6 +777,10 @@
 }
 .questionFlex {
     flex-basis: 100%;
+}
+.chartFinished {
+    width: 50%;
+    flex-basis: 50%;
 }
 .questionHeader {
     display: flex;
