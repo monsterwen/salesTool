@@ -279,8 +279,8 @@
                 let radian = this.radian
 
                 this.svg
-                    .attr('width', width + margin.left + margin.right)
-                    .attr('height', height + margin.top + margin.bottom)
+                    .attr('width', '100%')
+                    .attr('height', '100%')
                 this.radarG
                     .attr('transform', `translate(${width / 2 + margin.left},${height / 2 + margin.top})`)
 

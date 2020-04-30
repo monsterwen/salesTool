@@ -79,10 +79,18 @@
                 </QuestionCategory>
             </div>
             <div class="questionFlex questionContainer" :class="{ 'chartFinished': summary }">
-                <RadarChart
-                    :radarChartValues="scores"
-                    :score="scores.total">
-                </RadarChart>
+                <div class="keyHolder" :class="{ 'keyFinished': summary }">
+                    <div class="legendHolder">
+                        <div class="legendElement" id="current"></div>
+                        <div class="legendElement" id="potential"></div>
+                    </div>
+                </div>
+                <div class="radarHolder" :class="{ 'radarFinished': summary }">
+                    <RadarChart
+                        :radarChartValues="scores"
+                        :score="scores.total">
+                    </RadarChart>
+                </div>
             </div>
         </div></div>
 </template>
@@ -762,13 +770,32 @@
     transition: width 1s ease-in-out,
                 flex-basis 1s ease-in-out;
 }
+.radarHolder {
+    height: 100%;
+    width: 100%;
+    flex-basis: 100%;
+    transition: width 1s ease-in-out,
+    flex-basis 1s ease-in-out;
+}
+.radarFinished {
+    width: 60%;
+    flex-basis: 60%;
+}
+.keyHolder {
+    height: 100%;
+    width: 0%;
+    flex-basis: 0%;
+    overflow: hidden;
+    transition: width 1s ease-in-out,
+    flex-basis 1s ease-in-out;
+}
+.keyFinished {
+    width: 40%;
+    flex-basis: 40%;
+}
 .questionFinished {
     width: 32px;
     flex-basis: 32px;
-}
-.chartFinished {
-    width: 50%;
-    flex-basis: 50%;
 }
 .summaryFinished {
     width: calc(100% - 32px);
@@ -777,10 +804,9 @@
 }
 .questionFlex {
     flex-basis: 100%;
-}
-.chartFinished {
-    width: 50%;
-    flex-basis: 50%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 .questionHeader {
     display: flex;
@@ -798,6 +824,8 @@
     border-top: 0;
     padding: 6px;
     padding-top: 0;
+    transition: width 1s ease-in-out,
+    flex-basis 1s ease-in-out;
 }
 .transitionOverlay {
     width: 100%;
@@ -808,6 +836,20 @@
     background-color: #E0E0E0;
     overflow: hidden;
     transition: height 1s ease-in-out;
+}
+.legendHolder {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.chartFinished {
+    width: 50%;
+    flex-basis: 50%;
+}
+.legendElement {
+    width: 50%;
+    flex-basis: 50%;
+    height: 24px;
 }
 .transitionActive {
     height: 100%;
