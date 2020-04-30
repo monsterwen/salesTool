@@ -58,7 +58,7 @@
                 default: () => {
                     return {
                         top: 32,
-                        right: 24,
+                        right: 6,
                         bottom: 24,
                         left: 24
                     }
@@ -217,8 +217,11 @@
 
                 let svg = div
                     .append('svg')
-                    .attr('class', 'radarChartSVG')
                     .attr('id', 'radar-chart-svg')
+                    .style('overflow', 'visible')
+
+                svg
+                    .classed('radarChartSVG', true)
 
                 let radarG = svg
                     .append('g')
@@ -614,8 +617,9 @@
     width: 100%;
     height: 100%;
 }
-/*.radarChartSVG {*/
-/*    width: 100%;*/
-/*    height: 100%;*/
-/*}*/
+.radarChartSVG {
+    /*width: 100%;*/
+    /*height: 100%;*/
+    overflow: visible;
+}
 </style>

@@ -2,7 +2,7 @@
     <div class="logo-container" :id="containerId">
 
         <svg xmlns="http://www.w3.org/2000/svg"
-             height="54"
+             height="46"
              viewBox="0 0 1920 570">
             <g class="logo-group">
                 <g class="logo-top">

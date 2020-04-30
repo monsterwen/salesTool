@@ -70,7 +70,7 @@
         <div id="summary-hold" class="moduleHolder flexHolder questionHolder" :class="{ 'summaryFinished': summary }">
             <div class="questionFlex questionHeader">
                 <QuestionCategory
-                        questionName="Summary"
+                        questionName="Post Analysis Maturity Assessment"
                         questionKey="summary"
                         :selected="summary"
                         :categoryScore="scores.total / categories.length"
@@ -80,19 +80,98 @@
             </div>
             <div class="questionFlex questionContainer" :class="{ 'chartFinished': summary }">
                 <div class="keyHolder" :class="{ 'keyFinished': summary }">
-                    <div class="legendHolder">
-                        <div class="legendElement" id="current"></div>
-                        <div class="legendElement" id="potential"></div>
+<!--                    <div class="legendHolder">-->
+<!--                        <div class="legendElement" id="current">-->
+<!--                            <div class='inliner legElement'>-->
+<!--                                <div class='legend' :style="'background-color: #CE1dee'"></div>-->
+<!--                                <div class='inliner'>Current</div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="legendElement" id="potential">-->
+<!--                            <div class='inliner legElement'>-->
+<!--                                <div class='legend' :style="'background-color: #A5B000'"></div>-->
+<!--                                <div class='inliner'>Potential</div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                    <div class="tableHolder">
+                            <table class="summaryTable">
+                                <thead>
+                                    <tr>
+                                        <th class="metricTD">
+                                            <div class="questionCategory"
+                                                 id="potentailHeader">
+                                                <div class="questionName">
+                                                    <p>Dimension</p>
+                                                </div>
+                                                <div class="columnCategory"></div>
+                                            </div></th>
+                                        <th class="scoreTD">
+                                            <div class="questionCategory"
+                                                 id="currentHeader">
+                                                <div class="questionName">
+                                                    <p class="tableHeader">Current</p>
+                                                </div>
+                                                <div class="columnCategory"
+                                                     style="background-color: #00c6ff"></div>
+                                            </div>
+                                        <th class="scoreTD">
+                                            <div class="questionCategory"
+                                                 id="potentialHeader">
+                                                <div class="questionName">
+                                                    <p class="tableHeader">Potential</p>
+                                                </div>
+                                                <div class="columnCategory"
+                                                     style="background-color: #A5b000"></div>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="metricTD">Analysis</td>
+                                        <td class="scoreTD">{{scores.analysis}}</td>
+                                        <td class="scoreTD">{{scores.analysis}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="metricTD">Insight</td>
+                                        <td class="scoreTD">{{scores.insight}}</td>
+                                        <td class="scoreTD">{{scores.insight}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="metricTD">Strategy</td>
+                                        <td class="scoreTD">{{scores.strategy}}</td>
+                                        <td class="scoreTD">{{scores.strategy}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="metricTD">Technology \ Efficiency</td>
+                                        <td class="scoreTD">{{scores.tes}}</td>
+                                        <td class="scoreTD">{{scores.tes}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="metricTD">Customer Experience</td>
+                                        <td class="scoreTD">{{scores.custexp}}</td>
+                                        <td class="scoreTD">{{scores.custexp}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="metricTD">Overall</td>
+                                        <td class="scoreTD">{{scores.analysis}}</td>
+                                        <td class="scoreTD">{{scores.analysis}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
                     </div>
                 </div>
                 <div class="radarHolder" :class="{ 'radarFinished': summary }">
                     <RadarChart
-                        :radarChartValues="scores"
-                        :score="scores.total">
+                            :radarChartValues="scores"
+                            :score="scores.total">
                     </RadarChart>
                 </div>
             </div>
-        </div></div>
+            </div>
+        </div>
 </template>
 
 <script>
@@ -778,8 +857,8 @@
     flex-basis 1s ease-in-out;
 }
 .radarFinished {
-    width: 60%;
-    flex-basis: 60%;
+    width: 50%;
+    flex-basis: 50%;
 }
 .keyHolder {
     height: 100%;
@@ -790,17 +869,18 @@
     flex-basis 1s ease-in-out;
 }
 .keyFinished {
-    width: 40%;
-    flex-basis: 40%;
+    width: 50%;
+    flex-basis: 50%;
+    padding: 6px;
 }
 .questionFinished {
-    width: 32px;
-    flex-basis: 32px;
+    width: 0px;
+    flex-basis: 0px;
 }
 .summaryFinished {
-    width: calc(100% - 32px);
-    flex-basis: calc(100% - 32px);
-    max-width: calc(100% - 32px);
+    width: calc(100% - 0px);
+    flex-basis: calc(100% - 0px);
+    max-width: calc(100% - 0px);
 }
 .questionFlex {
     flex-basis: 100%;
@@ -812,13 +892,13 @@
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    height: 52px;
+    height: 48px;
     max-width: 100%;
     flex-basis: 100%;
 }
 .questionContainer {
-    height: calc(100% - 52px);
-    max-height: calc(100% - 52px);
+    height: calc(100% - 48px);
+    max-height: calc(100% - 48px);
     width: 100%;
     border: 6px solid #DEDEDE;
     border-top: 0;
@@ -843,15 +923,104 @@
     flex-wrap: wrap;
 }
 .chartFinished {
-    width: 50%;
-    flex-basis: 50%;
+    width: 55%;
+    flex-basis: 55%;
 }
 .legendElement {
     width: 50%;
     flex-basis: 50%;
+    padding-top: 12px;
     height: 24px;
 }
 .transitionActive {
     height: 100%;
+}
+.legElement {
+    padding-left: 3px;
+    padding-right: 3px;
+}
+.legRow {
+    margin-left: 2px;
+    margin-right: 2px;
+}
+.legend {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 2px;
+    border: 1px solid #cdcdcd;
+    border-radius: 3px;
+}
+.inliner {display: inline-block;}
+
+.tableHolder {
+    width: 100%;
+    height: 100%;
+    /*border: 1px solid #CDCDCD;*/
+    border-radius: 3px;
+}
+.questionCategory {
+    flex-basis: 100%;
+    width: 100%;
+    height: 100%;
+    background-color: #EDEDED;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    transition: background-color 0.5s ease-in-out;
+}
+.questionCategory :hover {
+    background-color: #d7d7d7;
+}
+.selected {
+    background-color: #dcdcdc;
+}
+
+.questionName {
+    flex-basis: calc(100% - 12px);
+    height: calc(100% - 12px);
+    max-height: calc(100% - 12px);
+    width: 100%;
+    display: table;
+}
+.questionName p {
+    user-select: none;
+    text-align:center;
+    vertical-align: middle;
+    display: table-cell;
+    cursor: pointer;
+}
+.columnCategory {
+    flex-basis: 6px;
+    heigth: 6px;
+    max-height: 6px;
+    width: 100%;
+    background-color: #DDDDDD;
+}
+/*.tableWrapper {*/
+/*    width: 100*/
+/*}*/
+.summaryTable {
+    border-collapse: collapse;
+    border: 1px solid #CDCDCD;
+    width: calc(100% - 24px);
+    height: calc(100% - 48px);
+    margin-top: 24px;
+    margin-left: 12px;
+    margin-bottom: 24px;
+    margin-right: 12px;
+    table-layout: fixed;
+}
+.metricTD {
+    width: 40%;
+    overflow: hidden;
+}
+.scoreTD {
+    width: 30%;
+    overflow: hidden;
+}
+.tableHeader {
+    margin-top: 6px;
+    margin-bottom: 6px;
 }
 </style>

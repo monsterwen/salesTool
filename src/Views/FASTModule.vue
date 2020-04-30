@@ -36,11 +36,7 @@
 }
 .fastModule {
     width: 100%;
-    position: absolute;
-    top: 0;
-    bottom: 33.337%;
-    left: 0;
-    right: 0;
+    height: 67vh;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
@@ -48,7 +44,7 @@
 }
 .fastTitle {
     width: 100%;
-    height: 78px;
+    height: 64px;
     margin: 0 0px 0 0px;
     flex-basis: calc(100% + 104px);
     background-color: #E0E0E0;
@@ -57,13 +53,13 @@
     flex-wrap: wrap;
 }
 .brierleyHolder {
-    height: 100%;
+    height: calc(100% - 24px);
     width: 192px;
-    margin: 12px 12px 6px 12px;
+    margin: 6px 12px 6px 12px;
 }
 .fastContainer {
     width: 100%;
-    height: calc(100% - 78px);
+    height: calc(100% - 64px);
     /*padding-bottom: 56.25%;*/
     /*height: max(calc(100% - 84px), 700px);*/
     /*max-height: max(calc(100% - 84px), 700px);*/
