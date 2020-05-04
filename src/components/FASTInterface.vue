@@ -79,95 +79,135 @@
                 </QuestionCategory>
             </div>
             <div class="questionFlex questionContainer" :class="{ 'chartFinished': summary }">
-                <div class="keyHolder" :class="{ 'keyFinished': summary }">
-<!--                    <div class="legendHolder">-->
-<!--                        <div class="legendElement" id="current">-->
-<!--                            <div class='inliner legElement'>-->
-<!--                                <div class='legend' :style="'background-color: #CE1dee'"></div>-->
-<!--                                <div class='inliner'>Current</div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="legendElement" id="potential">-->
-<!--                            <div class='inliner legElement'>-->
-<!--                                <div class='legend' :style="'background-color: #A5B000'"></div>-->
-<!--                                <div class='inliner'>Potential</div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-                    <div class="tableHolder">
-                            <table class="summaryTable">
-                                <thead>
-                                    <tr>
-                                        <th class="metricTD">
-                                            <div class="questionCategory"
-                                                 id="potentailHeader">
-                                                <div class="questionName">
-                                                    <p>Dimension</p>
-                                                </div>
-                                                <div class="columnCategory"></div>
-                                            </div></th>
-                                        <th class="scoreTD">
-                                            <div class="questionCategory"
-                                                 id="currentHeader">
-                                                <div class="questionName">
-                                                    <p class="tableHeader">Current</p>
-                                                </div>
-                                                <div class="columnCategory"
-                                                     style="background-color: #00c6ff"></div>
-                                            </div>
-                                        <th class="scoreTD">
-                                            <div class="questionCategory"
-                                                 id="potentialHeader">
-                                                <div class="questionName">
-                                                    <p class="tableHeader">Potential</p>
-                                                </div>
-                                                <div class="columnCategory"
-                                                     style="background-color: #A5b000"></div>
-                                            </div>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="metricTD">Analysis</td>
-                                        <td class="scoreTD">{{scores.analysis}}</td>
-                                        <td class="scoreTD">{{scores.analysis}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="metricTD">Insight</td>
-                                        <td class="scoreTD">{{scores.insight}}</td>
-                                        <td class="scoreTD">{{scores.insight}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="metricTD">Strategy</td>
-                                        <td class="scoreTD">{{scores.strategy}}</td>
-                                        <td class="scoreTD">{{scores.strategy}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="metricTD">Technology \ Efficiency</td>
-                                        <td class="scoreTD">{{scores.tes}}</td>
-                                        <td class="scoreTD">{{scores.tes}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="metricTD">Customer Experience</td>
-                                        <td class="scoreTD">{{scores.custexp}}</td>
-                                        <td class="scoreTD">{{scores.custexp}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="metricTD">Overall</td>
-                                        <td class="scoreTD">{{scores.analysis}}</td>
-                                        <td class="scoreTD">{{scores.analysis}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-
-                    </div>
-                </div>
                 <div class="radarHolder" :class="{ 'radarFinished': summary }">
                     <RadarChart
                             :radarChartValues="radarData"
                             :score="radarScores">
                     </RadarChart>
+                </div>
+                <div class="keyHolder" :class="{ 'keyFinished': summary }">
+                    <!--                    <div class="legendHolder">-->
+                    <!--                        <div class="legendElement" id="current">-->
+                    <!--                            <div class='inliner legElement'>-->
+                    <!--                                <div class='legend' :style="'background-color: #CE1dee'"></div>-->
+                    <!--                                <div class='inliner'>Current</div>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="legendElement" id="potential">-->
+                    <!--                            <div class='inliner legElement'>-->
+                    <!--                                <div class='legend' :style="'background-color: #A5B000'"></div>-->
+                    <!--                                <div class='inliner'>Potential</div>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                    <div class="tableHolder">
+                        <table class="summaryTable">
+                            <thead>
+                            <tr>
+                                <th class="metricTD">
+                                    <div class="questionCategory"
+                                         id="potentailHeader">
+                                        <div class="questionName">
+                                            <p>Dimension</p>
+                                        </div>
+                                        <div class="columnCategory"></div>
+                                    </div></th>
+                                <th class="scoreTD">
+                                    <div class="questionCategory"
+                                         id="currentHeader">
+                                        <div class="questionName">
+                                            <p class="tableHeader">Current</p>
+                                        </div>
+                                        <div class="columnCategory"
+                                             :style="`background-color: ${preColor}`">
+                                        </div>
+                                    </div>
+                                <th class="scoreTD">
+                                    <div class="questionCategory"
+                                         id="potentialHeader">
+                                        <div class="questionName">
+                                            <p class="tableHeader">Potential</p>
+                                        </div>
+                                        <div class="columnCategory"
+                                             :style="`background-color: ${postColor}`">
+                                        </div>
+                                    </div>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td class="metricTD">Analysis</td>
+                                <td class="scoreTD">{{tableFormat(scores.analysis / 20)}}</td>
+                                <td class="scoreTD">{{tableFormat(postScores.analysis / 20)}}</td>
+                            </tr>
+                            <tr>
+                                <td class="metricTD">Insight</td>
+                                <td class="scoreTD">{{tableFormat(scores.insight / 20)}}</td>
+                                <td class="scoreTD">{{tableFormat(postScores.insight / 20)}}</td>
+                            </tr>
+                            <tr>
+                                <td class="metricTD">Strategy</td>
+                                <td class="scoreTD">{{tableFormat(scores.strategy / 20)}}</td>
+                                <td class="scoreTD">{{tableFormat(postScores.strategy / 20)}}</td>
+                            </tr>
+                            <tr>
+                                <td class="metricTD">Technology \ Efficiency</td>
+                                <td class="scoreTD">{{tableFormat(scores.tes / 20)}}</td>
+                                <td class="scoreTD">{{tableFormat(postScores.tes / 20)}}</td>
+                            </tr>
+                            <tr>
+                                <td class="metricTD">Customer Experience</td>
+                                <td class="scoreTD">{{tableFormat(scores.custexp / 20)}}</td>
+                                <td class="scoreTD">{{tableFormat(postScores.custexp / 20)}}</td>
+                            </tr>
+                            <tr>
+                                <td class="metricTD">Overall</td>
+                                <td class="scoreTD">{{tableFormat(scores.total / 100)}}</td>
+                                <td class="scoreTD">{{tableFormat(postScores.total / 100)}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    </div>
+            </div>
+            <div class="reportHolder" :class="{ 'reportFinished': summary }">
+                <div class="recommendationHolder">
+<!--                    <div class="spacer"></div>-->
+                    <div class="recommendHead">
+                        <p>Things are looking OK</p>
+                    </div>
+                    <div class="recommendSubHead">
+                        <p>Here is what you can do to improve</p>
+                    </div>
+                    <div class="questionHeader">
+                        <div class="recTick"></div>
+                        <div class="recText">
+                            <p>Start jogging. Daily exercise will improve your energy levels enough to improve your business.</p>
+                        </div>
+                    </div>
+                    <div class="questionHeader">
+                        <div class="recTick"></div>
+                        <div class="recText">
+                            <p>Purchase Brierley products. We're really good at this stuff and will make it real easy for you. TRUst us and good things will come.</p>
+                        </div>
+                    </div>
+                    <div class="questionHeader">
+                        <div class="recTick"></div>
+                        <div class="recText">
+                            <p>Juice an entire stock of celery every morning and drink it on an empty stomach. The effects of this will be subtle at first, but you will soon realize that you are now an industry leader, setting standards and making $$$</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="lineContainer">
+                    <ScoreLine
+                        :preScore="scores.total / 100"
+                        :postScore="postScores.total / 100"
+                        :preColor="preColor"
+                        :postColor="postColor"
+                        :renderFull="drawLine">
+                    </ScoreLine>
                 </div>
             </div>
             </div>
@@ -178,6 +218,7 @@
     import RadarChart from '../components/RadarChart'
     import Questionaire from '../components/Questionaire'
     import QuestionCategory from './QuestionCategory'
+    import ScoreLine from './ScoreLine'
     import * as d3 from 'd3'
 
     export default {
@@ -185,7 +226,8 @@
         components: {
             QuestionCategory,
             RadarChart,
-            Questionaire
+            Questionaire,
+            ScoreLine
         },
         data: () => ({
             radarData: [[{
@@ -219,6 +261,7 @@
                 pre: 0,
                 post: 0
             },
+            drawLine: false,
             summary: false,
             questions: {
                 analysis: [
@@ -701,6 +744,14 @@
                 custexp: 0,
                 total: 0
             },
+            postScores: {
+                analysis: 85,
+                insight: 85,
+                strategy: 85,
+                tes: 85,
+                custexp: 85,
+                total: 425
+            },
             radarChartValues: {},
             questionProgress: {
                 analysis: 0,
@@ -719,10 +770,32 @@
                 'strategy',
                 'tes',
                 'custexp'
-            ]
-        }),
+            ],
+            colorsScale: null,
+            scoreRange: [0, 200, 500],
+            colorRange: ['#D83737', '#FFBF00', '#A5BB00'],
+            tableFormat: d3.format('.2f')
+            }),
         mounted: function () {
-          this.createQuestionStatistics()
+            this.createQuestionStatistics()
+
+            this.colorsScale = d3.scaleLinear()
+                .domain(this.scoreRange)
+                .range(this.colorRange)
+        },
+        computed: {
+          preColor: function () {
+              if (!this.colorsScale) {
+                  return '#dedede'
+              }
+            return this.colorsScale(this.radarScores.pre)
+          },
+          postColor: function () {
+              if (!this.colorsScale) {
+                  return '#dedede'
+              }
+            return this.colorsScale(this.radarScores.post)
+          }
         },
         watch: {
             summary: function () {
@@ -787,6 +860,7 @@
                     ])
                     this.radarScores.post = 425
                     this.questionProgress.total = this.questionTotals.total
+                    setTimeout(() => { this.drawLine = true }, 2050);
                 }
             },
             createQuestionStatistics: function () {
@@ -939,21 +1013,22 @@
 .questionHolder {
     overflow: hidden;
     transition: width 1s ease-in-out,
+                height 1s ease-in-out,
                 flex-basis 1s ease-in-out;
 }
 .radarHolder {
-    height: 100%;
+    height: calc(50vh - 72px);
     width: 100%;
     flex-basis: 100%;
     transition: width 1s ease-in-out,
     flex-basis 1s ease-in-out;
 }
 .radarFinished {
-    width: 50%;
-    flex-basis: 50%;
+    width: 100%;
+    flex-basis: 100%;
 }
 .keyHolder {
-    height: 100%;
+    height: calc(50vh - 72px);
     width: 0%;
     flex-basis: 0%;
     overflow: hidden;
@@ -961,8 +1036,8 @@
     flex-basis 1s ease-in-out;
 }
 .keyFinished {
-    width: 50%;
-    flex-basis: 50%;
+    width: 100%;
+    flex-basis: 100%;
     padding: 6px;
 }
 .questionFinished {
@@ -989,7 +1064,7 @@
     flex-basis: 100%;
 }
 .questionContainer {
-    height: calc(50vh - 60px);
+    min-height: calc(50vh - 60px);
     /*max-height: calc(100% - 48px);*/
     width: 100%;
     border: 6px solid #DEDEDE;
@@ -997,6 +1072,7 @@
     padding: 6px;
     padding-top: 0;
     transition: width 1s ease-in-out,
+    height 1s ease-in-out,
     flex-basis 1s ease-in-out;
 }
 .transitionOverlay {
@@ -1015,8 +1091,43 @@
     flex-wrap: wrap;
 }
 .chartFinished {
-    width: 55%;
-    flex-basis: 55%;
+    width: 34%;
+    flex-basis: 34%;
+    border-right: none;
+}
+.reportHolder {
+    height: calc(50vh - 72px);
+    width: 0;
+    flex-basis: 0;
+    padding-top: 24px;
+    position: relative;
+    overflow: hidden;
+}
+.recommendationHolder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 75%;
+    height: 75%;
+    display: flex;
+    margin-left: 24px;
+    margin-right: 24px;
+    flex-flow: row wrap;
+}
+.lineContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.reportFinished {
+    width: 66%;
+    height: calc(100vh - 132px);
+    flex-basis: 66%;
+    border: 6px solid #DEDEDE;
+    border-top: 0;
+    border-left: 0;
 }
 .legendElement {
     width: 50%;
@@ -1114,5 +1225,48 @@
 .tableHeader {
     margin-top: 6px;
     margin-bottom: 6px;
+}
+.recommendHead {
+    font-size: 48px;
+    height: 54px;
+    font-weight: bold;
+    width: 100%;
+    flex-basis: 100%;
+}
+.recommendSubHead {
+    font-size: 24px;
+    height: 32px;
+    font-weight: bold;
+    width: 100%;
+    flex-basis: 100%;
+}
+.recRow {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    height: 84px;
+    max-width: 100%;
+    flex-basis: 100%;
+}
+.recTick {
+    width: 60px;
+    height: 60px;
+    flex-basis: 60px;
+    border: 8px solid #A5BB00;
+    border-radius: 100%;
+    margin: auto;
+}
+.recText {
+    width: calc(100% - 60px);
+    flex-basis: calc(100% - 60px);
+    height: 100%;
+    vertical-align: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+.spacer {
+    width: 100%;
+    flex-basis: 100%;
+    height: 12px;
 }
 </style>

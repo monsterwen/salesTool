@@ -37,6 +37,7 @@
 .fastModule {
     width: 100%;
     /*min-height: 67vh;*/
+    height: auto;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
