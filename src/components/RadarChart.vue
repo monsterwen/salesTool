@@ -10,7 +10,7 @@
         name: 'RadarChart',
         props: {
             radarChartValues: {
-                type: Object,
+                type: Array,
                 required: true
             },
             maxValue: {
@@ -50,8 +50,7 @@
                 default: () => 20
             },
             score: {
-                type: Number,
-                default: () => 0
+                type: Object
             },
             margin: {
                 type: Object,
@@ -75,33 +74,34 @@
         },
         watch: {
             radarChartData: function () {
-                this.initializeValues()
-                this.transformRadarChart()
             },
             radarChartValues: function () {
                 console.log('radarChartVa;llues', this.radarChartValues)
-                this.radarChartData = [{
-                        axis: 'Analysis',
-                        key: 'analysis',
-                        value: this.radarChartValues.analysis
-                    }, {
-                        axis: 'Insight',
-                        key: 'insight',
-                        value: this.radarChartValues.insight
-                    }, {
-                        axis: 'Strategy',
-                        key: 'strategy',
-                        value: this.radarChartValues.strategy
-                    }, {
-                        axis: 'Technology / Efficiency & Systems',
-                        key: 'tes',
-                        value: this.radarChartValues.tes
-                    }, {
-                        axis: 'Customer Experience',
-                        key: 'custexp',
-                        value: this.radarChartValues.custexp
-                    }
-                ]
+                this.radarChartData = this.radarChartValues
+                this.initializeValues()
+                this.transformRadarChart()
+                // this.radarChartData = [{
+                //         axis: 'Analysis',
+                //         key: 'analysis',
+                //         value: this.radarChartValues.analysis
+                //     }, {
+                //         axis: 'Insight',
+                //         key: 'insight',
+                //         value: this.radarChartValues.insight
+                //     }, {
+                //         axis: 'Strategy',
+                //         key: 'strategy',
+                //         value: this.radarChartValues.strategy
+                //     }, {
+                //         axis: 'Technology / Efficiency & Systems',
+                //         key: 'tes',
+                //         value: this.radarChartValues.tes
+                //     }, {
+                //         axis: 'Customer Experience',
+                //         key: 'custexp',
+                //         value: this.radarChartValues.custexp
+                //     }
+                // ]
                 // this.initializeValues()
                 // this.transformRadarChart()
             }
@@ -124,33 +124,38 @@
                 feMergeNode_2: null,
                 //
                 overallMaturityScore: 0,
-                radarChartData: [
+                radarChartData: [[
                     {
                         axis: 'Analysis',
                         key: 'analysis',
+                        type: 'pre',
                         value: 0
                     },
                     {
                         axis: 'Insight',
                         key: 'insight',
+                        type: 'pre',
                         value: 0
                     },
                     {
                         axis: 'Strategy',
                         key: 'strategy',
+                        type: 'pre',
                         value: 0
                     },
                     {
                         axis: 'Technology / Efficiency & Systems',
                         key: 'tes',
+                        type: 'pre',
                         value: 0
                     },
                     {
                         axis: 'Customer Experience',
                         key: 'custexp',
+                        type: 'pre',
                         value: 0
                     }
-                ],
+                ]],
                 measures: [],
                 measureNum: 0,
                 //
@@ -178,8 +183,8 @@
             initializeValues: function () {
                 let data = this.radarChartData
                 let margin = this.margin
-
-                let measures =  data.map(d => d.axis)
+                console.log('datadatadata', data)
+                let measures =  data[0].map(d => d.axis)
                 let measureNum = measures.length
 
                 let div = d3.select('#radar-chart-holder')
@@ -313,7 +318,7 @@
                 // let radarG = this.radarG
                 let axisG = this.axisG
                 let blobG = this.blogG
-                let tooltip = this.tooltip
+                // let tooltip = this.tooltip
 
                 let radius = this.radius
                 let radian = this.radian
@@ -435,9 +440,10 @@
                     .text(d => d)
                     .call(this.wrap, wrapWidth)
 
+                console.log('radarDASTA, ', data)
                 let radarArea = blobG
                     .selectAll('.radarArea')
-                    .data([data])
+                    .data(data)
                 radarArea
                     .exit()
                     .remove()
@@ -450,13 +456,16 @@
                     .transition()
                     .duration(200)
                     .attr('d', d => radarLine(d))
-                    .style('fill', colorScale(this.score))
+                    .style('fill', d => {
+                        console.log('fillll', this.score, d, d.type)
+                        return colorScale(this.score[d[0].type])
+                    })
                     .style('fill-opacity', areaOpacity)
                     .style('filter', 'url(#glow)')
 
                 let radarPath = blobG
                     .selectAll('.radarLine')
-                    .data([data])
+                    .data(data)
                 radarPath
                     .exit()
                     .remove()
@@ -470,14 +479,27 @@
                     .duration(200)
                     .attr('d', d => radarLine(d))
                     .style('stroke-width', `${lineWidth}px`)
-                    .style('stroke', colorScale(this.score))
+                    .style('stroke', d => colorScale(this.score[d[0].type]))
                     .style('fill', 'none')
                     .style('filter', 'url(#glow)')
                     // .style('')
 
-                let radarPoints = blobG
-                    .selectAll('.radarPoint')
+                let radarPointGs = blobG
+                    .selectAll('.radarPointG')
                     .data(data)
+                radarPointGs
+                    .exit()
+                    .remove()
+                radarPointGs
+                    .enter()
+                    .append('g')
+                    .attr('class', 'radarPointG')
+                let radarPoints = radarPointGs
+                    .selectAll('.radarPoint')
+                    .data(d => {
+                        console.log('dddddd', d)
+                        return d
+                    })
                 radarPoints
                     .exit()
                     .remove()
@@ -490,49 +512,52 @@
                     .transition()
                     .duration(200)
                     .attr('r', pointRadius)
-                    .attr('cx', (d, i) => radiusScale(d.value) * Math.cos(radian * i - Math.PI/2))
+                    .attr('cx', (d, i) => {
+                        console.log('point on a line', d, radian, i)
+                        return radiusScale(d.value) * Math.cos(radian * i - Math.PI/2)
+                    })
                     .attr('cy', (d, i) => radiusScale(d.value) * Math.sin(radian * i - Math.PI/2))
-                    .style('fill', colorScale(this.score))
+                    .style('fill', d => colorScale(this.score[d.type]))
                     .style('fill-opacity', 0.8)
                     .style('filter', 'url(#glow)')
 
-                let tooltipPoints = blobG
-                    .selectAll('.tooltipPoint')
-                    .data(data)
-                tooltipPoints
-                    .exit()
-                    .remove()
-                tooltipPoints = tooltipPoints
-                    .enter()
-                    .append('circle')
-                    .merge(tooltipPoints)
-                    .attr('class', 'tooltipPoint')
-                tooltipPoints
-                    .transition()
-                    .duration(200)
-                    .attr('r', pointRadius * 2)
-                    .attr('cx', (d, i) => radiusScale(d.value) * Math.cos(radian * i - Math.PI/2))
-                    .attr('cy', (d, i) => radiusScale(d.value) * Math.sin(radian * i - Math.PI/2))
-                    .style('fill-opacity', 0)
-                tooltipPoints
-                    .on('mouseover', function (d) {
-                        let text = d3.select(this)
-                        let x = parseFloat(text.attr('cx')) - 8
-                        let y = parseFloat(text.attr('cy')) - 8
-
-                        tooltip
-                            .classed('hidden', false)
-                        tooltip
-                            .transition()
-                            .duration(200)
-                            .attr('x', x)
-                            .attr('y', y)
-                            .text(d3.format('.2f')(d.value))
-                    })
-                    .on('mouseout', function () {
-                        tooltip
-                            .classed('hidden', true)
-                    })
+                // let tooltipPoints = blobG
+                //     .selectAll('.tooltipPoint')
+                //     .data(data)
+                // tooltipPoints
+                //     .exit()
+                //     .remove()
+                // tooltipPoints = tooltipPoints
+                //     .enter()
+                //     .append('circle')
+                //     .merge(tooltipPoints)
+                //     .attr('class', 'tooltipPoint')
+                // tooltipPoints
+                //     .transition()
+                //     .duration(200)
+                //     .attr('r', pointRadius * 2)
+                //     .attr('cx', (d, i) => radiusScale(d.value) * Math.cos(radian * i - Math.PI/2))
+                //     .attr('cy', (d, i) => radiusScale(d.value) * Math.sin(radian * i - Math.PI/2))
+                //     .style('fill-opacity', 0)
+                // tooltipPoints
+                //     .on('mouseover', function (d) {
+                //         let text = d3.select(this)
+                //         let x = parseFloat(text.attr('cx')) - 8
+                //         let y = parseFloat(text.attr('cy')) - 8
+                //
+                //         tooltip
+                //             .classed('hidden', false)
+                //         tooltip
+                //             .transition()
+                //             .duration(200)
+                //             .attr('x', x)
+                //             .attr('y', y)
+                //             .text(d3.format('.2f')(d.value))
+                //     })
+                //     .on('mouseout', function () {
+                //         tooltip
+                //             .classed('hidden', true)
+                //     })
             },
             wrapLabels: function (group, width) {
                 // console.log('text', text, text.text())

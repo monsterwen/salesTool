@@ -165,8 +165,8 @@
                 </div>
                 <div class="radarHolder" :class="{ 'radarFinished': summary }">
                     <RadarChart
-                            :radarChartValues="scores"
-                            :score="scores.total">
+                            :radarChartValues="radarData"
+                            :score="radarScores">
                     </RadarChart>
                 </div>
             </div>
@@ -188,6 +188,37 @@
             Questionaire
         },
         data: () => ({
+            radarData: [[{
+                axis: 'Analysis',
+                key: 'analysis',
+                type: 'pre',
+                value: 0
+            }, {
+                axis: 'Insight',
+                key: 'insight',
+                type: 'pre',
+                value: 0
+            }, {
+                axis: 'Strategy',
+                key: 'strategy',
+                type: 'pre',
+                value: 0
+            }, {
+                axis: 'Technology / Efficiency & Systems',
+                key: 'tes',
+                type: 'pre',
+                value: 0
+            }, {
+                axis: 'Customer Experience',
+                key: 'custexp',
+                type: 'pre',
+                value: 0
+            }
+            ]],
+            radarScores: {
+                pre: 0,
+                post: 0
+            },
             summary: false,
             questions: {
                 analysis: [
@@ -722,6 +753,39 @@
                     this.scores.tes +
                     this.scores.custexp)
                     this.summary = true
+                    this.radarData.unshift([
+                        {
+                            axis: 'Analysis',
+                            key: 'analysis',
+                            type: 'post',
+                            value: 85
+                        },
+                        {
+                            axis: 'Insight',
+                            key: 'insight',
+                            type: 'post',
+                            value: 85
+                        },
+                        {
+                            axis: 'Strategy',
+                            key: 'strategy',
+                            type: 'post',
+                            value: 85
+                        },
+                        {
+                            axis: 'Technology / Efficiency & Systems',
+                            key: 'tes',
+                            type: 'post',
+                            value: 85
+                        },
+                        {
+                            axis: 'Customer Experience',
+                            key: 'custexp',
+                            type: 'post',
+                            value: 85
+                        }
+                    ])
+                    this.radarScores.post = 425
                     this.questionProgress.total = this.questionTotals.total
                 }
             },
@@ -814,11 +878,39 @@
                 scores.custexp = custexpDenom ? (responses.yes.custexp / custexpDenom) * 100 : 0
 
                 this.scores = scores
+                this.radarData = [[{
+                            axis: 'Analysis',
+                            key: 'analysis',
+                            type: 'pre',
+                            value: this.scores.analysis
+                        }, {
+                            axis: 'Insight',
+                            key: 'insight',
+                            type: 'pre',
+                            value: this.scores.insight
+                        }, {
+                            axis: 'Strategy',
+                            key: 'strategy',
+                            type: 'pre',
+                            value: this.scores.strategy
+                        }, {
+                            axis: 'Technology / Efficiency & Systems',
+                            key: 'tes',
+                            type: 'pre',
+                            value: this.scores.tes
+                        }, {
+                            axis: 'Customer Experience',
+                            key: 'custexp',
+                            type: 'pre',
+                            value: this.scores.custexp
+                        }
+                    ]]
                 this.scores.total = (this.scores.analysis +
                     this.scores.insight +
                     this.scores.strategy +
                     this.scores.tes +
                     this.scores.custexp)
+                this.radarScores.pre = this.scores.total
                 console.log('scoresscores', this.scores.analysis)
             }
         }
@@ -897,8 +989,8 @@
     flex-basis: 100%;
 }
 .questionContainer {
-    height: calc(100% - 48px);
-    max-height: calc(100% - 48px);
+    height: calc(50vh - 60px);
+    /*max-height: calc(100% - 48px);*/
     width: 100%;
     border: 6px solid #DEDEDE;
     border-top: 0;
