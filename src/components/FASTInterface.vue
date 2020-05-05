@@ -269,11 +269,12 @@
                         question: 'Do you track loyalty and CRM program KPIs and benchmarks?',
                         type: 'analysis',
                         response: 'none'
-                    }, {
-                        question: 'Can you identify overt and latent customer traits? ',
-                        type: 'analysis',
-                        response: 'none'
-                    }
+                    },
+                    // {
+                    //     question: 'Can you identify overt and latent customer traits? ',
+                    //     type: 'analysis',
+                    //     response: 'none'
+                    // }
                     //     question: 'Can you determine what your customers like and dislike about your brand experience?',
                     //     type: 'analysis',
                     //     response: 'none'
@@ -327,11 +328,12 @@
                         question: 'Do you have visibility and insight on programme effectiveness and scope for improvement?',
                         type: 'insight',
                         response: 'none'
-                    }, {
-                        question: 'Can you identify top performing customers and factors driving their retention?',
-                        type: 'insight',
-                        response: 'none'
-                    }
+                    },
+                    // {
+                    //     question: 'Can you identify top performing customers and factors driving their retention?',
+                    //     type: 'insight',
+                    //     response: 'none'
+                    // }
                     //     question: 'Have you identified customer LTV and key moments of interest where value can be optimised?',
                     //     type: 'insight',
                     //     response: 'none'
@@ -425,11 +427,12 @@
                         question: 'Can you evaluate how your CX compares with that of your competitors?',
                         type: 'strategy',
                         response: 'none'
-                    }, {
-                        question: 'Can you pinpoint the programme features that are considered table stakes in your market?',
-                        type: 'strategy',
-                        response: 'none'
-                    }
+                    },
+                    // {
+                    //     question: 'Can you pinpoint the programme features that are considered table stakes in your market?',
+                    //     type: 'strategy',
+                    //     response: 'none'
+                    // }
                     //     question: 'Do you know what programme elements differentiate your programme from competitors?',
                     //     type: 'strategy',
                     //     response: 'none'
@@ -547,11 +550,12 @@
                         question: 'Do you have centralised oversight and control of API users?',
                         type: 'tes',
                         response: 'none'
-                    }, {
-                        question: 'Do you have the ability to add, update, retrieve, and delete',
-                        type: 'tes',
-                        response: 'none'
-                    }
+                    },
+                    // {
+                    //     question: 'Do you have the ability to add, update, retrieve, and delete',
+                    //     type: 'tes',
+                    //     response: 'none'
+                    // }
                     //     question: 'Does the facility exist to easily add, update, and retrieve member records?',
                     //     type: 'tes',
                     //     response: 'none'
@@ -653,11 +657,12 @@
                         question: 'Do customer preferences lead content and communication distribution - bespoke content and channel planning?',
                         type: 'custexp',
                         response: 'none'
-                    }, {
-                        question: 'Is the programme\'s direct communicaitons strategy defined by a mobile first approach?',
-                        type: 'custexp',
-                        response: 'none'
-                    }
+                    },
+                    // {
+                    //     question: 'Is the programme\'s direct communicaitons strategy defined by a mobile first approach?',
+                    //     type: 'custexp',
+                    //     response: 'none'
+                    // }
                     //     question: 'Have you integrated your programmes with key social channels?',
                     //     type: 'custexp',
                     //     response: 'none'
@@ -1108,7 +1113,7 @@
     top: 0;
     left: 0;
     width: 75%;
-    height: 75%;
+    height: 70%;
     display: flex;
     margin-left: 24px;
     margin-right: 24px;

@@ -12,6 +12,7 @@
     "aws-amplify-vue": "^2.1.1",
     "core-js": "^3.6.4",
     "d3": "^5.15.0",
+    "d3-voronoi-map": "^2.0.1",
     "sass-loader": "^8.0.2",
     "vue": "^2.6.11",
     "vue-loader": "^15.9.1",
