@@ -28,7 +28,7 @@
 .bigHolder {
     width: 100vw;
     height: 100vh;
-    background-color: #73c9d7;
+    background-color: #cad7c8;
 }
 .axisLabel {
     fill: #656565;

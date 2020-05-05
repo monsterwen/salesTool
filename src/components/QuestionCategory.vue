@@ -124,7 +124,7 @@
     flex-basis: 100%;
     width: 100%;
     height: 100%;
-    background-color: #EDEDED;
+    background-color: #c1d82f;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -156,6 +156,6 @@
     heigth: 12px;
     max-height: 12px;
     width: 100%;
-    background-color: #DDDDDD;
+    background-color: white;
 }
 </style>

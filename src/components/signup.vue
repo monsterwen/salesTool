@@ -11,28 +11,28 @@
 				</span>
 
                 <div class="wrap-input1 validate-input" data-validate = "Name is required">
-                    <input class="input1" type="text" name="name" placeholder="Name">
+                    <input v-model="name" class="input1" type="text" name="name" placeholder="Name">
                     <span class="shadow-input1"></span>
                 </div>
 
                 <div class="wrap-input1 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-                    <input class="input1" type="text" name="email" placeholder="Email">
+                    <input v-model="emailAddress" class="input1" type="text" name="email" placeholder="Email">
                     <span class="shadow-input1"></span>
                 </div>
 
                 <div class="wrap-input1 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-                    <input class="input1" type="text" name="email" placeholder="Phone">
+                    <input v-model="phone" class="input1" type="text" name="email" placeholder="Phone">
                     <span class="shadow-input1"></span>
                 </div>
 
                 <div class="wrap-input1 validate-input" data-validate = "Subject is required">
-                    <input class="input1" type="text" name="subject" placeholder="Organization Name">
+                    <input v-model="companyName" class="input1" type="text" name="subject" placeholder="Organization Name">
                     <span class="shadow-input1"></span>
                 </div>
 
                 <div style="text-align: left" class="wrap-input1 validate-input">
                     <label style="text-align: left" for="industry">Industry:</label>
-                    <select class="input1" id="industry">
+                    <select v-model="industry" class="input1" id="industry">
                         <option value="Accommodation">Accommodation</option>
                         <option value="Accommodation and Food Services">Accommodation and Food Services</option>
                         <option value="Administrative and Support Services">Administrative and Support Services</option>
@@ -49,12 +49,12 @@ Wholesale Electronic Markets and Agents and Brokers">
                 </div>
                 <div>
                     <span router to="/fast">Request a Demo?</span>
-                    <input id="checkbox" type="checkbox"/>
+                    <input v-model="demo" id="checkbox" type="checkbox"/>
                     <label style="display: inline" for="checkbox" > </label>
                 </div>
                 <div style="margin-top: 10px" class="container-contact1-form-btn">
                     <router-link to="/fast">
-                    <button class="contact1-form-btn">
+                    <button type="" id="submit"  v-on:click="insertUser()" class="contact1-form-btn">
                                 <span>Start the Assessment!</span>
                     </button>
                     </router-link>
@@ -64,96 +64,63 @@ Wholesale Electronic Markets and Agents and Brokers">
     </div>
 </template>
 
-<script src="../assets/vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
-<script src="../assets/vendor/bootstrap/js/popper.js"></script>
-<script src="../assets/vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
-<script src="../assets/vendor/select2/select2.min.js"></script>
-<!--===============================================================================================-->
-<script src="../assets/vendor/tilt/tilt.jquery.min.js"></script>
-<script >
-    import jQuery from "jquery";
-    "use strict";var _typeof="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t};!function(t){"function"==typeof define&&define.amd?define(["jquery"],t):"object"===("undefined"==typeof module?"undefined":_typeof(module))&&module.exports?module.exports=function(i,s){return void 0===s&&(s="undefined"!=typeof window?require("jquery"):require("jquery")(i)),t(s),s}:t(jQuery)}(function(t){return t.fn.tilt=function(i){var s=function(){this.ticking||(requestAnimationFrame(g.bind(this)),this.ticking=!0)},e=function(){var i=this;t(this).on("mousemove",o),t(this).on("mouseenter",a),this.settings.reset&&t(this).on("mouseleave",l),this.settings.glare&&t(window).on("resize",d.bind(i))},n=function(){var i=this;void 0!==this.timeout&&clearTimeout(this.timeout),t(this).css({transition:this.settings.speed+"ms "+this.settings.easing}),this.settings.glare&&this.glareElement.css({transition:"opacity "+this.settings.speed+"ms "+this.settings.easing}),this.timeout=setTimeout(function(){t(i).css({transition:""}),i.settings.glare&&i.glareElement.css({transition:""})},this.settings.speed)},a=function(i){this.ticking=!1,t(this).css({"will-change":"transform"}),n.call(this),t(this).trigger("tilt.mouseEnter")},r=function(i){return"undefined"==typeof i&&(i={pageX:t(this).offset().left+t(this).outerWidth()/2,pageY:t(this).offset().top+t(this).outerHeight()/2}),{x:i.pageX,y:i.pageY}},o=function(t){this.mousePositions=r(t),s.call(this)},l=function(){n.call(this),this.reset=!0,s.call(this),t(this).trigger("tilt.mouseLeave")},h=function(){var i=t(this).outerWidth(),s=t(this).outerHeight(),e=t(this).offset().left,n=t(this).offset().top,a=(this.mousePositions.x-e)/i,r=(this.mousePositions.y-n)/s,o=(this.settings.maxTilt/2-a*this.settings.maxTilt).toFixed(2),l=(r*this.settings.maxTilt-this.settings.maxTilt/2).toFixed(2),h=Math.atan2(this.mousePositions.x-(e+i/2),-(this.mousePositions.y-(n+s/2)))*(180/Math.PI);return{tiltX:o,tiltY:l,percentageX:100*a,percentageY:100*r,angle:h}},g=function(){return this.transforms=h.call(this),this.reset?(this.reset=!1,t(this).css("transform","perspective("+this.settings.perspective+"px) rotateX(0deg) rotateY(0deg)"),void(this.settings.glare&&(this.glareElement.css("transform","rotate(180deg) translate(-50%, -50%)"),this.glareElement.css("opacity","0")))):(t(this).css("transform","perspective("+this.settings.perspective+"px) rotateX("+("x"===this.settings.disableAxis?0:this.transforms.tiltY)+"deg) rotateY("+("y"===this.settings.disableAxis?0:this.transforms.tiltX)+"deg) scale3d("+this.settings.scale+","+this.settings.scale+","+this.settings.scale+")"),this.settings.glare&&(this.glareElement.css("transform","rotate("+this.transforms.angle+"deg) translate(-50%, -50%)"),this.glareElement.css("opacity",""+this.transforms.percentageY*this.settings.maxGlare/100)),t(this).trigger("change",[this.transforms]),void(this.ticking=!1))},c=function(){var i=this.settings.glarePrerender;if(i||t(this).append('<div class="js-tilt-glare"><div class="js-tilt-glare-inner"></div></div>'),this.glareElementWrapper=t(this).find(".js-tilt-glare"),this.glareElement=t(this).find(".js-tilt-glare-inner"),!i){var s={position:"absolute",top:"0",left:"0",width:"100%",height:"100%"};this.glareElementWrapper.css(s).css({overflow:"hidden","pointer-events":"none"}),this.glareElement.css({position:"absolute",top:"50%",left:"50%","background-image":"linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%)",width:""+2*t(this).outerWidth(),height:""+2*t(this).outerWidth(),transform:"rotate(180deg) translate(-50%, -50%)","transform-origin":"0% 0%",opacity:"0"})}},d=function(){this.glareElement.css({width:""+2*t(this).outerWidth(),height:""+2*t(this).outerWidth()})};return t.fn.tilt.destroy=function(){t(this).each(function(){t(this).find(".js-tilt-glare").remove(),t(this).css({"will-change":"",transform:""}),t(this).off("mousemove mouseenter mouseleave")})},t.fn.tilt.getValues=function(){var i=[];return t(this).each(function(){this.mousePositions=r.call(this),i.push(h.call(this))}),i},t.fn.tilt.reset=function(){t(this).each(function(){var i=this;this.mousePositions=r.call(this),this.settings=t(this).data("settings"),l.call(this),setTimeout(function(){i.reset=!1},this.settings.transition)})},this.each(function(){var s=this;this.settings=t.extend({maxTilt:t(this).is("[data-tilt-max]")?t(this).data("tilt-max"):20,perspective:t(this).is("[data-tilt-perspective]")?t(this).data("tilt-perspective"):300,easing:t(this).is("[data-tilt-easing]")?t(this).data("tilt-easing"):"cubic-bezier(.03,.98,.52,.99)",scale:t(this).is("[data-tilt-scale]")?t(this).data("tilt-scale"):"1",speed:t(this).is("[data-tilt-speed]")?t(this).data("tilt-speed"):"400",transition:!t(this).is("[data-tilt-transition]")||t(this).data("tilt-transition"),disableAxis:t(this).is("[data-tilt-disable-axis]")?t(this).data("tilt-disable-axis"):null,axis:t(this).is("[data-tilt-axis]")?t(this).data("tilt-axis"):null,reset:!t(this).is("[data-tilt-reset]")||t(this).data("tilt-reset"),glare:!!t(this).is("[data-tilt-glare]")&&t(this).data("tilt-glare"),maxGlare:t(this).is("[data-tilt-maxglare]")?t(this).data("tilt-maxglare"):1},i),null!==this.settings.axis&&(console.warn("Tilt.js: the axis setting has been renamed to disableAxis. See https://github.com/gijsroge/tilt.js/pull/26 for more information"),this.settings.disableAxis=this.settings.axis),this.init=function(){t(s).data("settings",s.settings),s.settings.glare&&c.call(s),e.call(s)},this.init()})},t("[data-tilt]").tilt(),!0});    $('.js-tilt').tilt({
-        scale: 1.1
-    })
-    (function ($) {
-        "use strict";
 
-
-        /*==================================================================
-        [ Validate ]*/
-        var name = $('.validate-input input[name="name"]');
-        var email = $('.validate-input input[name="email"]');
-        var subject = $('.validate-input input[name="subject"]');
-        var message = $('.validate-input textarea[name="message"]');
-
-
-        $('.validate-form').on('submit',function(){
-            var check = true;
-
-            if($(name).val().trim() == ''){
-                showValidate(name);
-                check=false;
-            }
-
-            if($(subject).val().trim() == ''){
-                showValidate(subject);
-                check=false;
-            }
-
-
-            if($(email).val().trim().match(/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/) == null) {
-                showValidate(email);
-                check=false;
-            }
-
-            if($(message).val().trim() == ''){
-                showValidate(message);
-                check=false;
-            }
-
-            return check;
-        });
-
-
-        $('.validate-form .input1').each(function(){
-            $(this).focus(function(){
-                hideValidate(this);
-            });
-        });
-
-        function showValidate(input) {
-            var thisAlert = $(input).parent();
-
-            $(thisAlert).addClass('alert-validate');
-        }
-
-        function hideValidate(input) {
-            var thisAlert = $(input).parent();
-
-            $(thisAlert).removeClass('alert-validate');
-        }
-
-
-
-    })(jQuery);
-</script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
 <script>
-
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
+    const BASE_URL = 'http://10.4.3.18:9026/api/v1/jobs/jobhistory'
     gtag('config', 'UA-23581568-13');
+    import * as axios from 'axios'
+   // import {insertUser} from "../assets/js/userinfo";
+    export default {
+        name: 'sighup',
+        components: {},
+        modules: {
+            // QuestionCard
+        },
+        props: {
+        },
+        watch: {
+        },
+        data: () => {
+            return {
+                name: "",
+                phone: "",
+                emailAddress: "",
+                companyName: "",
+                industry: "",
+                demo: true
+            }
+        },
+        updated: function () {
+
+        },
+        mounted: function () {
+        },
+        methods: {
+            insertUser: function() {
+                console.log("====================")
+                var formData =
+                    {
+                        "Name": this.name,
+                        "phone": this.phone,
+                        "emailAddress": this.emailAddress,
+                        "companyName": this.companyName,
+                        "industry": this.industry,
+                        "demo": this.demo
+                     }
+                console.log(formData)
+                const BASE_URL = 'http://10.4.3.18:9080/api/v1/Sales/signup'
+                const url = BASE_URL
+                return axios.post(url, formData)
+            }
+        }}
 </script>
 <style>
-
-
-
 
     /*//////////////////////////////////////////////////////////////////
     [ FONT ]*/
