@@ -1,8 +1,9 @@
 <template>
-    <div>
+    <div class="wrapper-div">
     <div id="wrapper">
         <div id="header-wrapper">
-            <BrierleyLogo></BrierleyLogo>
+            <BrierleyLogo
+                textFill="white"></BrierleyLogo>
             <div id="" class="">
 <!--                <div id="menu">-->
 <!--                    <ul>-->
@@ -94,7 +95,8 @@
 
         <!-- follow me template -->
 
-        <div class="alert info">
+        <div class="alert info" :v-if="briefDesk"
+             v-on:click="briefDesk = false">
             <span class="closebtn">&times;</span>
             To start the assessment process answer the questions on the "Questionnaire" by choosing the rating that applies to your company.Note that for those features that do not apply to your business, please select N/A.
         </div>
@@ -179,7 +181,10 @@
         color: #fff;
         border-bottom: solid 1px rgba(255,255,255,0.1);
     }
-
+    .wrapper-div {
+        padding-bottom: 25vh;
+        background-color: #ffffff;
+    }
 
     /* demo styles */
 
@@ -232,6 +237,14 @@
         -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
     }
 </style>
+<script>
+    export default {
+        name: 'Test',
+        data: () => ({
+            briefDesk: true
+        })
+    }
+</script>
 <script>
     const close = document.getElementsByClassName("closebtn");
     let i;

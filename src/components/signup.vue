@@ -53,7 +53,7 @@ Wholesale Electronic Markets and Agents and Brokers">
                     <label style="display: inline" for="checkbox" > </label>
                 </div>
                 <div style="margin-top: 10px" class="container-contact1-form-btn">
-                    <router-link to="/fast">
+                    <router-link to="/test">
                     <button type="" id="submit"  v-on:click="insertUser()" class="contact1-form-btn">
                                 <span>Start the Assessment!</span>
                     </button>

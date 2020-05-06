@@ -1336,9 +1336,9 @@ pre code {
   border-top: 2px solid #e9ecef;
 }
 
-.table .table {
-  background-color: #fff;
-}
+/*.table .table {*/
+/*  background-color: #fff;*/
+/*}*/
 
 .table-sm th,
 .table-sm td {
@@ -1503,7 +1503,7 @@ pre code {
 }
 
 .thead-inverse th {
-  color: #fff;
+  /*color: #fff;*/
   background-color: #212529;
 }
 
@@ -1513,7 +1513,7 @@ pre code {
 }
 
 .table-inverse {
-  color: #fff;
+  /*color: #fff;*/
   background-color: #212529;
 }
 
