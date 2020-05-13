@@ -2,41 +2,16 @@
     <div class="wrapper-div">
 
         <!-- The Modal -->
-        <div class="signup-modal">
-
+        <div class="signup-modal"
+             :class="{ 'modal-hidden': !displayModal }">
             <!-- Modal content -->
             <div class="modal-content">
                 <span class="close">&times;</span>
                 <p>Some text in the Modal..</p>
             </div>
-
         </div>
-
         <div class="landing-wrapper" id="wrapper">
-<!--        <div class="header-wrapper">-->
-<!--            <BrierleyLogo-->
-<!--                textFill="white"></BrierleyLogo>-->
-<!--            <div id="" class="">-->
-<!--&lt;!&ndash;                <div id="menu">&ndash;&gt;-->
-<!--&lt;!&ndash;                    <ul>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <li class="current_page_item"><a href="#" accesskey="1" title="">Homepage</a></li>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <li><a href="#" accesskey="2" title="">Our Clients</a></li>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <li><a href="#" accesskey="3" title="">About Us</a></li>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <li><a href="#" accesskey="4" title="">Careers</a></li>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <li><a href="#" accesskey="5" title="">Contact Us</a></li>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </ul>&ndash;&gt;-->
-<!--&lt;!&ndash;                </div>&ndash;&gt;-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="container">-->
-
-<!--                    <img class="" :src="require('../assets/images/TE-Title-Assessment.png')"-->
-<!--                    style="height:100%; width: 100%;">-->
-
-<!--        </div>-->
         <div class="header-container">
-<!--            <div class="header-background header-element"></div>-->
-<!--            <div class="header-content">-->
                 <div class="header-curve">
                     <img
                             width="100%"
@@ -54,13 +29,14 @@
                             </div>
                             <div class="header-content header-text header-element">
                                 <div class="header-headline header-text-section">
-                                    <p>Assess your programs health</p>
+                                    <p>Assess your program health</p>
                                 </div>
                                 <div class="header-subhead header-text-section">
                                     <p>Identify shortcomings and opportunities in your <br> customer loyalty and engagement programming</p>
                                 </div>
                                 <div class="header-button header-text-section">
-                                    <button class="signup-button">Take the Assessment</button>
+                                    <button class="signup-button"
+                                            v-on:click="displayModal = true">Take the Assessment</button>
                                 </div>
                             </div>
                         </div>
@@ -197,18 +173,83 @@
             </div>
         </div>
         <div class="spacer"></div>
-
-            <FASTModule></FASTModule>
-<div class="container">
-    <span>result</span>
-</div>
+        <div class="dimension-container signup-container">
+            <div class="signup-content">
+                <SignUpField></SignUpField>
+            </div>
+        </div>
+<!--            <FASTModule></FASTModule>-->
 
     </div>
     </div>
 </template>
+<script>
+    // import FASTModule from "../Views/FASTModule";
+    import SignUpField from "./SignUpField";
+    // import BrierleyLogo from "./BrierleyLogo";
+    import * as d3 from 'd3'
+
+    export default {
+        name: 'Test',
+        components:  {
+            // FASTModule,
+            SignUpField
+        },
+        data: () => ({
+            briefDesk: true,
+            signupModal: null,
+            displayModal: false
+        }),
+        mounted: function () {
+            let signupModal = d3.select('.signup-modal')
+            window.onclick = (event) => {
+                if (event.target === signupModal.node()) {
+                    this.displayModal = false
+                }
+            }
+        },
+        methods: {
+            // populateModalElements: function () {
+            //   this.signupModal = d3.select('.signup-modal')
+            //
+            // },
+            // displayModal: function () {
+            //
+            // }
+        }
+    }
+</script>
 <style>
     @import '../assets/css/default.css';
     /*@import '../assets/css/fonts.css';*/
+    .signup-modal {
+        position: fixed; /* Stay in place */
+        z-index: 1000; /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        animation-name: fadeIn;
+        animation-duration: 0.4s
+    }
+    .modal-hidden {
+        display: none;
+    }
+    .modal-content {
+        position: fixed;
+        bottom: 0;
+        background-color: #fefefe;
+        width: 100%;
+        -webkit-animation-name: slideIn;
+        -webkit-animation-duration: 0.4s;
+        animation-name: slideIn;
+        animation-duration: 0.4s
+    }
+
     .spacer {
         width: 100%;
         flex-basis: 100%;
@@ -255,11 +296,11 @@
         text-align: center;
     }
     .header-element {
-         width: 100%;
-         flex-basis: 100%;
-         height: 100%;
+        width: 100%;
+        flex-basis: 100%;
+        height: 100%;
         display: flex;
-     }
+    }
     .header-curve {
         width: 100%;
         position: absolute;
@@ -407,6 +448,18 @@
         color: rgba(0, 0, 0, 0.6);
         background-color: rgba(255, 255, 255, 0.8);
     }
+    .signup-container {
+        background-color: rgb(236, 238, 239);
+        background: linear-gradient(to left, #009FBC, #A5BB00);
+    }
+    .signup-content {
+        width: 100%;
+        flex-basis: 100%;
+        max-width: 550px;
+        margin: 48px auto;
+        display: flex;
+        flex-flow: row wrap;
+    }
     /*.dimension-left .dimension-text {*/
     /*    justify-content: flex-end;*/
     /*}*/
@@ -495,18 +548,6 @@
         -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
     }
 </style>
-<script>
-    import FASTModule from "../Views/FASTModule";
-    // import BrierleyLogo from "./BrierleyLogo";
-
-    export default {
-        name: 'Test',
-        components:  {FASTModule},
-        data: () => ({
-            briefDesk: true
-        })
-    }
-</script>
 <!--<script>-->
 <!--    import FASTModule from "../Views/FASTModule";-->
 <!--    import BrierleyLogo from "./BrierleyLogo";-->
