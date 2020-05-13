@@ -1,105 +1,203 @@
 <template>
     <div class="wrapper-div">
-    <div id="wrapper">
-        <div id="header-wrapper">
-            <BrierleyLogo
-                textFill="white"></BrierleyLogo>
-            <div id="" class="">
-<!--                <div id="menu">-->
-<!--                    <ul>-->
-<!--                        <li class="current_page_item"><a href="#" accesskey="1" title="">Homepage</a></li>-->
-<!--                        <li><a href="#" accesskey="2" title="">Our Clients</a></li>-->
-<!--                        <li><a href="#" accesskey="3" title="">About Us</a></li>-->
-<!--                        <li><a href="#" accesskey="4" title="">Careers</a></li>-->
-<!--                        <li><a href="#" accesskey="5" title="">Contact Us</a></li>-->
-<!--                    </ul>-->
-<!--                </div>-->
-            </div>
-        </div>
-        <div class="container">
 
-                    <img class="" :src="require('../assets/images/TE-Title-Assessment.png')"
-                    style="height:100%; width: 100%;">
+        <!-- The Modal -->
+        <div class="signup-modal">
 
-        </div>
-        <div id="extra" class="container">
-            <div class="title">
-                <span class="">The Brierley loyalty capability assessment tool serves as a guide to calibrating your current brand loyalty and capability posture across 5 key dimensions and XX separate points. The aim is to help you identify gaps and opportunities in respect of existing customer loyalty and engagement programming and provide stimulus for positive adaptation and change informed by Brierley’s suite of flexible and on-demand FAST modules.</span>
-
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p>Some text in the Modal..</p>
             </div>
 
-            <div id="three-column">
-                <div class="boxA card">
-                    <div class="box card"> <span class="fa fa-cloud-download"></span>
-                        <p>Your score on our 5 point loyalty maturity curve providing a view of your current loyalty capability ranging from Basic to Emerging to Sophisticated.</p>
+        </div>
+
+        <div class="landing-wrapper" id="wrapper">
+<!--        <div class="header-wrapper">-->
+<!--            <BrierleyLogo-->
+<!--                textFill="white"></BrierleyLogo>-->
+<!--            <div id="" class="">-->
+<!--&lt;!&ndash;                <div id="menu">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <ul>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <li class="current_page_item"><a href="#" accesskey="1" title="">Homepage</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <li><a href="#" accesskey="2" title="">Our Clients</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <li><a href="#" accesskey="3" title="">About Us</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <li><a href="#" accesskey="4" title="">Careers</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <li><a href="#" accesskey="5" title="">Contact Us</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </ul>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="container">-->
+
+<!--                    <img class="" :src="require('../assets/images/TE-Title-Assessment.png')"-->
+<!--                    style="height:100%; width: 100%;">-->
+
+<!--        </div>-->
+        <div class="header-container">
+<!--            <div class="header-background header-element"></div>-->
+<!--            <div class="header-content">-->
+                <div class="header-curve">
+                    <img
+                            width="100%"
+                            :src="require('../components/BrierlyCurve.svg')">
+                </div>
+                <div class="header-curve header-flex">
+                    <div class="items-wrapper">
+                        <div class="header-items">
+                            <div class="header-content header-element header-left">
+                                <div class="header-image">
+                                    <img width="100%"
+                                         class="survey-preview"
+                                        :src="require('../assets/svg/b-logo-vert-tag.svg')">
+                                </div>
+                            </div>
+                            <div class="header-content header-text header-element">
+                                <div class="header-headline header-text-section">
+                                    <p>Assess your programs health</p>
+                                </div>
+                                <div class="header-subhead header-text-section">
+                                    <p>Identify shortcomings and opportunities in your <br> customer loyalty and engagement programming</p>
+                                </div>
+                                <div class="header-button header-text-section">
+                                    <button class="signup-button">Take the Assessment</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="boxB">
-                    <div class="box"> <span class="fa fa-cogs"></span>
-                        <p>A recommendation of key activities and initiatives that will advance or develop current programme effectiveness and and inform a roadmap to elevate the current maturity score.</p>
+<!--            </div>-->
+        </div>
+        <div class="dimension-header">
+            <div class="dimension-title">
+                <p>5 key dimensions</p>
+            </div>
+            <div class="dimension-desc">
+                <p>Our 5 point loyalty maturity curve provides a view of your current loyalty capability</p>
+            </div>
+        </div>
+        <div class="dimension-container" id="analytics">
+            <div class="dimension-content">
+                <div class="dimension-text dimension-side dimension-left">
+                    <div class="dimension-wrapper">
+                        <div class="dimension-headline">
+                            <p>Analytics</p>
+                        </div>
+                        <div class="dimension-subhead">
+                            <p>Can my business make sense of data and identify trends?</p>
+                        </div>
+                        <div class="dimension-body">
+                            <p>Ability to aquire and properly analyze large amounts of consumer data is crucial for a business to stay on the cutting
+                                edge of business trends, illuminate customer characteristics, and ensure program health.
+                                The analytical ability of a business can be the difference between success and failure of a product. </p>
+                        </div>
                     </div>
                 </div>
-                <div class="boxC">
-                    <div class="box"> <span class="fa fa-user"></span>
-                        <p> Access to the Brierley team who will be keen to work with you to provide the best possible loyalty solution for your business.</p>
+                <div class="dimension-side dimension-right">
+                    <div class="dimension-image">
+                        <img class="dimension-png" :src="require('../assets/images/analyticsIcon.png')">
                     </div>
                 </div>
             </div>
-<!--            <ul class="actions">-->
-<!--                <li><a href="#" class="button">Start Assessment</a></li>-->
-<!--            </ul>-->
         </div>
-        <section class="table">
-            <!--for demo wrap-->
-            <h1>Key Dimensions</h1>
-            <div class="tbl-header">
-                <table cellpadding="0" cellspacing="0" border="0">
-                    <thead>
-                    <tr>
-                        <th style="width:20%">Dimension</th>
-                        <th style="width:80%">Discription</th>
-                    </tr>
-                    </thead>
-                </table>
+        <div class="dimension-container" id="strategy">
+            <div class="dimension-content">
+                <div class="dimension-side dimension-left">
+                    <div class="dimension-image">
+                        <img class="dimension-png" :src="require('../assets/images/strategyIcon.png')">
+                    </div>
+                </div>
+                <div class="dimension-text dimension-side dimension-right">
+                    <div class="dimension-wrapper">
+                        <div class="dimension-headline">
+                            <p>Strategy</p>
+                        </div>
+                        <div class="dimension-subhead">
+                            <p>Can my business effectively synthesize analytics and insight to optimise program health?</p>
+                        </div>
+                        <div class="dimension-body">
+                            <p>Ability to aquire and properly analyze large amounts of consumer data is crucial for a business to stay on the cutting
+                                edge of business trends, illuminate customer characteristics, and ensure program health.
+                                The analytical ability of a business can be the difference between success and failure of a product. </p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="tbl-content">
-                <table cellpadding="0" cellspacing="0" border="0">
-                    <tbody>
-                    <tr>
-                        <td style="width:20%">Analysis</td>
-                        <td style="width:80%">How well is the business set up to make sense of data and identify trends?</td>
-                    </tr>
-                    <tr>
-                        <td style="width:20%">Insight</td>
-                        <td style="width:80%">Is the business able to turn knowledge into action?</td>
-
-                    </tr>
-                    <tr>
-                        <td style="width:20%">Strategy</td>
-                        <td style="width:80%">Is the business effectively synthesising analytics and insight to continually evaluate and optimise the programme and communications?</td>
-                    </tr>
-                    <tr>
-                        <td style="width:20%">Technology</td>
-                        <td style="width:80%">Is programme success supported by best in class tooling ?</td>
-                    </tr>
-                    <tr>
-                        <td style="width:20%">CX</td>
-                        <td style="width:80%">Is the customer engaged and does scope exist to delight throughout the journey? </td>
-
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-
-        <!-- follow me template -->
-
-        <div class="alert info" :v-if="briefDesk"
-             v-on:click="briefDesk = false">
-            <span class="closebtn">&times;</span>
-            To start the assessment process answer the questions on the "Questionnaire" by choosing the rating that applies to your company.Note that for those features that do not apply to your business, please select N/A.
         </div>
+        <div class="dimension-container" id="insight">
+            <div class="dimension-content">
+                <div class="dimension-text dimension-side dimension-left">
+                    <div class="dimension-wrapper">
+                        <div class="dimension-headline">
+                            <p>Insight</p>
+                        </div>
+                        <div class="dimension-subhead">
+                            <p>Can my business turn knowledge into action?</p>
+                        </div>
+                        <div class="dimension-body">
+                            <p>Ability to aquire and properly analyze large amounts of consumer data is crucial for a business to stay on the cutting
+                                edge of business trends, illuminate customer characteristics, and ensure program health.
+                                The analytical ability of a business can be the difference between success and failure of a product. </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="dimension-side dimension-right">
+                    <div class="dimension-image">
+                        <img class="dimension-png" :src="require('../assets/images/insightIcon.png')">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="dimension-container" id="technology">
+            <div class="dimension-content">
+                <div class="dimension-side dimension-left">
+                    <div class="dimension-image">
+                        <img class="dimension-png" :src="require('../assets/images/techIcon.png')">
+                    </div>
+                </div>
+                <div class="dimension-text dimension-side dimension-right">
+                    <div class="dimension-wrapper">
+                        <div class="dimension-headline">
+                            <p>Technology</p>
+                        </div>
+                        <div class="dimension-subhead">
+                            <p>Is programme success supported by best in class tooling ?</p>
+                        </div>
+                        <div class="dimension-body">
+                            <p>Ability to aquire and properly analyze large amounts of consumer data is crucial for a business to stay on the cutting
+                                edge of business trends, illuminate customer characteristics, and ensure program health.
+                                The analytical ability of a business can be the difference between success and failure of a product. </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="dimension-container" id="cx">
+            <div class="dimension-content">
+                <div class="dimension-text dimension-side dimension-left">
+                    <div class="dimension-wrapper">
+                        <div class="dimension-headline">
+                            <p>Customer Experience</p>
+                        </div>
+                        <div class="dimension-subhead">
+                            <p>Is the customer engaged and delighted throughout the journey?</p>
+                        </div>
+                        <div class="dimension-body">
+                            <p>Ability to aquire and properly analyze large amounts of consumer data is crucial for a business to stay on the cutting
+                                edge of business trends, illuminate customer characteristics, and ensure program health.
+                                The analytical ability of a business can be the difference between success and failure of a product. </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="dimension-side dimension-right">
+                    <div class="dimension-image">
+                        <img class="dimension-png" :src="require('../assets/images/cxIcon.png')">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="spacer"></div>
+
             <FASTModule></FASTModule>
 <div class="container">
     <span>result</span>
@@ -110,24 +208,252 @@
 </template>
 <style>
     @import '../assets/css/default.css';
-    @import '../assets/css/fonts.css';
-    .banner-text{
-        margin-top: 10px;
+    /*@import '../assets/css/fonts.css';*/
+    .spacer {
+        width: 100%;
+        flex-basis: 100%;
+        height: 48px;
+    }
+    .landing-wrapper {
+        display: flex;
+        flex-flow: row wrap;
+    }
+    .header-flex {
+        display: flex;
+        align-items: center;
+        vertical-align: center;
+    }
+    .header-wrapper {
+        width: 100%;
+        flex-basis: 100%;
+        background: #48922a;
+        text-align: left;
+    }
+    .header-container {
+        position: relative;
+        width: 100%;
+        flex-basis: 100%;
+        height: 0em;
+        padding-bottom: 37.5%;
+        background: linear-gradient(to right, #009FBC, #A5BB00);
+    }
+    .items-wrapper {
+        width: 100%;
+        height: 60%;
+        max-height: 300px;
+    }
+    .header-items {
+        height: 100%;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 1800px;
+        /*margin-top: 10%;*/
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
         text-align: center;
     }
-    .alert {
-        padding: 20px;
-        background-color: #f44336;
-        color: white;
-        opacity: 1;
-        transition: opacity 0.6s;
-        margin-bottom: 15px;
+    .header-element {
+         width: 100%;
+         flex-basis: 100%;
+         height: 100%;
+        display: flex;
+     }
+    .header-curve {
+        width: 100%;
+        position: absolute;
+        top: 0;
+        bottom: 0;
     }
-
-    .alert.success {background-color: #4CAF50;}
-    .alert.info {background-color: #2196F3;}
-    .alert.warning {background-color: #ff9800;}
-
+    .header-left {
+        width: 45%;
+        flex-basis: 45%;
+        justify-content: flex-end;
+        border-right: 0.5px solid #FFFFFF;
+    }
+    .header-right {
+        width: 55%;
+        flex-basis: 55%;
+        justify-content: flex-end;
+        border-left: 0.5px solid #FFFFFF;
+    }
+    .header-content {
+        /*width: 50%;*/
+        /*flex-basis: 50%;*/
+        height: 100%;
+    }
+    .header-text {
+        display: flex;
+        flex-flow: row wrap;
+    }
+    .header-text-section {
+        width: 100%;
+        flex-basis: 100%;
+    }
+    .header-image {
+        width: 70%;
+        height: auto;
+        margin-left: 20%;
+        margin-right: 10%;
+        border-right: 0.5px;
+    }
+    .header-headline {
+        color: #ffffff;
+        font-weight: 700;
+        text-align: left;
+        margin-left: 5%;
+    }
+    .header-headline p {
+        font-size: 61px;
+        line-height: 66px;
+    }
+    .header-subhead {
+        color: #ffffff;
+        font-size: 45px;
+        line-height: 50px;
+        text-align: left;
+        margin-left: 5%;
+    }
+    .header-subhead p {
+        font-weight: lighter;
+        font-size: 45px;
+        line-height: 50px;
+    }
+    /*.survey-preview {*/
+    /*    box-shadow: 0px 0px 20px 2px #ffffff;*/
+    /*}*/
+    .dimension-header {
+        margin-top: 48px;
+        margin-bottom: 36px;
+        width: 100%;
+        flex-basis: 100%;
+    }
+    .dimension-title {
+        font-size: 56px;
+        font-weight: bold;
+    }
+    .dimension-title p {
+        margin-top: 12px;
+        margin-bottom: 0;
+        line-height: 130%;
+    }
+    .dimension-desc {
+        font-size: 36px;
+        font-weight: normal;
+    }
+    .dimension-container {
+        width: 100%;
+        flex-basis: 100%;
+    }
+    .dimension-content {
+        width: 100%;
+        flex-basis: 100%;
+        max-width: 1600px;
+        margin: 0 auto;
+        display: flex;
+        flex-flow: row wrap;
+    }
+    .dimension-side {
+        width: 50%;
+        flex-basis: 50%;
+    }
+    .dimension-left {
+        border-right: 0.5px solid #CDCDCD;
+        padding-right: 48px;
+        justify-content: flex-end;
+    }
+    .dimension-left p {
+        text-align: right;
+    }
+    .dimension-right {
+        border-left: 0.5px solid #CDCDCD;
+        padding-left: 48px;
+        justify-content: flex-start;
+    }
+    .dimension-right p {
+        text-align: left;
+    }
+    .dimension-text {
+        display: flex;
+        align-items: center;
+    }
+    .header-button {
+        margin-left: calc(5% + 12px);
+        text-align: left;
+    }
+    .signup-button {
+        box-sizing: border-box;
+        -webkit-appearance: none;
+        display: inline-block;
+        text-align: center;
+        line-height: inherit;
+        font-size: 12px;
+        color: rgb(255, 255, 255);
+        background-color: rgba(255, 255, 255, 0.3);
+        cursor: pointer;
+        width: fit-content;
+        height: fit-content;
+        border-radius: 10px;
+        padding-left: 8px;
+        padding-right: 8px;
+        padding-top: 16px;
+        padding-bottom: 16px;
+        min-width: 152px;
+        font-weight: bold;
+        transition: 0.2s cubic-bezier(0.1, 0.7, 1.0, 0.1);
+    }
+    .signup-button:hover {
+        color: rgba(0, 0, 0, 0.6);
+        background-color: rgba(255, 255, 255, 0.8);
+    }
+    /*.dimension-left .dimension-text {*/
+    /*    justify-content: flex-end;*/
+    /*}*/
+    /*.dimension-right .dimension-text {*/
+    /*    justify-content: flex-start;*/
+    /*}*/
+    .dimension-headline p {
+        font-size: 34px;
+        font-weight: bold;
+        line-height: 37px;
+        margin-top: 12px;
+        margin-bottom: 12px;
+    }
+    .dimension-subhead p {
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 37px;
+    }
+    .dimension-body {
+        width: 100%;
+        max-width: 500px;
+    }
+    .dimension-left .dimension-body {
+        margin-left: auto;
+    }
+    .dimension-body p {
+        font-size: 18px;
+        font-weight: lighter;
+    }
+    .dimension-content {
+        min-height: 44vh;
+        max-height: 550px;
+    }
+    .dimension-image {
+        height: 100%;
+        width: auto;
+        display: flex;
+        justify-content: flex-start;
+    }
+    .dimension-left .dimension-image {
+        justify-content: flex-end;
+    }
+    .dimension-png {
+        height: calc(100% - 24px);
+        margin-top: 12px;
+        margin-bottom: 12px;
+    }
     .closebtn {
         margin-left: 15px;
         color: white;
@@ -143,44 +469,6 @@
         color: black;
     }
 
-    h1{
-        font-size: 30px;
-        color: #fff;
-        text-transform: uppercase;
-        font-weight: 300;
-        text-align: center;
-        margin-bottom: 15px;
-    }
-    table{
-        width:100%;
-        table-layout: fixed;
-    }
-    .tbl-header{
-        background-color: rgba(255,255,255,0.3);
-    }
-    .tbl-content{
-        height:300px;
-        overflow-x:auto;
-        margin-top: 0px;
-        border: 1px solid rgba(255,255,255,0.3);
-    }
-    th{
-        padding: 20px 15px;
-        text-align: left;
-        font-weight: 500;
-        font-size: 12px;
-        color: #fff;
-        text-transform: uppercase;
-    }
-    td{
-        padding: 15px;
-        text-align: left;
-        vertical-align:middle;
-        font-weight: 300;
-        font-size: 12px;
-        color: #fff;
-        border-bottom: solid 1px rgba(255,255,255,0.1);
-    }
     .wrapper-div {
         padding-bottom: 25vh;
         background-color: #ffffff;
@@ -188,41 +476,11 @@
 
     /* demo styles */
 
-    @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
-    .table{
-        background: -webkit-linear-gradient(left, #C1D82C, #C1D82C);
-        background: linear-gradient(to right, #C1D82C, #C1D82C);
-        font-family: 'Roboto', sans-serif;
-    }
+    @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);\
     section{
         margin: 50px;
     }
 
-
-    /* follow me template */
-    .made-with-love {
-        margin-top: 40px;
-        padding: 10px;
-        clear: left;
-        text-align: center;
-        font-size: 10px;
-        font-family: arial;
-        color: #fff;
-    }
-    .made-with-love i {
-        font-style: normal;
-        color: #F50057;
-        font-size: 14px;
-        position: relative;
-        top: 2px;
-    }
-    .made-with-love a {
-        color: #fff;
-        text-decoration: none;
-    }
-    .made-with-love a:hover {
-        text-decoration: underline;
-    }
 
 
     /* for custom scrollbar for webkit browser*/
@@ -238,29 +496,21 @@
     }
 </style>
 <script>
+    import FASTModule from "../Views/FASTModule";
+    // import BrierleyLogo from "./BrierleyLogo";
+
     export default {
         name: 'Test',
+        components:  {FASTModule},
         data: () => ({
             briefDesk: true
         })
     }
 </script>
-<script>
-    const close = document.getElementsByClassName("closebtn");
-    let i;
-
-    for (i = 0; i < close.length; i++) {
-        close[i].onclick = function(){
-            const div = this.parentElement;
-            div.style.opacity = "0";
-            setTimeout(function(){ div.style.display = "none"; }, 600);
-        }
-    }
-</script>
-<script>
-    import FASTModule from "../Views/FASTModule";
-    import BrierleyLogo from "./BrierleyLogo";
-    export default {
-        components:  {FASTModule, BrierleyLogo}
-    }
-</script>
+<!--<script>-->
+<!--    import FASTModule from "../Views/FASTModule";-->
+<!--    import BrierleyLogo from "./BrierleyLogo";-->
+<!--    export default {-->
+<!--        components:  {FASTModule, BrierleyLogo}-->
+<!--    }-->
+<!--</script>-->
