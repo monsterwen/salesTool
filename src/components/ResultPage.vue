@@ -10,7 +10,8 @@
                     <ScoreMeter
                         :holderId="meterId"
                         :currentScore="actualScore"
-                        :potentialScore="potentialScore">
+                        :potentialScore="potentialScore"
+                        :renderMarkers="renderMarkers">
                     </ScoreMeter>
                 </div>
             </div>
@@ -115,6 +116,10 @@
             meterId: {
                 type: String,
                 default: () => 'meter-weeder'
+            },
+            renderMarkers: {
+                type: Boolean,
+                default: () => false
             }
         },
         data: () => ({
@@ -256,6 +261,7 @@
         justify-content: center;
         border-top: 1px solid #CDCDCD;
         border-bottom: 1px solid #CDCDCD;
+        padding-bottom: 3px;
     }
     .module-item {
         display: flex;

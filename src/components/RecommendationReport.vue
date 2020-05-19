@@ -10,6 +10,7 @@
             :potentialDescription="analytic.potentialDescription"
             :recommendedModules="analytic.recommendedModules"
             :meterId="analytic.meterId"
+            :renderMarkers="renderMarkers"
         ></ResultPage>
         <ResultPage
             :category="strategy.category"
@@ -21,6 +22,7 @@
             :potentialDescription="strategy.potentialDescription"
             :recommendedModules="strategy.recommendedModules"
             :meterId="strategy.meterId"
+            :renderMarkers="renderMarkers"
         ></ResultPage>
         <ResultPage
             :category="insight.category"
@@ -32,6 +34,7 @@
             :potentialDescription="insight.potentialDescription"
             :recommendedModules="insight.recommendedModules"
             :meterId="insight.meterId"
+            :renderMarkers="renderMarkers"
         ></ResultPage>
         <ResultPage
             :category="custexp.category"
@@ -43,6 +46,7 @@
             :potentialDescription="custexp.potentialDescription"
             :recommendedModules="custexp.recommendedModules"
             :meterId="custexp.meterId"
+            :renderMarkers="renderMarkers"
         ></ResultPage>
         <ResultPage
             :category="technology.category"
@@ -54,6 +58,7 @@
             :potentialDescription="technology.potentialDescription"
             :recommendedModules="technology.recommendedModules"
             :meterId="technology.meterId"
+            :renderMarkers="renderMarkers"
         ></ResultPage>
     </div>
 </template>
@@ -96,8 +101,8 @@
                     potentialScoreDescriptor: 'mod',
                     actualScore: 1.2,
                     potentialScore: 3.0,
-                    scoreDescription: 'There are a few key areas that would elevate your analytical capability and give you improved visibility of how programmes are performing and key customer characteristics.',
-                    potentialDescription: 'and ensure that all of your analytical needs are met, we recommend taking advantage of the following modules.',
+                    scoreDescription: 'There is an opportunity to better benchmark efforts against competitor offerings and review underlying design to cultivate improved value proposition, customer experience and long term emotional loyalty.',
+                    potentialDescription: 'In order to improve existing strategical efforts, we recommend the following modules',
                     recommendedModules: [
                         {
                             name: 'Brand & Programme Tracker',
@@ -175,6 +180,10 @@
                     ],
                     meterId: 'technology-meter'
                 })
+            },
+            renderMarkers: {
+                type: Boolean,
+                default: () => false
             }
         },
         data: () => ({})

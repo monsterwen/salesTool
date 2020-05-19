@@ -43,6 +43,10 @@
                     right: 6,
                     bottom: 28
                 })
+            },
+            renderMarkers: {
+                type: Boolean,
+                default: () => false
             }
         },
         data: () => ({
@@ -55,6 +59,11 @@
             width: 0,
             height: 0,
         }),
+        watch: {
+            renderMarkers: function () {
+                this.setMarkers()
+            }
+        },
         mounted: function () {
             this.populateScale()
         },
@@ -109,7 +118,7 @@
                     .attr('y', this.margin.topOffset - this.margin.top / 3)
                     .style('font-size', `${this.margin.top / (3 / 2)}px`)
                     .text('Potential')
-                setTimeout(this.setMarkers, 511);
+                // setTimeout(this.setMarkers, 511);
             },
             setMarkers: function () {
                 this.width = this.potentialSvg.node().getBoundingClientRect().width

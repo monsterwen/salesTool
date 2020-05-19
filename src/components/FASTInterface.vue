@@ -172,7 +172,14 @@
             </div>
             <div class="reportHolder" :class="{ 'reportFinished': summary }">
                 <div class="recommendationHolder">
-                    <RecommendationReport></RecommendationReport>
+                    <RecommendationReport
+                            :analytic="analyticData"
+                            :strategy="strategyData"
+                            :insight="insightData"
+                            :custexp="custexpData"
+                            :technology="techData"
+                            :renderMarkers="renderMarkers"
+                    ></RecommendationReport>
 <!--                    <div class="spacer"></div>-->
 <!--                    <div class="recommendHead">-->
 <!--                        <p>Things are looking OK</p>-->
@@ -751,6 +758,7 @@
                 custexp: 0,
                 total: 0
             },
+            renderMarkers: false,
             postScores: {
                 analysis: 85,
                 insight: 85,
@@ -791,18 +799,117 @@
                 .range(this.colorRange)
         },
         computed: {
-          preColor: function () {
-              if (!this.colorsScale) {
-                  return '#dedede'
-              }
-            return this.colorsScale(this.radarScores.pre)
-          },
-          postColor: function () {
-              if (!this.colorsScale) {
-                  return '#dedede'
-              }
-            return this.colorsScale(this.radarScores.post)
-          }
+            preColor: function () {
+                if (!this.colorsScale) {
+                    return '#dedede'
+                }
+                return this.colorsScale(this.radarScores.pre)
+            },
+            postColor: function () {
+                if (!this.colorsScale) {
+                    return '#dedede'
+                }
+                return this.colorsScale(this.radarScores.post)
+            },
+            analyticData: function () {
+                return {
+                    category: 'Analytics',
+                    actualScoreDescriptor: 'low',
+                    potentialScoreDescriptor: 'high',
+                    actualScore: d3.format('.1f')(this.scores.analysis / 20),
+                    potentialScore: d3.format('.1f')(this.postScores.analysis / 20),
+                    scoreDescription: 'There are a few key areas that would elevate your analytical capability and give you improved visibility of how programmes are performing and key customer characteristics.',
+                    potentialDescription: 'and ensure that all of your analytical needs are met, we recommend taking advantage of the following modules.',
+                    recommendedModules: [
+                        {
+                            name: 'Brand & Programme Tracker',
+                            description: 'Establish customer perception of the CRM or loyalty programme and likes or dislikes pertaining to the brand experience and identify aspects to change or act on to increase satisfaction, loyalty and LTV.'
+                        }, {
+                            name: 'Customer Demographic Profiling',
+                            description: 'Identify what your customers look like by examining key traits and the extent to which they over or under index.  Map characteristics to product and service '
+                        }
+                    ],
+                    meterId: 'analytic-meter'
+                }
+            },
+            strategyData: function () {
+                return {
+                    category: 'Strategy',
+                    actualScoreDescriptor: 'low',
+                    potentialScoreDescriptor: 'mod',
+                    actualScore: d3.format('.1f')(this.scores.strategy / 20),
+                    potentialScore: d3.format('.1f')(this.postScores.strategy / 20),
+                    scoreDescription: 'There is an opportunity to better benchmark efforts against competitor offerings and review underlying design to cultivate improved value proposition, customer experience and long term emotional loyalty.',
+                    potentialDescription: 'In order to improve existing strategical efforts, we recommend the following modules',
+                    recommendedModules: [
+                        {
+                            name: 'Brand & Programme Tracker',
+                            description: 'Establish customer perception of the CRM or loyalty programme and likes or dislikes pertaining to the brand experience and identify aspects to change or act on to increase satisfaction, loyalty and LTV.'
+                        }, {
+                            name: 'Customer Demographic Profiling',
+                            description: 'Identify what your customers look like by examining key traits and the extent to which they over or under index.  Map characteristics to product and service '
+                        }
+                    ],
+                    meterId: 'strategy-meter'
+                }
+            },
+            insightData: function () {
+                return {
+                    category: 'Insight',
+                    actualScoreDescriptor: 'mod',
+                    potentialScoreDescriptor: 'high',
+                    actualScore: d3.format('.1f')(this.scores.insight / 20),
+                    potentialScore: d3.format('.1f')(this.postScores.insight / 20),
+                    scoreDescription: 'Essential steps seem to have been taken to use data to better understand the customer and inform the programmes that should connect them. However, there are still disctinct gaps in insight functionality.',
+                    potentialDescription: 'The gaps identified would be best addressed by the following modules.',
+                    recommendedModules: [
+                        {
+                            name: 'Brand & Programme Tracker',
+                            description: 'Establish customer perception of the CRM or loyalty programme and likes or dislikes pertaining to the brand experience and identify aspects to change or act on to increase satisfaction, loyalty and LTV.'
+                        }, {
+                            name: 'Customer Demographic Profiling',
+                            description: 'Identify what your customers look like by examining key traits and the extent to which they over or under index.  Map characteristics to product and service '
+                        }
+                    ],
+                    meterId: 'insight-meter'
+                }
+            },
+            techData: function () {
+                return {
+                    category: 'Technology',
+                    actualScoreDescriptor: 'low',
+                    potentialScoreDescriptor: 'high',
+                    actualScore: d3.format('.1f')(this.scores.tes / 20),
+                    potentialScore: d3.format('.1f')(this.postScores.tes / 20),
+                    scoreDescription: 'There are notable gaps in the existence of key features or capability to utilise existing ones that would enhance customer insights and deliver seamless experience.',
+                    potentialDescription: 'In order to address this a thorough platform and tooling audit is recommended.',
+                    recommendedModules: [
+                        {
+                            name: 'Technological Consult with Brierley Staff',
+                            description: 'A 1 to 1 consult to give an in depth overview of your technological capabilities as they pertain to programme effectiveness.'
+                        }
+                    ],
+                    meterId: 'tech-meter'
+                }
+            },
+            custexpData: function () {
+                return {
+                    category: 'Customer Experience',
+                    actualScoreDescriptor: 'low',
+                    potentialScoreDescriptor: 'high',
+                    actualScore: d3.format('.1f')(this.scores.custexp / 20),
+                    potentialScore: d3.format('.1f')(this.postScores.custexp / 20),
+                    scoreDescription: 'The customer experience might not always be as connected and frictionless across channels. Opportunities exist to markedly better integrate preferences and behavioural engagement data to create improved interaction with the brand and associated programmes',
+                    potentialDescription: 'To address these issues in your customer experience, we recommend',
+                    recommendedModules: [
+                        {
+                            name: 'Comprehensive Journey Mapping',
+                            description: 'You and the Brierley team take an in depth look in your Customer Journey mapping to isolate key pain points and map them to an impact effort matrix to direct resolution.'
+                        }
+                    ],
+                    meterId: 'custexp-meter'
+                }
+            }
         },
         watch: {
             summary: function () {
@@ -870,6 +977,7 @@
                     this.radarScores.post = 425
                     this.questionProgress.total = this.questionTotals.total
                     setTimeout(() => {
+                        this.renderMarkers = true
                         signupContainer[0].scrollIntoView({ behavior: 'smooth', block: 'center' })
                     }, 2050);
                 }
@@ -1189,7 +1297,7 @@
     flex-basis: 100%;
     width: 100%;
     height: 100%;
-    background-color: #cdcdcd;
+    background-color: #f0f0f0;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -1199,7 +1307,7 @@
     background-color: #d7d7d7;
 }
 .categoryHeader :hover {
-    background-color: #d7d7d7;
+    background-color: #f0f0f0;
 }
 .selected {
     background-color: #dcdcdc;
@@ -1239,7 +1347,7 @@
     margin-bottom: 24px;
     margin-right: 12px;
     table-layout: fixed;
-    background-color: #CDCDCD;
+    background-color: #ffffff;
 }
 .metricTD {
     width: 40%;
