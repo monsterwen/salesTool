@@ -1,7 +1,5 @@
 <template>
     <div class="fastHolder">
-<!--        <div class="fastHeader">-->
-<!--        </div>-->
         <div class="moduleHolder flexHolder questionHolder card" :class="{ 'questionFinished': summary }">
             <div class="transitionOverlay"
                  :class="{ 'transitionActive': summary }">
@@ -174,51 +172,54 @@
             </div>
             <div class="reportHolder" :class="{ 'reportFinished': summary }">
                 <div class="recommendationHolder">
+                    <RecommendationReport></RecommendationReport>
 <!--                    <div class="spacer"></div>-->
-                    <div class="recommendHead">
-                        <p>Things are looking OK</p>
-                    </div>
-                    <div class="recommendSubHead">
-                        <p>Here is what you can do to improve</p>
-                    </div>
-                    <div class="questionHeader">
-                        <div class="recTick"></div>
-                        <div class="recText">
-                            <p>Start jogging. Daily exercise will improve your energy levels enough to improve your business.</p>
-                        </div>
-                    </div>
-                    <div class="questionHeader">
-                        <div class="recTick"></div>
-                        <div class="recText">
-                            <p>Purchase Brierley products. We're really good at this stuff and will make it real easy for you. TRUst us and good things will come.</p>
-                        </div>
-                    </div>
-                    <div class="questionHeader">
-                        <div class="recTick"></div>
-                        <div class="recText">
-                            <p>Juice an entire stock of celery every morning and drink it on an empty stomach. The effects of this will be subtle at first, but you will soon realize that you are now an industry leader, setting standards and making $$$</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="lineContainer">
-                    <ScoreLine
-                        :preScore="scores.total / 100"
-                        :postScore="postScores.total / 100"
-                        :preColor="preColor"
-                        :postColor="postColor"
-                        :renderFull="drawLine">
-                    </ScoreLine>
-                </div>
+<!--                    <div class="recommendHead">-->
+<!--                        <p>Things are looking OK</p>-->
+<!--                    </div>-->
+<!--                    <div class="recommendSubHead">-->
+<!--                        <p>Here is what you can do to improve</p>-->
+<!--                    </div>-->
+<!--                    <div class="questionHeader">-->
+<!--                        <div class="recTick"></div>-->
+<!--                        <div class="recText">-->
+<!--                            <p>Start jogging. Daily exercise will improve your energy levels enough to improve your business.</p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="questionHeader">-->
+<!--                        <div class="recTick"></div>-->
+<!--                        <div class="recText">-->
+<!--                            <p>Purchase Brierley products. We're really good at this stuff and will make it real easy for you. TRUst us and good things will come.</p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="questionHeader">-->
+<!--                        <div class="recTick"></div>-->
+<!--                        <div class="recText">-->
+<!--                            <p>Juice an entire stock of celery every morning and drink it on an empty stomach. The effects of this will be subtle at first, but you will soon realize that you are now an industry leader, setting standards and making $$$</p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="lineContainer">-->
+<!--                    <ScoreLine-->
+<!--                        :preScore="scores.total / 100"-->
+<!--                        :postScore="postScores.total / 100"-->
+<!--                        :preColor="preColor"-->
+<!--                        :postColor="postColor"-->
+<!--                        :renderFull="drawLine">-->
+<!--                    </ScoreLine>-->
+<!--                </div>-->
             </div>
             </div>
         </div>
+    </div>
 </template>
 
 <script>
     import RadarChart from '../components/RadarChart'
     import Questionaire from '../components/Questionaire'
     import QuestionCategory from './QuestionCategory'
-    import ScoreLine from './ScoreLine'
+    import RecommendationReport from './RecommendationReport'
+    // import ScoreLine from './ScoreLine'
     import * as d3 from 'd3'
 
     export default {
@@ -227,7 +228,8 @@
             QuestionCategory,
             RadarChart,
             Questionaire,
-            ScoreLine
+            RecommendationReport
+            // ScoreLine
         },
         data: () => ({
             radarData: [[{
@@ -825,6 +827,8 @@
                 if (index !== this.categories.length - 1) {
                     this.selectedCategory = this.categories[index + 1]
                 } else {
+                    let signupContainer = document.getElementsByClassName('fastHolder')
+                    console.log('scrollingto', signupContainer)
                     this.scores.total = (this.scores.analysis +
                     this.scores.insight +
                     this.scores.strategy +
@@ -865,7 +869,9 @@
                     ])
                     this.radarScores.post = 425
                     this.questionProgress.total = this.questionTotals.total
-                    setTimeout(() => { this.drawLine = true }, 2050);
+                    setTimeout(() => {
+                        signupContainer[0].scrollIntoView({ behavior: 'smooth', block: 'center' })
+                    }, 2050);
                 }
             },
             createQuestionStatistics: function () {
@@ -1001,6 +1007,7 @@
     width: 100%;
     height: 100%;
     display: flex;
+    border-radius: 12px;
     flex-direction: row;
     flex-wrap: wrap;
 }
@@ -1112,12 +1119,12 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 75%;
-    height: 65%;
+    width: 100%;
     display: flex;
     margin-left: 24px;
     margin-right: 24px;
     flex-flow: row wrap;
+    overflow: auto;
 }
 .lineContainer {
     position: absolute;
@@ -1132,6 +1139,7 @@
     flex-basis: 66%;
     border: 6px solid #DEDEDE;
     border-top: 0;
+    overflow-y: auto;
     border-left: 0;
 }
 .legendElement {
@@ -1288,14 +1296,9 @@
     flex-basis: 100%;
     height: 12px;
 }
-.card {
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
-    width: 40%;
-}
-
-.card:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+.categoryHolder {
+    width: 20%;
+    flex-basis: 20%;
 }
 
 </style>

@@ -1,11 +1,11 @@
 <template>
     <div class="wrapper">
         <div class="fastModule" id="fast-module">
-            <div class="fastTitle">
-                <div class="brierleyHolder">
-                    <BrierleyLogo></BrierleyLogo>
-                </div>
-            </div>
+<!--            <div class="fastTitle">-->
+<!--                <div class="brierleyHolder">-->
+<!--                    <BrierleyLogo></BrierleyLogo>-->
+<!--                </div>-->
+<!--            </div>-->
             <div class="fastContainer">
                 <FASTInterface></FASTInterface>
             </div>
@@ -14,11 +14,11 @@
 </template>
 
 <script>
-    import BrierleyLogo from '../components/BrierleyLogo'
+    // import BrierleyLogo from '../components/BrierleyLogo'
     import FASTInterface from '../components/FASTInterface'
     export default {
         name: 'FASTModule',
-        components: {FASTInterface, BrierleyLogo},
+        components: {FASTInterface},
         data: () => ({
             radarMargins: {
                 top: 12,

@@ -2,14 +2,6 @@
     <div class="wrapper-div">
 
         <!-- The Modal -->
-        <div class="signup-modal"
-             :class="{ 'modal-hidden': !displayModal }">
-            <!-- Modal content -->
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <p>Some text in the Modal..</p>
-            </div>
-        </div>
         <div class="landing-wrapper" id="wrapper">
         <div class="header-container">
                 <div class="header-curve">
@@ -36,7 +28,7 @@
                                 </div>
                                 <div class="header-button header-text-section">
                                     <button class="signup-button"
-                                            v-on:click="displayModal = true">Take the Assessment</button>
+                                            v-on:click="scrollToSignUp()">Take the Assessment</button>
                                 </div>
                             </div>
                         </div>
@@ -44,12 +36,22 @@
                 </div>
 <!--            </div>-->
         </div>
+<!--        <div class="dimension-header">-->
+<!--            <div class="dimension-title">-->
+<!--                <p>Marketing Maturity Assessment</p>-->
+<!--            </div>-->
+<!--            <div class="dimension-desc">-->
+<!--                <p>A recommendation of key activities and initiatives to advance current programme effectiveness</p>-->
+<!--            </div>-->
+<!--        </div>-->
+        <div class="dimension-container" id="matureAss">
+        </div>
         <div class="dimension-header">
             <div class="dimension-title">
                 <p>5 key dimensions</p>
             </div>
             <div class="dimension-desc">
-                <p>Our 5 point loyalty maturity curve provides a view of your current loyalty capability</p>
+                <p>Our 5 point loyalty maturity curve provides an in depth view of your current loyalty capability</p>
             </div>
         </div>
         <div class="dimension-container" id="analytics">
@@ -71,7 +73,7 @@
                 </div>
                 <div class="dimension-side dimension-right">
                     <div class="dimension-image">
-                        <img class="dimension-png" :src="require('../assets/images/analyticsIcon.png')">
+                        <img class="dimension-png" :src="require('../assets/svg/analytics.svg')">
                     </div>
                 </div>
             </div>
@@ -166,16 +168,21 @@
                     </div>
                 </div>
                 <div class="dimension-side dimension-right">
-                    <div class="dimension-image">
-                        <img class="dimension-png" :src="require('../assets/images/cxIcon.png')">
+                    <div class="dimension-image" style="padding-top: 4%;padding-bottom: 4%;">
+                        <img class="dimension-png" :src="require('../assets/svg/customerEx/customerExp.svg')">
                     </div>
                 </div>
             </div>
         </div>
         <div class="spacer"></div>
         <div class="dimension-container signup-container">
-            <div class="signup-content">
-                <SignUpField></SignUpField>
+            <div class="signup-content" v-if="!displayQuestionaire">
+                <SignUpField
+                        @submitted="displayQuestionaire = true"
+                    ></SignUpField>
+            </div>
+            <div class="questionaire-content" v-if="displayQuestionaire">
+                <FASTModule></FASTModule>
             </div>
         </div>
 <!--            <FASTModule></FASTModule>-->
@@ -184,31 +191,37 @@
     </div>
 </template>
 <script>
-    // import FASTModule from "../Views/FASTModule";
+    import FASTModule from "../Views/FASTModule";
     import SignUpField from "./SignUpField";
     // import BrierleyLogo from "./BrierleyLogo";
-    import * as d3 from 'd3'
+    // import * as d3 from 'd3'
 
     export default {
         name: 'Test',
         components:  {
-            // FASTModule,
+            FASTModule,
             SignUpField
         },
         data: () => ({
             briefDesk: true,
             signupModal: null,
-            displayModal: false
+            signupContainer: null,
+            displayQuestionaire: false
         }),
         mounted: function () {
-            let signupModal = d3.select('.signup-modal')
-            window.onclick = (event) => {
-                if (event.target === signupModal.node()) {
-                    this.displayModal = false
-                }
-            }
+            this.signupContainer = document.getElementsByClassName('.signup-container')
+            // window.onclick = (event) => {
+            //     if (event.target === signupContainer) {
+            //         this.displayModal = false
+            //     }
+            // }
         },
         methods: {
+            scrollToSignUp: function () {
+                let signupContainer = document.getElementsByClassName('signup-container')
+                console.log('scrollingto', signupContainer)
+                signupContainer[0].scrollIntoView({ behavior: 'smooth', block: 'center' })
+            }
             // populateModalElements: function () {
             //   this.signupModal = d3.select('.signup-modal')
             //
@@ -220,7 +233,7 @@
     }
 </script>
 <style>
-    @import '../assets/css/default.css';
+    /*@import '../assets/css/default.css';*/
     /*@import '../assets/css/fonts.css';*/
     .signup-modal {
         position: fixed; /* Stay in place */
@@ -346,6 +359,9 @@
         margin-left: 5%;
     }
     .header-headline p {
+        color: #ffffff;
+        font-weight: 700;
+        text-align: left;
         font-size: 61px;
         line-height: 66px;
     }
@@ -358,8 +374,10 @@
     }
     .header-subhead p {
         font-weight: lighter;
+        color: #ffffff;
         font-size: 45px;
         line-height: 50px;
+        text-align: left;
     }
     /*.survey-preview {*/
     /*    box-shadow: 0px 0px 20px 2px #ffffff;*/
@@ -382,6 +400,8 @@
     .dimension-desc {
         font-size: 36px;
         font-weight: normal;
+        margin: 0 auto;
+        max-width: 80%;
     }
     .dimension-container {
         width: 100%;
@@ -460,6 +480,14 @@
         display: flex;
         flex-flow: row wrap;
     }
+    .questionaire-content {
+        width: 100%;
+        flex-basis: 100%;
+        max-width: 1800px;
+        margin: 48px auto;
+        display: flex;
+        flex-flow: row wrap;
+    }
     /*.dimension-left .dimension-text {*/
     /*    justify-content: flex-end;*/
     /*}*/
@@ -487,7 +515,8 @@
     }
     .dimension-body p {
         font-size: 18px;
-        font-weight: lighter;
+        line-height: 1.6em;
+        font-weight: 300;
     }
     .dimension-content {
         min-height: 44vh;

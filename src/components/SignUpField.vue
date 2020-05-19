@@ -50,7 +50,7 @@
                     <div class="input-error" :class="{ 'show-error': !this.email && this.submitted}">
                         <p>Please input an email</p>
                     </div>
-                    <div class="input-error" :class="{ 'show-error': !this.validEmail && this.email && this.submitted}">
+                    <div class="input-error" :class="{ 'show-error': this.email && this.submitted && !this.validEmail}">
                         <p>Please input a valid email</p>
                     </div>
                 </div>
@@ -61,7 +61,7 @@
                 </div>
                 <div class="input-field">
                     <input class="input-text-field"
-                           type="text"
+                           type="tel"
                            id="phoneinput"
                            name="phone"
                            v-model="phone"
@@ -137,8 +137,7 @@ Wholesale Electronic Markets and Agents and Brokers">
         computed: {
             validEmail: function () {
                 // eslint-disable-next-line no-useless-escape
-                if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email))
-                {
+                if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email)) {
                     return true
                 }
                 return false
@@ -146,9 +145,15 @@ Wholesale Electronic Markets and Agents and Brokers">
         },
         methods: {
             checkForm: function (e) {
-                e.preventDefault();
                 console.log('submitted', e)
                 this.submitted = true
+                if (!this.name || !this.email ||
+                    !this.orgName || !this.industry ||
+                    !this.validEmail) {
+                    e.preventDefault();
+                } else {
+                    this.$emit('submitted')
+                }
 
             }
         }
@@ -156,6 +161,7 @@ Wholesale Electronic Markets and Agents and Brokers">
 </script>
 
 <style scoped>
+    /*@import url('../assets/css/index.css');*/
     .sign-up-header {
         width: 100%;
         margin-top: 24px;
