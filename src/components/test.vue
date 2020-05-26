@@ -94,9 +94,8 @@
                             <p>Can my business effectively synthesize analytics and insight to optimise program health?</p>
                         </div>
                         <div class="dimension-body">
-                            <p>Ability to aquire and properly analyze large amounts of consumer data is crucial for a business to stay on the cutting
-                                edge of business trends, illuminate customer characteristics, and ensure program health.
-                                The analytical ability of a business can be the difference between success and failure of a product. </p>
+                            <p>Being able to craft a viable plan that sets realistic goals and outlines the resources to execute it is essential in developing a differentiated programme. Describing and directing an appropriate directionof travel that positions the
+                                evolution of the proposition for all stakeholders over the long term is key for success.</p>
                         </div>
                     </div>
                 </div>
@@ -113,9 +112,7 @@
                             <p>Can my business turn knowledge into action?</p>
                         </div>
                         <div class="dimension-body">
-                            <p>Ability to aquire and properly analyze large amounts of consumer data is crucial for a business to stay on the cutting
-                                edge of business trends, illuminate customer characteristics, and ensure program health.
-                                The analytical ability of a business can be the difference between success and failure of a product. </p>
+                            <p>The ability to take available analysis and turn it into actionable insight effectively is what sets brands apart from their competition. Being able to quickly adapt in order to change actions or responses based on interpretation of underlying data is a vital ingredient of a successful programme.</p>
                         </div>
                     </div>
                 </div>
@@ -142,9 +139,7 @@
                             <p>Is programme success supported by best in class tooling ?</p>
                         </div>
                         <div class="dimension-body">
-                            <p>Ability to aquire and properly analyze large amounts of consumer data is crucial for a business to stay on the cutting
-                                edge of business trends, illuminate customer characteristics, and ensure program health.
-                                The analytical ability of a business can be the difference between success and failure of a product. </p>
+                            <p>Having the ability to operationalise your loyalty programme so as to manage both outstanding customer experience and provide necessary management insight rests with having robust yet flexible tooling to ensure programme strategy and vision can be realized. </p>
                         </div>
                     </div>
                 </div>
@@ -161,9 +156,7 @@
                             <p>Is the customer engaged and delighted throughout the journey?</p>
                         </div>
                         <div class="dimension-body">
-                            <p>Ability to aquire and properly analyze large amounts of consumer data is crucial for a business to stay on the cutting
-                                edge of business trends, illuminate customer characteristics, and ensure program health.
-                                The analytical ability of a business can be the difference between success and failure of a product. </p>
+                            <p>Engaging with the programme must be easy. Enabling frictionless, intuitive engagement that serves to address customer need and expectation across the journey is fundamental in developing positive experience. Programme integration across key inflection points and channels delivers optimum accessibility and opportunity to participate.</p>
                         </div>
                     </div>
                 </div>
