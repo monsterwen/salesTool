@@ -5,9 +5,24 @@
             </svg>
         </div>
         <div class="score-meter" :style="`height: calc(100% - ${margin.top + margin.bottom}px);width: calc(100% - ${margin.left + margin.right}px);`">
-            <div class="low-section"></div>
-            <div class="moderate-section"></div>
-            <div class="high-section"></div>
+            <div class="low-section range">
+                <div class="meter-tooltip">
+                    <h3><b>Basic</b> (1 - 2.5)</h3>
+                    <p>Work is required to better leverage customer and member insights to develop a programme that differentiates itself from the competition.  Efforts to better understand customer wants and needs are required as is a re-evaluation of the core programme proposition and overall design to set a clearer direction of travel.  It’s possible that limitations with the platform supporting the programme are throttling the ability to introduce more compelling programme features and deliver a more immersive customer experience.</p>
+                </div>
+            </div>
+            <div class="moderate-section range">
+                <div class="meter-tooltip">
+                    <h3><b>Emerging</b> (2.5 - 3.5)</h3>
+                    <p>A clear programme strategy is in play that is informed and driven by maturing customer insights drawn from an evolving analytic function.  Improved understanding of key customer groups and their behaviours is providing scope to better personalise offers and communications and importantly deliver experiential impact.  Potential exists to challenge the programme status quo with the introduction of new features and capabilities that will serve to amplify the value proposition and distinguish the brand from its immediate competitor set.</p>
+                </div>
+            </div>
+            <div class="high-section range">
+                <div class="meter-tooltip">
+                    <h3><b>Sophisticated</b> (3.5 - 5)</h3>
+                    <p>The programme is clearly differentiated form the competition and driven by solid analytic and insight capabilities that informs a cultured loyalty strategy. Efforts are made to continually evolve the programme and keep ahead of the pack supported by robust programme design and operationalised with a dedicated loyalty platform. Focus is on elevating the customer experience across multiple touch points and channels and securing stronger emotional connections with customer and programme members.</p>
+                </div>
+            </div>
         </div>
         <div class="marks-div" :style="`height: ${margin.bottom}px;width: calc(100% - ${margin.left + margin.right}px);`">
             <svg class="meter-marks" id="current">
@@ -66,6 +81,9 @@
         },
         mounted: function () {
             this.populateScale()
+            if (this.renderMarkers) {
+                this.setMarkers()
+            }
         },
         methods: {
             populateScale: function () {
@@ -158,11 +176,63 @@
         align-items: center;
         overflow: visible;
     }
+    h3 {
+        margin: 0;
+        font-family: Avenir, Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    p {
+        margin: 0;
+        font-family: Avenir, Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    .meter-tooltip h3 {
+        margin: 6px 0;
+    }
+    .meter-tooltip p {
+        margin: 0 6px;
+    }
     .marks-div {
 
     }
     .score-meter {
         display: flex;
+    }
+    .meter-tooltip {
+        visibility: hidden;
+        padding-left: 8px;
+        padding-right: 8px;
+        max-width: 450px;
+        background-color: rgba(61, 61, 61, 0.9);
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+        position: relative;
+        z-index: 1;
+        top: 125%;
+        left: 50%;
+        transform: translateX(-40%);
+        margin-left: -60px;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+    .meter-tooltip p {}
+    .meter-tooltip::before {
+        content: "";
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent transparent rgba(61, 61, 61, 0.9) transparent;
+    }
+    .range:hover .meter-tooltip {
+        visibility: visible;
+        opacity: 1;
     }
     .low-section {
         width: 50%;
