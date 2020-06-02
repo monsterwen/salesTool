@@ -1,10 +1,10 @@
 <template>
     <div class="score-meter-holder" :id="holderId">
-        <div class="marks-div" :style="`height: ${margin.top}px;width: calc(100% - ${margin.left + margin.right}px);`">
+        <div class="marks-div" :style="`height: ${margin.top}px;width: 100%; padding-right: ${margin.right}px; padding-left: ${margin.left}px;`">
             <svg class="meter-marks" id="potential">
             </svg>
         </div>
-        <div class="score-meter" :style="`height: calc(100% - ${margin.top + margin.bottom}px);width: calc(100% - ${margin.left + margin.right}px);`">
+        <div class="score-meter" :style="`height: calc(100% - ${margin.top + margin.bottom}px);width: 100%; padding-right: ${margin.right}px; padding-left: ${margin.left}px;`">
             <div class="low-section range">
                 <div class="meter-tooltip">
                     <h3><b>Basic</b> (1 - 2.5)</h3>
@@ -24,7 +24,7 @@
                 </div>
             </div>
         </div>
-        <div class="marks-div" :style="`height: ${margin.bottom}px;width: calc(100% - ${margin.left + margin.right}px);`">
+        <div class="marks-div" :style="`height: ${margin.bottom}px;width: 100%; padding-right: ${margin.right}px; padding-left: ${margin.left}px;`">
             <svg class="meter-marks" id="current">
             </svg>
         </div>
@@ -52,7 +52,7 @@
             margin: {
                 type: Object,
                 default: () => ({
-                    left: 36,
+                    left: 12,
                     top: 28,
                     topOffset: 3,
                     right: 6,
@@ -210,6 +210,7 @@
         text-align: center;
         border-radius: 6px;
         padding: 5px 0;
+        padding-bottom: 6px;
         position: relative;
         z-index: 1;
         top: 125%;

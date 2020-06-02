@@ -18,7 +18,7 @@ export const taskData = {
     updated_at: new Date(2019, 0, 1, 9, 0),
 };
 
-const taskTemplate = `<ResultPage></ResultPage>`;
+const taskTemplate = `<div style="width: 1140px; height: 993px"><ResultPage></ResultPage></div>`;
 
 // default task state
 export const Default = () => ({

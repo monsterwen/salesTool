@@ -1,31 +1,26 @@
 import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
-import SignUp from './components/signup'
+// import SignUp from './components/signup'
 import FASTModule from './Views/FASTModule'
-import Intro from './components/intro'
-import JQuery from 'jquery'
+// import Intro from './components/intro'
+// import JQuery from 'jquery'
 import Test from './components/test'
-window.$ = JQuery
+// window.$ = JQuery
 Vue.use(VueRouter)
 Vue.config.productionTip = false
 
 const router = new VueRouter({
   routes: [
-    {
-      path: '/',
-      name: 'SignUp',
-      component: SignUp,
-    },
+    // {
+    //   path: '/',
+    //   name: 'SignUp',
+    //   component: SignUp,
+    // },
     {
       path: '/test',
       name: 'test',
       component: Test
-    },
-    {
-      path: '/intro',
-      name: 'Intro',
-      component: Intro.defalt
     },
     {
       path: '/fast',

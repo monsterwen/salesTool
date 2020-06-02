@@ -36,14 +36,27 @@
                 </div>
 <!--            </div>-->
         </div>
-<!--        <div class="dimension-header">-->
-<!--            <div class="dimension-title">-->
-<!--                <p>Marketing Maturity Assessment</p>-->
-<!--            </div>-->
-<!--            <div class="dimension-desc">-->
-<!--                <p>A recommendation of key activities and initiatives to advance current programme effectiveness</p>-->
-<!--            </div>-->
-<!--        </div>-->
+        <div class="dimension-header">
+            <div class="dimension-title">
+                <p>The Loyalty Capability Diagnostic Tool</p>
+            </div>
+            <div class="dimension-desc">
+                <p>Visualize opportunities to elevate your loyalty programme effectiveness and value with Brierley's FASTtrack Modules</p>
+            </div>
+        </div>
+        <div class="dimension-container" id="fast-video">
+            <div class="dimension-content">
+                <div class="video-container">
+                    <div class="video-placeholder">
+                        <div class="button-holder">
+                            <button class="play-button">
+                                <i class="material-icons" style="font-size: 48px; color: rgba(0,0,0,0.5)">play_arrow</i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="dimension-container" id="matureAss">
         </div>
         <div class="dimension-header">
@@ -407,6 +420,7 @@
         margin: 0 auto;
         display: flex;
         flex-flow: row wrap;
+        justify-content: center;
     }
     .dimension-side {
         width: 50%;
@@ -494,6 +508,9 @@
         margin-top: 12px;
         margin-bottom: 12px;
     }
+    .dimension-subhead {
+        margin: 12px 0;
+    }
     .dimension-subhead p {
         font-size: 24px;
         font-weight: 400;
@@ -513,7 +530,7 @@
     }
     .dimension-content {
         min-height: 44vh;
-        max-height: 550px;
+        /*max-height: 550px;*/
     }
     .dimension-image {
         height: 100%;
@@ -548,10 +565,37 @@
         padding-bottom: 25vh;
         background-color: #ffffff;
     }
-
+    .video-container {
+        width: 60%;
+        height: 100%;
+    }
+    .video-placeholder {
+        width: 100%;
+        height: 0;
+        padding-bottom: 56.25%;
+        border-radius: 6px;
+        background: linear-gradient(top, rgba(0, 159, 188, 0.7), rgba(165, 187, 0, 0.7));
+        position: relative;
+    }
+    .button-holder {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .play-button {
+        border-radius: 100%;
+        width: 72px;
+        height: 72px;
+        background-color: rgba(255, 255, 255, 0.5);
+    }
     /* demo styles */
 
-    @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);\
+    @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
     section{
         margin: 50px;
     }

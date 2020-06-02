@@ -357,11 +357,11 @@
                         question: 'Do you know which customer segments and activities drive greatest uplift in engagement and profitability?',
                         type: 'insight',
                         response: 'none'
-                    }, {
-                        question: 'Is your customer audience grouped into actionable segments?',
-                        type: 'insight',
-                        response: 'none'
-                    },
+                    }
+                    //     question: 'Is your customer audience grouped into actionable segments?',
+                    //     type: 'insight',
+                    //     response: 'none'
+                    // },
                     // {
                     //     question: 'Are one to one tactics personalised in tone and aligned with channel preferences?',
                     //     type: 'insight',
@@ -456,11 +456,11 @@
                         question: 'Do you know what enhancements are required to best optimise and impact the customer journey?',
                         type: 'strategy',
                         response: 'none'
-                    }, {
-                        question: 'Can you easily identify the programme features and benefits that appeal to each customer persona?',
-                        type: 'strategy',
-                        response: 'none'
-                    },
+                    }
+                    //     question: 'Can you easily identify the programme features and benefits that appeal to each customer persona?',
+                    //     type: 'strategy',
+                    //     response: 'none'
+                    // },
                     // {
                     //     question: 'Can you easily identify what programme enhancements are required to make the most immediate impact?',
                     //     type: 'strategy',
@@ -579,11 +579,11 @@
                         question: 'Do you have the capability to identify and pull all information pertinent to DSAR?',
                         type: 'tes',
                         response: 'none'
-                    }, {
-                        question: 'Can your system support Right to be Forgotten / erasure requests from data subjects?',
-                        type: 'tes',
-                        response: 'none'
-                    },
+                    }
+                    //     question: 'Can your system support Right to be Forgotten / erasure requests from data subjects?',
+                    //     type: 'tes',
+                    //     response: 'none'
+                    // },
                     // {
                     //     question: 'Can your platform manage, log and store consent and permission status detail in order to maintain the essential audit trail ?',
                     //     type: 'tes',
@@ -686,7 +686,7 @@
                         question: 'Do you leverage customer effort metrics when developing loyalty platforms, tools and materials?',
                         type: 'custexp',
                         response: 'none'
-                    },
+                    }
                     // {
                     //     question: 'Are you employing the use of personalised dynamic content to enrich digital communication relevance?',
                     //     type: 'custexp',
@@ -787,8 +787,8 @@
                 'custexp'
             ],
             colorsScale: null,
-            scoreRange: [0, 200, 500],
-            colorRange: ['#D83737', '#FFBF00', '#A5BB00'],
+            scoreRange: [0, 249, 250, 349, 350, 500],
+            colorRange: ['#D83737','#D83737','#FFBF00','#FFBF00','#A5BB00','#A5BB00'],
             tableFormat: d3.format('.2f')
             }),
         mounted: function () {
@@ -823,9 +823,21 @@
                     recommendedModules: [
                         {
                             name: 'Brand & Programme Tracker',
+                            id: 'bpt',
+                            sub: 'This module will allow you to:',
+                            capabilities: [
+                                'Improve and optimise key journeys',
+                                'Adapt the programme to improve ling term member satisfaction'
+                            ],
                             description: 'Establish customer perception of the CRM or loyalty programme and likes or dislikes pertaining to the brand experience and identify aspects to change or act on to increase satisfaction, loyalty and LTV.'
                         }, {
                             name: 'Customer Demographic Profiling',
+                            id: 'cdf',
+                            sub: 'So you can:',
+                            capabilities: [
+                                'Develop actionable customer segments',
+                                'Develop personalised one to one customer tactics aligned in tone and channel preference'
+                            ],
                             description: 'Identify what your customers look like by examining key traits and the extent to which they over or under index.  Map characteristics to product and service '
                         }
                     ],
@@ -844,9 +856,21 @@
                     recommendedModules: [
                         {
                             name: 'Brand & Programme Tracker',
+                            id: 'bpt',
+                            sub: 'This module will allow you to:',
+                            capabilities: [
+                                'Improve and optimise key journeys',
+                                'Adapt the programme to improve ling term member satisfaction'
+                            ],
                             description: 'Establish customer perception of the CRM or loyalty programme and likes or dislikes pertaining to the brand experience and identify aspects to change or act on to increase satisfaction, loyalty and LTV.'
                         }, {
                             name: 'Customer Demographic Profiling',
+                            id: 'cdf',
+                            sub: 'So you can:',
+                            capabilities: [
+                                'Develop actionable customer segments',
+                                'Develop personalised one to one customer tactics aligned in tone and channel preference'
+                            ],
                             description: 'Identify what your customers look like by examining key traits and the extent to which they over or under index.  Map characteristics to product and service '
                         }
                     ],
@@ -865,9 +889,21 @@
                     recommendedModules: [
                         {
                             name: 'Brand & Programme Tracker',
+                            id: 'bpt',
+                            sub: 'This module will allow you to:',
+                            capabilities: [
+                                'Improve and optimise key journeys',
+                                'Adapt the programme to improve ling term member satisfaction'
+                            ],
                             description: 'Establish customer perception of the CRM or loyalty programme and likes or dislikes pertaining to the brand experience and identify aspects to change or act on to increase satisfaction, loyalty and LTV.'
                         }, {
                             name: 'Customer Demographic Profiling',
+                            id: 'cdf',
+                            sub: 'So you can:',
+                            capabilities: [
+                                'Develop actionable customer segments',
+                                'Develop personalised one to one customer tactics aligned in tone and channel preference'
+                            ],
                             description: 'Identify what your customers look like by examining key traits and the extent to which they over or under index.  Map characteristics to product and service '
                         }
                     ],
@@ -886,6 +922,8 @@
                     recommendedModules: [
                         {
                             name: 'Technological Consult with Brierley Staff',
+                            capabilities: null,
+                            id: 'tech',
                             description: 'A 1 to 1 consult to give an in depth overview of your technological capabilities as they pertain to programme effectiveness.'
                         }
                     ],
@@ -904,6 +942,8 @@
                     recommendedModules: [
                         {
                             name: 'Comprehensive Journey Mapping',
+                            capabilities: null,
+                            id: 'custexp',
                             description: 'You and the Brierley team take an in depth look in your Customer Journey mapping to isolate key pain points and map them to an impact effort matrix to direct resolution.'
                         }
                     ],
@@ -1211,8 +1251,8 @@
     flex-wrap: wrap;
 }
 .chartFinished {
-    width: 34%;
-    flex-basis: 34%;
+    width: 28%;
+    flex-basis: 28%;
     border-right: none;
 }
 .reportHolder {
@@ -1242,9 +1282,9 @@
     height: 100%;
 }
 .reportFinished {
-    width: 66%;
+    width: 72%;
     height: calc(100vh - 132px);
-    flex-basis: 66%;
+    flex-basis: 72%;
     border: 6px solid #DEDEDE;
     border-top: 0;
     overflow-y: auto;

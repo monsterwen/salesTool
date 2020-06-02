@@ -39,7 +39,7 @@
             },
             colorRange: {
                 type: Array,
-                default: () => ['#D83737', '#FFBF00', '#A5BB00']
+                default: () => ['#D83737','#D83737','#FFBF00','#FFBF00','#A5BB00','#A5BB00']
             }
         },
         watch: {
@@ -76,7 +76,7 @@
                     .range([0, 100])
 
                 let colorScale = d3.scaleLinear()
-                    .domain([0, 40, 100])
+                    .domain([0, 49, 50, 69, 70, 100])
                     .range(this.colorRange)
                 let svg = div
                     .append('svg')

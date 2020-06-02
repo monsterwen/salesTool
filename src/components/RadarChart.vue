@@ -65,11 +65,11 @@
             },
             scoreRange: {
                 type: Array,
-                default: () => [0, 200, 500]
+                default: () => [0, 249, 250, 349, 350, 500]
             },
             colorRange: {
                 type: Array,
-                default: () => ['#D83737', '#FFBF00', '#A5BB00']
+                default: () => ['#D83737','#D83737','#FFBF00','#FFBF00','#A5BB00','#A5BB00']
             }
         },
         watch: {
@@ -233,22 +233,22 @@
                     .attr('id', 'radar-group')
                     // .attr('transform', `translate(${width / 2 + margin.left},${height / 2 + margin.top}`)
 
-                let filter = radarG
-                    .append('defs')
-                    .append('filter')
-                    .attr('id', 'glow')
-                let feGaussianBlur = filter
-                    .append('feGaussianBlur')
-                    .attr('stdDeviation', '3')
-                    .attr('result', 'coloredBlur')
-                let feMerge = filter
-                    .append('feMerge')
-                let feMergeNode_1 = feMerge
-                    .append('feMergeNode')
-                    .attr('in', 'coloredBlur')
-                let feMergeNode_2 = feMerge
-                    .append('feMergeNode')
-                    .attr('in', 'SourceGraphic')
+                // let filter = radarG
+                //     .append('defs')
+                //     .append('filter')
+                //     .attr('id', 'glow')
+                // let feGaussianBlur = filter
+                //     .append('feGaussianBlur')
+                //     .attr('stdDeviation', '3')
+                //     .attr('result', 'coloredBlur')
+                // let feMerge = filter
+                //     .append('feMerge')
+                // let feMergeNode_1 = feMerge
+                //     .append('feMergeNode')
+                //     .attr('in', 'coloredBlur')
+                // let feMergeNode_2 = feMerge
+                //     .append('feMergeNode')
+                //     .attr('in', 'SourceGraphic')
 
                 let axisG = radarG
                     .append('g')
@@ -271,11 +271,11 @@
                 this.axisG = axisG
                 this.blogG = blobG
                 this.tooltip = tooltip
-                this.filter = filter
-                this.feGaussianBlur = feGaussianBlur
-                this.feMerge = feMerge
-                this.feMergeNode_1 = feMergeNode_1
-                this.feMergeNode_2 = feMergeNode_2
+                // this.filter = filter
+                // this.feGaussianBlur = feGaussianBlur
+                // this.feMerge = feMerge
+                // this.feMergeNode_1 = feMergeNode_1
+                // this.feMergeNode_2 = feMergeNode_2
             },
             transformRadarChart: function () {
                 let margin = this.margin
@@ -361,7 +361,7 @@
                     .style('stroke', 'none')
                     .attr('r', radius)
                     .style('fill-opacity', gridOpacity / 2)
-                    .style('filter', 'url(#glow)')
+                    // .style('filter', 'url(#glow)')
 
                 let chartGrid = axisG
                     .selectAll('.gridLevels')
@@ -384,7 +384,7 @@
                     .style('stroke', '#CDCDCD')
                     .attr('r', d => (radius / gridLevels) * d)
                     .style('fill-opacity', gridOpacity)
-                    .style('filter', 'url(#glow)')
+                    // .style('filter', 'url(#glow)')
 
                 let chartLabels = axisG
                     .selectAll('.axisLabel')
@@ -461,7 +461,7 @@
                         return colorScale(this.score[d[0].type])
                     })
                     .style('fill-opacity', areaOpacity)
-                    .style('filter', 'url(#glow)')
+                    // .style('filter', 'url(#glow)')
 
                 let radarPath = blobG
                     .selectAll('.radarLine')
@@ -481,7 +481,7 @@
                     .style('stroke-width', `${lineWidth}px`)
                     .style('stroke', d => colorScale(this.score[d[0].type]))
                     .style('fill', 'none')
-                    .style('filter', 'url(#glow)')
+                    // .style('filter', 'url(#glow)')
                     // .style('')
 
                 let radarPointGs = blobG
@@ -510,7 +510,7 @@
                     .attr('class', 'radarPoint')
                 radarPoints
                     .transition()
-                    .duration(200)
+                    .duration(300)
                     .attr('r', pointRadius)
                     .attr('cx', (d, i) => {
                         console.log('point on a line', d, radian, i)
@@ -519,7 +519,7 @@
                     .attr('cy', (d, i) => radiusScale(d.value) * Math.sin(radian * i - Math.PI/2))
                     .style('fill', d => colorScale(this.score[d.type]))
                     .style('fill-opacity', 0.8)
-                    .style('filter', 'url(#glow)')
+                    // .style('filter', 'url(#glow)')
 
                 // let tooltipPoints = blobG
                 //     .selectAll('.tooltipPoint')

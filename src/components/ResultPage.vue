@@ -23,16 +23,18 @@
             </div>
         </div>
         <div class="result-body" :class="{'hide-result-body': !displayBody}">
-            <div class="result-half left-quadrant">
-                <h2 class="result-score-title">
-                    Your <b>Current</b> {{category}} score is
-                </h2>
-                <div class="result-score-div flex-row-wrap flex-full">
+            <div class="result-half left-half">
+                <div class="result-title-holder">
+                    <h2 class="result-score-title">
+                        Your <b>Current</b> {{category}} score is
+                    </h2>
+                </div>
+                <div class="result-score-div flex-row-wrap flex-full" id="cur-score-hold">
                     <div class="result-score" :style="`color: ${statusColors[actualScoreDescriptor]}`">
                         <p>{{actualScore}}</p>
                     </div>
                     <div class="result-score-description" :class="{ 'result-hidden': !actualDesc}">
-                        <p>{{scoreDescription}}</p>
+                        <p style="min-width: 96%;">{{scoreDescription}}</p>
                     </div>
                     <div class="result-score-collapse">
                         <button
@@ -43,35 +45,41 @@
                         </button>
                     </div>
                 </div>
-                <div class="module-list">
-                    <ul>
-                        <li v-for="(item, i) in identifiedGaps" class="module-item" v-bind:key="`gap${i}`">
-                            <!--                        <div class="module-tick"></div>-->
-                            <!--                        <div class="module-title">-->
-                            <!--                            <p>{{item}}</p>-->
-                            <!--                        </div>-->
-                            <!--                        <div class="module-description">-->
-                            <p>{{item}}</p>
-                            <!--                        </div>-->
-                            <!--                        <div class="module-link"-->
-                            <!--                             :class="{'selected': selectedModules[item.id]}"-->
-                            <!--                             v-on:click="selectedModules[item.id] = true">-->
-                            <!--                            <p v-on:click="selectedModules[item.id] = true">I'm interested</p>-->
-                            <!--                        </div>-->
-                        </li>
-                    </ul>
+                <div class="result-gap-description" style="width: 100%">
+                    <p>{{actualPrescription}}</p>
+                </div>
+                <div class="gap-holder" style="margin-top: 12px">
+                    <div class="gap-list" style="align-self: flex-end">
+                        <ul style="padding-left: 0;">
+                            <li v-for="(item, i) in identifiedGaps" class="module-item" v-bind:key="`gap${i}`">
+                                <!--                        <div class="module-tick"></div>-->
+                                <!--                        <div class="module-title">-->
+                                <!--                            <p>{{item}}</p>-->
+                                <!--                        </div>-->
+                                <!--                        <div class="module-description">-->
+                                <h3>{{item.header}}</h3>
+                                <p style="margin-block-start: 6px;">{{item.desc}}</p>
+                                <!--                        </div>-->
+                                <!--                        <div class="module-link"-->
+                                <!--                             :class="{'selected': selectedModules[item.id]}"-->
+                                <!--                             v-on:click="selectedModules[item.id] = true">-->
+                                <!--                            <p v-on:click="selectedModules[item.id] = true">I'm interested</p>-->
+                                <!--                        </div>-->
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-            <div class="result-half right-quadrant">
+            <div class="result-half right-half">
                 <h2 class="result-score-title">
-                    To Reach Your <b>Potential</b> {{category}} score of
+                    Your <b>Potential</b> {{category}} score of
                 </h2>
                 <div class="result-score-div flex-row-wrap flex-full">
                     <div class="result-score" :style="`color: ${statusColors[potentialScoreDescriptor]}`">
                         <p>{{potentialScore}}</p>
                     </div>
                     <div class="result-score-description" :class="{ 'result-hidden': !potentialDesc}">
-                        <p>{{potentialDescription}}</p>
+                        <p style="min-width: 96%;">{{potentialDescription}}</p>
                     </div>
                     <div class="result-score-collapse">
                         <button
@@ -82,22 +90,44 @@
                         </button>
                     </div>
                 </div>
-<!--                <div class="result-score-description" style="width: 60%">-->
-<!--                    <p>{{potentialDescription}}</p>-->
-<!--                </div>-->
-                <div class="module-list">
-                    <div v-for="(item, i) in recommendedModules" class="module-item" v-bind:key="`module${category}${i}`">
-                        <div class="module-tick"></div>
-                        <div class="module-title">
-                            <p>{{item.name}}</p>
-                        </div>
-                        <div class="module-description">
-                            <p>{{item.description}}</p>
-                        </div>
-                        <div class="module-link"
-                             :class="{'selected': selectedModules[item.id]}"
-                                v-on:click="selectedModules[item.id] = true">
-                            <p v-on:click="selectedModules[item.id] = true">I'm interested</p>
+                <div class="result-gap-description" style="width: 100%">
+                    <p>{{potentialPrescription}}</p>
+                </div>
+                <div class="gap-holder">
+                    <div class="module-list">
+                        <div v-for="(item, i) in recommendedModules" class="module-item" v-bind:key="`module${category}${i}`">
+                            <div class="module-tick"></div>
+                            <div class="module-title">
+                                <p>{{item.name}}</p>
+                            </div>
+                            <div class="module-sub">
+                                <p>{{item.sub}}</p>
+                            </div>
+                            <ul v-if="item.capabilities">
+                                <li v-for="(cap, i) in item.capabilities" class="capability-item" v-bind:key="`cap${i}`">
+                                    <!--                        <div class="module-tick"></div>-->
+                                    <!--                        <div class="module-title">-->
+                                    <!--                            <p>{{item}}</p>-->
+                                    <!--                        </div>-->
+                                    <!--                        <div class="module-description">-->
+<!--                                    <h3>{{item.header}}</h3>-->
+                                    <p>{{cap}}</p>
+                                    <!--                        </div>-->
+                                    <!--                        <div class="module-link"-->
+                                    <!--                             :class="{'selected': selectedModules[item.id]}"-->
+                                    <!--                             v-on:click="selectedModules[item.id] = true">-->
+                                    <!--                            <p v-on:click="selectedModules[item.id] = true">I'm interested</p>-->
+                                    <!--                        </div>-->
+                                </li>
+                            </ul>
+                            <div class="module-description" v-else>
+                                <p>{{item.description}}</p>
+                            </div>
+                            <button class="module-link"
+                                 :class="{'selected': isSelected(item)}"
+                                    v-on:click="interestedClick">
+                                <p>I'm interested</p>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -107,7 +137,7 @@
 </template>
 
 <script>
-    // import * as d3 from 'd3'
+    import * as d3 from 'd3'
     import ScoreMeter from './ScoreMeter'
 
     export default {
@@ -139,17 +169,31 @@
             },
             scoreDescription: {
                 type: String,
-                default: () => 'There are a few key areas that would elevate \n your analytical capability and give you improved\n visibility of how programmes are performing\n and key customer characteristics.'
+                default: () => 'There are a few key areas that would elevate your analytical capability and give you improved visibility of how programmes are performing and key customer characteristics'
+                // default: () => 'There are a few key areas that would elevate \n your analytical capability and give you improved\n visibility of how programmes are performing\n and key customer characteristics'
             },
             potentialDescription: {
                 type: String,
-                default: () => 'This score is calculated based off of the\nquestions you\'ve answered negatively. This\nscore is what is possible when action is taken\nwith the recommended modules'
+                default: () => 'This score represents what is possible when\n the identified gaps are addressed with our\nrecommended modules'
+            },
+            actualPrescription: {
+                type: String,
+                default: () => 'Based on the following key gaps in your analytic capabilities'
+            },
+            potentialPrescription: {
+                type: String,
+                default: () => 'Can be reached by addressing the identified gaps in your analytic capabilities with the following modules'
             },
             identifiedGaps: {
                 type: Array,
-                default: () => [
-                    'Establish customer perception of the CRM or loyalty programme and likes or dislikes pertaining to the brand experience and identify aspects to change or act on to increase satisfaction, loyalty and LTV.',
-                    'Identify what your customers look like by examining key traits and the extent to which they over or under index. Map characteristics to product and service'
+                default: () => [{
+                        header: 'Establishing customer perception of the CRM or loyalty programme',
+                        desc:  'Your business seems to struggle in gauging the likes and dislikes pertaining to the brand experience and identifying key aspects to change in order to increase satisfaction, loyalty, and LTV.'
+                    },
+                    {
+                        header: 'Identifying your customers demographics',
+                        desc: 'You seem to be falling short of effectively addressing the the traits of your customers and the extent to which they over or under index in those traits.'
+                    }
                 ]
             },
             recommendedModules: {
@@ -158,11 +202,23 @@
                     {
                         name: 'Brand & Programme Tracker',
                         id: 'bpt',
-                        description: 'Establish customer perception of the CRM or loyalty programme and likes or dislikes pertaining to the brand experience and identify aspects to change or act on to increase satisfaction, loyalty and LTV.'
+                        sub: 'This module will allow you to:',
+                        capabilities: [
+                            'Improve and optimise key journeys',
+                            'Adapt the programme to improve ling term member satisfaction'
+                        ],
+                        description: 'This will allow you to improve and optimise key journeys as well as adapt the program to improve long term member satisfaction'
+                        // description: 'Establish customer perception of the CRM or loyalty programme and likes or dislikes pertaining to the brand experience and identify aspects to change or act on to increase satisfaction, loyalty and LTV.'
                     }, {
                         name: 'Customer Demographic Profiling',
                         id: 'cdf',
-                        description: 'Identify what your customers look like by examining key traits and the extent to which they over or under index.  Map characteristics to product and service '
+                        sub: 'So you can:',
+                        capabilities: [
+                            'Develop actionable customer segments',
+                            'Develop personalised one to one customer tactics aligned in tone and channel preference'
+                        ],
+                        description: 'So you can enser '
+                        // description: 'Identify what your customers look like by examining key traits and the extent to which they over or under index.  Map characteristics to product and service '
                     }
                 ]
             },
@@ -192,6 +248,49 @@
             this.recommendedModules.forEach((d) => {
                 this.selectedModules[d.id] = false
             })
+        },
+        computed: {
+            // scoreDescWrapped: function () {
+            //     return this.wrapText(this.scoreDescription, width)
+            // }
+        },
+        methods: {
+            interestedClick: function (d, elm) {
+                this.selectedModules[d.id] = !this.selectedModules[d.id]
+                console.log('interested', d, this.selectedModules[d.id], elm)
+            },
+            isSelected: function (elm) {
+                return this.selectedModules[elm.id]
+            },
+            wrapText: function (text) {
+                // console.log('d3 score', d3.select('#cur-score-hold'))
+                // let width = d3.select('#cur-score-hold')
+                //     .node()
+                //     .getBoundingClientRect()
+                //     .width / 2
+                let width = 75
+                let virtHolder = d3.create('div:p')
+                let words = text.split(' ')
+                // let line = []
+                let finalString = ''
+                let textWidth = 0
+
+                for (let i = 0; i < words.length; i++) {
+                    virtHolder
+                        .html(`${finalString} ${words[i]}`)
+                    textWidth = virtHolder.node().getBoundingClientRect().width
+                    console.log(textWidth, virtHolder)
+                    if (textWidth < width) {
+                        finalString = `${finalString} ${words[i]}`
+                    } else {
+                        finalString = `${finalString}\n${words[i]}`
+                        virtHolder
+                            .html('')
+                    }
+                }
+                console.log('final', finalString)
+                return finalString
+            }
         }
     }
 </script>
@@ -205,30 +304,15 @@
          margin-top: 6px;
          font-size: 26px;
     }
-    .material-icons {
-        font-family: 'Material Icons';
-        font-weight: normal;
-        font-style: normal;
-        font-size: 24px;  /* Preferred icon size */
-        display: inline-block;
-        line-height: 1;
-        text-transform: none;
-        letter-spacing: normal;
-        word-wrap: normal;
-        white-space: nowrap;
-        direction: ltr;
-
-        /* Support for all WebKit browsers. */
-        -webkit-font-smoothing: antialiased;
-        /* Support for Safari and Chrome. */
-        text-rendering: optimizeLegibility;
-
-        /* Support for Firefox. */
-        -moz-osx-font-smoothing: grayscale;
-
-        /* Support for IE. */
-        font-feature-settings: 'liga';
-    }
+     ul {
+         display: block;
+         list-style-type: disc;
+         margin-block-start: 1em;
+         margin-block-end: 1em;
+         margin-inline-start: 0px;
+         margin-inline-end: 0px;
+         padding-inline-start: 40px;
+     }
     .result-page-holder {
         width: 100%;
         flex-basis: 100%;
@@ -236,6 +320,7 @@
         flex-direction: row;
         flex-wrap: wrap;
         align-items: baseline;
+        justify-content: center;
     }
     .result-header {
         width: 100%;
@@ -246,8 +331,8 @@
         margin-top: 12px;
     }
     .result-content {
-        width: calc(98% - 114px);
-        flex-basis: calc(98% - 114px);
+        width: calc(98% - 64px);
+        flex-basis: calc(98% - 64px);
         height: 100%;
         display: flex;
         flex-flow: row wrap;
@@ -282,8 +367,8 @@
         height: 82px;
     }
     .arrow-holder {
-        width: 114px;
-        flex-basis: 114px;
+        width: 64px;
+        flex-basis: 64px;
         height: 114px;
         display: flex;
         justify-content: center;
@@ -292,10 +377,13 @@
     }
     .result-score-collapse {
         width: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     .result-score-button {
         width: 100%;
-        height: 100%;
+        height: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -319,10 +407,8 @@
         transform: rotate(270deg) translateX(-9px);
     }
     .result-body {
-        width: 100%;
-        flex-basis: 100%;
-        padding-left: 4%;
-        padding-right: 128px;
+        width: 96%;
+        flex-basis: 96%;
         padding-top: 12px;
         text-align: center;
         display: flex;
@@ -341,22 +427,24 @@
         width: calc(50% - 13px);
         flex-basis: calc(50% - 13px);
         display: flex;
-        flex-flow: row wrap;
+        flex-flow: column;
+        justify-content: center;
+        align-content: center;
         animation: ease-in;
         border-left: 0.5px solid #CDCDCD;
         border-right: 0.5px solid #CDCDCD;
     }
-    .left-quadrant {
+    .left-half {
         padding-right: 12px;
-        justify-content: center;
     }
-    .right-quadrant {
+    .right-half {
         padding-left: 12px;
         justify-content: center;
     }
     .result-score-title {
         padding-top: 12px;
         width: 100%;
+        flex: 0 1 auto;
         height: 0;
     }
     .result-score-title p {
@@ -397,9 +485,11 @@
     .result-score-div {
         justify-content: center;
         transition: max-width 0.2s ease-out;
+        width: 100%;
         min-height: 125px;
         max-height: 125px;
         overflow: hidden;
+        flex: 0 1 auto;
     }
     .result-score p {
         font-size: 48px;
@@ -413,7 +503,6 @@
         display: flex;
         align-items: center;
         text-align: start;
-        white-space: pre;
         overflow: hidden;
         transition: max-width 0.4s ease-out;
     }
@@ -428,18 +517,45 @@
         transition: max-width 0.4s ease-out;
         display: block;
     }
-    /*.result-score-description {*/
-    /*    margin-top: 12px;*/
-    /*    font-size: 22px;*/
-    /*    width: 50%;*/
-    /*}*/
+    .result-gap-description {
+        font-size: 22px;
+        width: 50%;
+        flex: 0 1 auto;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+    }
+    .result-gap-description p {
+        width: 60%;
+        min-width: 350px;
+    }
     .hide-result-body {
         display: none;
+    }
+    .gap-holder {
+        width: 100%;
+        margin-bottom: auto;
+        flex: 0 1 auto;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+    }
+    .gap-list {
+        display: flex;
+        flex-flow: row wrap;
+        width: 60%;
+        min-width: 350px;
+        margin-top: 6px;
+        justify-content: center;
+        border-top: 1px solid #CDCDCD;
+        border-bottom: 1px solid #CDCDCD;
+        padding-bottom: 3px;
     }
     .module-list {
         display: flex;
         flex-flow: row wrap;
         width: 60%;
+        min-width: 350px;
         flex-basis: 60%;
         margin-top: 6px;
         justify-content: center;
@@ -448,22 +564,37 @@
         padding-bottom: 3px;
     }
     .module-item {
-        display: flex;
-        flex-flow: row wrap;
+        /*display: flex;*/
+        /*flex-flow: row wrap;*/
         width: 100%;
         flex-basis: 100%;
-        justify-content: center;
+        /*justify-content: center;*/
         margin-top: 12px;
+        list-style: none;
+    }
+    .capability-item {
+        /*display: flex;*/
+        /*flex-flow: row wrap;*/
+        width: 100%;
+        flex-basis: 100%;
+        /*justify-content: center;*/
+        margin-top: 12px;
+        text-align: left;
     }
     .module-title {
         font-size: 24px;
         font-weight: 600;
     }
+    .module-sub {
+        margin-block-start: 6px;
+        font-size: 20px;
+        font-weight: 500;
+    }
     .module-description {
         font-size: 18px;
     }
     .module-link {
-        margin-top: 6px;
+        margin-top: 0;
         padding-left: 6px;
         padding-right: 6px;
         border-radius: 6px;
@@ -480,4 +611,10 @@
     .module-link.selected p {
         color: #fff;
     }
+     h3 {
+         margin: 0;
+         font-family: Avenir, Helvetica, Arial, sans-serif;
+         -webkit-font-smoothing: antialiased;
+         -moz-osx-font-smoothing: grayscale;
+     }
 </style>
