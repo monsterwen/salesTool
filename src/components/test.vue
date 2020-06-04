@@ -45,7 +45,7 @@
             </div>
         </div>
         <div class="dimension-container" id="fast-video">
-            <div class="dimension-content">
+            <div class="video-content">
                 <div class="video-container">
                     <div class="video-placeholder">
                         <div class="button-holder">
@@ -477,7 +477,7 @@
     }
     .signup-container {
         background-color: rgb(236, 238, 239);
-        background: linear-gradient(to left, #009FBC, #A5BB00);
+        background: linear-gradient(right, #009FBC, #A5BB00);
     }
     .signup-content {
         width: 100%;
@@ -529,8 +529,18 @@
         font-weight: 300;
     }
     .dimension-content {
-        min-height: 44vh;
-        /*max-height: 550px;*/
+        height: 44vh;
+        max-height: 550px;
+    }
+    .video-content {
+        width: 100%;
+        flex-basis: 100%;
+        max-width: 1600px;
+        margin: 0 auto;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        height: auto;
     }
     .dimension-image {
         height: 100%;

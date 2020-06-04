@@ -49,8 +49,8 @@
                     <p>{{actualPrescription}}</p>
                 </div>
                 <div class="gap-holder" style="margin-top: 12px">
-                    <div class="gap-list" style="align-self: flex-end">
-                        <ul style="padding-left: 0;">
+                    <div class="gap-list-holder" style="align-self: flex-end">
+                        <ul class="gap-list" style="padding-left: 0;">
                             <li v-for="(item, i) in identifiedGaps" class="module-item" v-bind:key="`gap${i}`">
                                 <!--                        <div class="module-tick"></div>-->
                                 <!--                        <div class="module-title">-->
@@ -103,7 +103,7 @@
                             <div class="module-sub">
                                 <p>{{item.sub}}</p>
                             </div>
-                            <ul v-if="item.capabilities">
+                            <ul class="gap-list" v-if="item.capabilities">
                                 <li v-for="(cap, i) in item.capabilities" class="capability-item" v-bind:key="`cap${i}`">
                                     <!--                        <div class="module-tick"></div>-->
                                     <!--                        <div class="module-title">-->
@@ -202,7 +202,7 @@
                     {
                         name: 'Brand & Programme Tracker',
                         id: 'bpt',
-                        sub: 'This module will allow you to:',
+                        sub: 'This module will allow you to',
                         capabilities: [
                             'Improve and optimise key journeys',
                             'Adapt the programme to improve ling term member satisfaction'
@@ -212,7 +212,7 @@
                     }, {
                         name: 'Customer Demographic Profiling',
                         id: 'cdf',
-                        sub: 'So you can:',
+                        sub: 'So you can',
                         capabilities: [
                             'Develop actionable customer segments',
                             'Develop personalised one to one customer tactics aligned in tone and channel preference'
@@ -540,7 +540,7 @@
         justify-content: center;
         align-content: center;
     }
-    .gap-list {
+    .gap-list-holder {
         display: flex;
         flex-flow: row wrap;
         width: 60%;
@@ -583,7 +583,12 @@
     }
     .module-title {
         font-size: 24px;
+        line-height: 1.05em;
         font-weight: 600;
+    }
+    .gap-list {
+        margin-block-start: 6px;
+        margin-block-end: 6px;
     }
     .module-sub {
         margin-block-start: 6px;

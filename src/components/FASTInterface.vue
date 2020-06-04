@@ -760,12 +760,12 @@
             },
             renderMarkers: false,
             postScores: {
-                analysis: 85,
-                insight: 85,
+                analysis: 45,
+                insight: 63,
                 strategy: 85,
-                tes: 85,
-                custexp: 85,
-                total: 425
+                tes: 81,
+                custexp: 72,
+                total: 346
             },
             radarChartValues: {},
             questionProgress: {
@@ -987,13 +987,13 @@
                             axis: 'Analysis',
                             key: 'analysis',
                             type: 'post',
-                            value: 85
+                            value: 45
                         },
                         {
                             axis: 'Insight',
                             key: 'insight',
                             type: 'post',
-                            value: 85
+                            value: 63
                         },
                         {
                             axis: 'Strategy',
@@ -1005,13 +1005,13 @@
                             axis: 'Technology / Efficiency & Systems',
                             key: 'tes',
                             type: 'post',
-                            value: 85
+                            value: 81
                         },
                         {
                             axis: 'Customer Experience',
                             key: 'custexp',
                             type: 'post',
-                            value: 85
+                            value: 72
                         }
                     ])
                     this.radarScores.post = 425
