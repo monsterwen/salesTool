@@ -18,7 +18,7 @@
                 <div class="categoryHolder">
                     <QuestionCategory
                             questionName="Insight"
-                            questionKey="insight"
+                            questionKey="sight"
                             :selected="selectedCategory === 'insight' && !summary"
                             :categoryScore="scores.insight"
                             :questionNumber="questionProgress.insight"
@@ -28,7 +28,7 @@
                 <div class="categoryHolder">
                     <QuestionCategory
                             questionName="Strategy"
-                            questionKey="strategy"
+                            questionKey="straty"
                             :selected="selectedCategory === 'strategy' && !summary"
                             :categoryScore="scores.strategy"
                             :questionNumber="questionProgress.strategy"
@@ -827,16 +827,15 @@
                             sub: 'This module will allow you to:',
                             capabilities: [
                                 'Improve and optimise key journeys',
-                                'Adapt the programme to improve ling term member satisfaction'
+                                'Adapt the programme to improve long term member satisfaction'
                             ],
                             description: 'Establish customer perception of the CRM or loyalty programme and likes or dislikes pertaining to the brand experience and identify aspects to change or act on to increase satisfaction, loyalty and LTV.'
                         }, {
-                            name: 'Customer Demographic Profiling',
+                            name: 'Core Customer Segmentation',
                             id: 'cdf',
                             sub: 'So you can:',
                             capabilities: [
-                                'Develop actionable customer segments',
-                                'Develop personalised one to one customer tactics aligned in tone and channel preference'
+                                'Personalise program features and communications'
                             ],
                             description: 'Identify what your customers look like by examining key traits and the extent to which they over or under index.  Map characteristics to product and service '
                         }
@@ -855,21 +854,21 @@
                     potentialDescription: 'In order to improve existing strategical efforts, we recommend the following modules',
                     recommendedModules: [
                         {
-                            name: 'Brand & Programme Tracker',
+                            name: 'Competitive Evaluation',
                             id: 'bpt',
                             sub: 'This module will allow you to:',
                             capabilities: [
-                                'Improve and optimise key journeys',
-                                'Adapt the programme to improve ling term member satisfaction'
+                                'Evaluate your customer experience in the context of your competitors',
+                                'Pinpoint program features that are table stakes in your market'
                             ],
                             description: 'Establish customer perception of the CRM or loyalty programme and likes or dislikes pertaining to the brand experience and identify aspects to change or act on to increase satisfaction, loyalty and LTV.'
                         }, {
-                            name: 'Customer Demographic Profiling',
+                            name: 'Loyalty Launch and Planning',
                             id: 'cdf',
                             sub: 'So you can:',
                             capabilities: [
-                                'Develop actionable customer segments',
-                                'Develop personalised one to one customer tactics aligned in tone and channel preference'
+                                'Establish strategic milestones to get your program to market',
+                                'Implement key metrics to inform the success of the loyalty program launch'
                             ],
                             description: 'Identify what your customers look like by examining key traits and the extent to which they over or under index.  Map characteristics to product and service '
                         }
@@ -888,12 +887,12 @@
                     potentialDescription: 'The gaps identified would be best addressed by the following modules.',
                     recommendedModules: [
                         {
-                            name: 'Brand & Programme Tracker',
+                            name: 'Program Health Assessment',
                             id: 'bpt',
                             sub: 'This module will allow you to:',
                             capabilities: [
-                                'Improve and optimise key journeys',
-                                'Adapt the programme to improve ling term member satisfaction'
+                                'Assess areas of strength and weakness and scope of improvement',
+                                'Identify top performing customers and factors that drive their retention'
                             ],
                             description: 'Establish customer perception of the CRM or loyalty programme and likes or dislikes pertaining to the brand experience and identify aspects to change or act on to increase satisfaction, loyalty and LTV.'
                         }, {
@@ -1272,7 +1271,7 @@
     margin-left: 24px;
     margin-right: 24px;
     flex-flow: row wrap;
-    overflow: auto;
+    overflow-y: auto;
 }
 .lineContainer {
     position: absolute;
@@ -1388,6 +1387,11 @@
     margin-right: 12px;
     table-layout: fixed;
     background-color: #ffffff;
+}
+@media (max-width: 1400px) {
+    .summaryTable {
+        font-size: 13px;
+    }
 }
 .metricTD {
     width: 40%;

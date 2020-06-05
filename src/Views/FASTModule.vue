@@ -36,7 +36,7 @@
 }
 .fastModule {
     width: 100%;
-    /*min-height: 67vh;*/
+    min-height: 67vh;
     height: auto;
     display: flex;
     flex-wrap: wrap;
@@ -60,7 +60,7 @@
 }
 .fastContainer {
     width: 100%;
-    height: calc(100% - 64px);
+    height: calc(100%);
     /*padding-bottom: 56.25%;*/
     /*height: max(calc(100% - 84px), 700px);*/
     /*max-height: max(calc(100% - 84px), 700px);*/

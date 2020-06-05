@@ -66,7 +66,15 @@
                 let div = d3
                     .select(`#${this.questionKey}`)
                     .select('.questionMeter')
-
+                if (!div.node()) {
+                    setTimeout(() => {
+                        div = d3
+                            .select(`#${this.questionKey}`)
+                            .select('.questionMeter')
+                        console.log('timeeededeeed', this.questionKey, div)
+                    },1000)
+                }
+                console.log('doiiiivd', this.questionKey, div)
                 let dimensions = div.node().getBoundingClientRect()
                 let width = dimensions.width
                 let height = dimensions.height
@@ -150,6 +158,11 @@
     vertical-align: middle;
     display: table-cell;
     cursor: pointer;
+}
+@media (max-width: 1400px) {
+    .questionName p {
+        font-size: 14px;
+    }
 }
 .questionMeter {
     flex-basis: 12px;

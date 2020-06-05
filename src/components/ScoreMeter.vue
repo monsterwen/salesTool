@@ -204,7 +204,7 @@
         visibility: hidden;
         padding-left: 8px;
         padding-right: 8px;
-        max-width: 450px;
+        max-width: 400px;
         background-color: rgba(61, 61, 61, 0.9);
         color: #fff;
         text-align: center;
@@ -220,7 +220,11 @@
         opacity: 0;
         transition: opacity 0.3s;
     }
-    .meter-tooltip p {}
+    @media (max-width: 1400px) {
+        .meter-tooltip p {
+            font-size: 12px;
+        }
+    }
     .meter-tooltip::before {
         content: "";
         position: absolute;

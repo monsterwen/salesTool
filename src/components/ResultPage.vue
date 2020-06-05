@@ -506,6 +506,11 @@
         overflow: hidden;
         transition: max-width 0.4s ease-out;
     }
+    @media (max-width: 1400px) {
+        .result-score-description {
+            font-size: 12px;
+        }
+    }
     .result-hidden {
         max-width: 0%;
         border-left: none;
@@ -614,6 +619,12 @@
         cursor: pointer;
     }
     .module-link.selected p {
+        color: #fff;
+    }
+     .module-link:hover {
+         background-color: #009FBC;
+     }
+    .module-link:hover p {
         color: #fff;
     }
      h3 {

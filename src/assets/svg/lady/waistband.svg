@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+              "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="65.8764mm" height="65.8764mm"
+     viewBox="0 0 389 389">
+  <path id="waistband"
+        fill="none" stroke="black" stroke-width="1"
+        d="M 305.25,108.12
+           C 305.20,107.69 304.91,106.94 304.73,106.84
+             304.19,106.59 291.93,109.52 291.62,110.02
+             291.63,109.99 291.65,110.51 291.20,111.78
+             291.20,111.78 295.14,111.05 295.17,111.05
+             295.21,111.05 305.25,108.12 305.25,108.12 Z" />
+</svg>
