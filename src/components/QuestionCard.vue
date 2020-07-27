@@ -91,8 +91,9 @@
                 })
 
                 selected[response] = true
+                console.log('response', response)
                 console.log('clicked', this.question)
-                this.$emit('selection', response, this.index, this.question.type)
+                this.$emit('selection', response, this.index, this.question.type, this.question.module)
                 this.selectionMade = true
                 console.log('clicked', response)
             },

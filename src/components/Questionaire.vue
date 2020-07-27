@@ -22,6 +22,12 @@
 <script>
 import * as d3 from 'd3'
 import QuestionCard from './QuestionCard'
+// const JSONToCSV = require("json2csv").parse
+// const FileSystem = require("fs")
+import {upload} from '../assets/js/fileupload.js'
+import {submitJob} from '../assets/js/jobservice.js'
+// eslint-disable-next-line no-unused-vars
+import saveAs from 'file-saver'
 
 export default {
 name: 'Questionaire',
@@ -554,6 +560,7 @@ responses: {
 'na': 0
 },
 },
+    output: [],
 scores: {
 analysis: 0,
 insight: 0,
@@ -657,14 +664,66 @@ resetCarosel: function () {
 // this.questionCarousel.selectAll('.actualQuestion').remove()
 this.$emit('reload', this.category)
 },
-questionSelected: function (response, index, type) {
+    convertToCsv: function (output, filename) {
+        var FileSaver = require('file-saver');
+        // const csv = JSONToCSV(output,{fields:["module","response"]})
+       // FileSystem.writeFileSync(filename, csv);
+        const data = JSON.stringify(this.output)
+        window.localStorage.setItem(filename, data)
+        console.log('localstorage',JSON.parse(window.localStorage.getItem(filename)))
+        var file = new File(this.output, filename, {type: "text/plain;charset=utf-8"});
+        FileSaver.saveAs(file)
+    },
+questionSelected: function (response, index, type, module) {
 this.selectedIndex = this.selectedIndex + 1
-console.log('questionSelected', response, index, type)
-this.$emit('selection', response, index, type)
+console.log('questionSelected..', response, index, type, module)
+this.$emit('selection', response, index, type, module)
+    this.output.push({module,response})
+    console.log(this.output)
+    if(module == "CX/MX Journey Mapping" && index == 5) {
+        // 1. convert to csv
+        var filename = "output" + new Date() + ".csv";
+        console.log("filename", filename)
+        this.convertToCsv(this.output, filename)
+        // 2. upload to hdfs
+        this.uploadfile(filename)
+        // submit job through api
+        // this.submit(filename)
+    }
 // this.questions[index].response = response
 // this.calculateScores()
 // console.log('questionSelected', this.questions)
-}
+},
+uploadfile: function (fileName) {
+        const formData = new FormData()
+        formData.append('file', fileName)
+    upload(formData)
+        .catch(err => {
+            alert('There was an error uploading the file.  Please try again.' + err.message.toString())
+        })
+        .then((response) => {
+            console.log('successfully uploaded file to HDFS')
+            console.log(response)
+           // this.submit(fileName)
+        })
+    },
+    submit: function (fileName) {
+        var jobObj = {
+            'app': "sales",
+            'jobId': fileName,
+            'delimiter': ",",
+            'fileLocation': 'hdfs:///user/admin/' + fileName,
+
+        }
+        submitJob(jobObj)
+            .catch(err => {
+                alert('Problem submitting job to server.  ' + err.message.toString())
+            })
+            .then((response) => {
+                alert('Form Submitted!')
+                console.log(response)
+            })
+    }
 }
 }
 </script>

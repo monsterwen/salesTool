@@ -95,7 +95,6 @@
             <div class="dimension-content">
                 <div class="dimension-side dimension-left">
                     <div class="dimension-image">
-                        <img class="dimension-png" :src="require('../assets/images/strategyIcon.png')">
                     </div>
                 </div>
                 <div class="dimension-text dimension-side dimension-right">
@@ -131,7 +130,6 @@
                 </div>
                 <div class="dimension-side dimension-right">
                     <div class="dimension-image">
-                        <img class="dimension-png" :src="require('../assets/images/insightIcon.png')">
                     </div>
                 </div>
             </div>
@@ -140,7 +138,6 @@
             <div class="dimension-content">
                 <div class="dimension-side dimension-left">
                     <div class="dimension-image">
-                        <img class="dimension-png" :src="require('../assets/images/techIcon.png')">
                     </div>
                 </div>
                 <div class="dimension-text dimension-side dimension-right">

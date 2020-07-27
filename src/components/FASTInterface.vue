@@ -84,20 +84,6 @@
                     </RadarChart>
                 </div>
                 <div class="keyHolder" :class="{ 'keyFinished': summary }">
-                    <!--                    <div class="legendHolder">-->
-                    <!--                        <div class="legendElement" id="current">-->
-                    <!--                            <div class='inliner legElement'>-->
-                    <!--                                <div class='legend' :style="'background-color: #CE1dee'"></div>-->
-                    <!--                                <div class='inliner'>Current</div>-->
-                    <!--                            </div>-->
-                    <!--                        </div>-->
-                    <!--                        <div class="legendElement" id="potential">-->
-                    <!--                            <div class='inliner legElement'>-->
-                    <!--                                <div class='legend' :style="'background-color: #A5B000'"></div>-->
-                    <!--                                <div class='inliner'>Potential</div>-->
-                    <!--                            </div>-->
-                    <!--                        </div>-->
-                    <!--                    </div>-->
                     <div class="tableHolder">
                         <table class="summaryTable">
                             <thead>
@@ -180,41 +166,6 @@
                             :technology="techData"
                             :renderMarkers="renderMarkers"
                     ></RecommendationReport>
-<!--                    <div class="spacer"></div>-->
-<!--                    <div class="recommendHead">-->
-<!--                        <p>Things are looking OK</p>-->
-<!--                    </div>-->
-<!--                    <div class="recommendSubHead">-->
-<!--                        <p>Here is what you can do to improve</p>-->
-<!--                    </div>-->
-<!--                    <div class="questionHeader">-->
-<!--                        <div class="recTick"></div>-->
-<!--                        <div class="recText">-->
-<!--                            <p>Start jogging. Daily exercise will improve your energy levels enough to improve your business.</p>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="questionHeader">-->
-<!--                        <div class="recTick"></div>-->
-<!--                        <div class="recText">-->
-<!--                            <p>Purchase Brierley products. We're really good at this stuff and will make it real easy for you. TRUst us and good things will come.</p>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="questionHeader">-->
-<!--                        <div class="recTick"></div>-->
-<!--                        <div class="recText">-->
-<!--                            <p>Juice an entire stock of celery every morning and drink it on an empty stomach. The effects of this will be subtle at first, but you will soon realize that you are now an industry leader, setting standards and making $$$</p>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="lineContainer">-->
-<!--                    <ScoreLine-->
-<!--                        :preScore="scores.total / 100"-->
-<!--                        :postScore="postScores.total / 100"-->
-<!--                        :preColor="preColor"-->
-<!--                        :postColor="postColor"-->
-<!--                        :renderFull="drawLine">-->
-<!--                    </ScoreLine>-->
-<!--                </div>-->
             </div>
             </div>
         </div>
@@ -277,26 +228,32 @@
                     {
                         question: 'Do you track loyalty and CRM program KPIs and benchmarks?',
                         type: 'analysis',
+                        module: 'Programme Health Assessment',
                         response: 'none'
                     }, {
                         question: 'Can you identify overt and latent customer traits? ',
                         type: 'analysis',
+                        module: 'Core Customer Segmentation',
                         response: 'none'
                     }, {
                         question: 'Can you determine what your customers like and dislike about your brand experience?',
                         type: 'analysis',
+                        module: 'Brand & Programme Tracker',
                         response: 'none'
                     }, {
                         question: 'Can you easily identify and change programme components to increase customer satisfaction, loyalty and LTV?',
                         type: 'analysis',
+                        module: 'Brand & Programme Tracker',
                         response: 'none'
                     }, {
                         question: 'Are the drivers of negative customer value tracked and such behavioural insights actioned with tactical communications?',
                         type: 'analysis',
+                        module: 'Lifetime Value Modelling',
                         response: 'none'
                     }, {
                         question: 'Do you have an effective solution for identifying products that create brand stickiness and retention?',
                         type: 'analysis',
+                        module: 'Personalised Product Recs.',
                         response: 'none'
                     },
                     // {
@@ -340,22 +297,27 @@
                     }, {
                         question: 'Can you identify top performing customers and factors driving their retention?',
                         type: 'insight',
+                        module: 'Programme Health Assessment',
                         response: 'none'
                     }, {
                         question: 'Have you identified customer LTV and key moments of interest where value can be optimised?',
                         type: 'insight',
+                        module: 'Programme Health Assessment',
                         response: 'none'
                     }, {
                         question: 'Do you know how much incremental revenue your loyalty or CRM programmes are driving?',
                         type: 'insight',
+                        module: 'Programme Health Assessment',
                         response: 'none'
                     }, {
                         question: 'Do you know the cost of your current solution and its corresponding ROI?',
                         type: 'insight',
+                        module: 'Programme Cost-Benefit Analysis',
                         response: 'none'
                     }, {
                         question: 'Do you know which customer segments and activities drive greatest uplift in engagement and profitability?',
                         type: 'insight',
+                        module: 'Programme Health Assessment',
                         response: 'none'
                     }
                     //     question: 'Is your customer audience grouped into actionable segments?',
@@ -435,26 +397,32 @@
                 strategy: [{
                         question: 'Can you evaluate how your CX compares with that of your competitors?',
                         type: 'strategy',
+                        module: 'Competitive Evaluation',
                         response: 'none'
                     }, {
                         question: 'Can you pinpoint the programme features that are considered table stakes in your market?',
                         type: 'strategy',
+                        module: 'Competitive Evaluation',
                         response: 'none'
                     }, {
                         question: 'Do you know what programme elements differentiate your programme from competitors?',
                         type: 'strategy',
+                        module: 'Competitive Evaluation',
                         response: 'none'
                     }, {
                         question: 'Do you know what the customer journeys most relevant to your business are?',
                         type: 'strategy',
+                        module: 'CX/MX Journey Mapping',
                         response: 'none'
                     }, {
                         question: 'Do you know what the key moments of interest across the customer journey are(pain points, gaps, positive inflection points)?',
                         type: 'strategy',
+                        module: 'CX/MX Journey Mapping',
                         response: 'none'
                     }, {
                         question: 'Do you know what enhancements are required to best optimise and impact the customer journey?',
                         type: 'strategy',
+                        module: 'CX/MX Journey Mapping',
                         response: 'none'
                     }
                     //     question: 'Can you easily identify the programme features and benefits that appeal to each customer persona?',
