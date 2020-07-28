@@ -61,6 +61,7 @@
                     :questions="questions[selectedCategory]"
                     :category="selectedCategory"
                     @selection="questionSelected"
+                    @getrecom = "updaterecom"
                     @reload="changeCategory">
                 </Questionaire>
             </div>
@@ -177,6 +178,9 @@
     import Questionaire from '../components/Questionaire'
     import QuestionCategory from './QuestionCategory'
     import RecommendationReport from './RecommendationReport'
+    // eslint-disable-next-line no-unused-vars
+    import {getAnalysis, getInsights, getStrategy} from '../assets/js/jobservice.js'
+
     // import ScoreLine from './ScoreLine'
     import * as d3 from 'd3'
 
@@ -190,6 +194,10 @@
             // ScoreLine
         },
         data: () => ({
+            filename: "",
+            analysisrecom: [],
+            insightsrecom: [],
+            strategyrecom: [],
             radarData: [[{
                 axis: 'Analysis',
                 key: 'analysis',
@@ -788,26 +796,27 @@
                     potentialScore: d3.format('.1f')(this.postScores.analysis / 20),
                     scoreDescription: 'There are a few key areas that would elevate your analytical capability and give you improved visibility of how programmes are performing and key customer characteristics.',
                     potentialDescription: 'and ensure that all of your analytical needs are met, we recommend taking advantage of the following modules.',
-                    recommendedModules: [
-                        {
-                            name: 'Brand & Programme Tracker',
-                            id: 'bpt',
-                            sub: 'This module will allow you to:',
-                            capabilities: [
-                                'Improve and optimise key journeys',
-                                'Adapt the programme to improve long term member satisfaction'
-                            ],
-                            description: 'Establish customer perception of the CRM or loyalty programme and likes or dislikes pertaining to the brand experience and identify aspects to change or act on to increase satisfaction, loyalty and LTV.'
-                        }, {
-                            name: 'Core Customer Segmentation',
-                            id: 'cdf',
-                            sub: 'So you can:',
-                            capabilities: [
-                                'Personalise program features and communications'
-                            ],
-                            description: 'Identify what your customers look like by examining key traits and the extent to which they over or under index.  Map characteristics to product and service '
-                        }
-                    ],
+                    recommendedModules: this.analysisrecom,
+                    // recommendedModules: [
+                    //     {
+                    //         name: 'Brand & Programme Tracker',
+                    //         id: 'bpt',
+                    //         sub: 'This module will allow you to:',
+                    //         capabilities: [
+                    //             'Improve and optimise key journeys',
+                    //             'Adapt the programme to improve long term member satisfaction'
+                    //         ],
+                    //         description: 'Establish customer perception of the CRM or loyalty programme and likes or dislikes pertaining to the brand experience and identify aspects to change or act on to increase satisfaction, loyalty and LTV.'
+                    //     }, {
+                    //         name: 'Core Customer Segmentation',
+                    //         id: 'cdf',
+                    //         sub: 'So you can:',
+                    //         capabilities: [
+                    //             'Personalise program features and communications'
+                    //         ],
+                    //         description: 'Identify what your customers look like by examining key traits and the extent to which they over or under index.  Map characteristics to product and service '
+                    //     }
+                    // ],
                     meterId: 'analytic-meter'
                 }
             },
@@ -820,27 +829,7 @@
                     potentialScore: d3.format('.1f')(this.postScores.strategy / 20),
                     scoreDescription: 'There is an opportunity to better benchmark efforts against competitor offerings and review underlying design to cultivate improved value proposition, customer experience and long term emotional loyalty.',
                     potentialDescription: 'In order to improve existing strategical efforts, we recommend the following modules',
-                    recommendedModules: [
-                        {
-                            name: 'Competitive Evaluation',
-                            id: 'bpt',
-                            sub: 'This module will allow you to:',
-                            capabilities: [
-                                'Evaluate your customer experience in the context of your competitors',
-                                'Pinpoint program features that are table stakes in your market'
-                            ],
-                            description: 'Establish customer perception of the CRM or loyalty programme and likes or dislikes pertaining to the brand experience and identify aspects to change or act on to increase satisfaction, loyalty and LTV.'
-                        }, {
-                            name: 'Loyalty Launch and Planning',
-                            id: 'cdf',
-                            sub: 'So you can:',
-                            capabilities: [
-                                'Establish strategic milestones to get your program to market',
-                                'Implement key metrics to inform the success of the loyalty program launch'
-                            ],
-                            description: 'Identify what your customers look like by examining key traits and the extent to which they over or under index.  Map characteristics to product and service '
-                        }
-                    ],
+                    recommendedModules: this.strategyrecom,
                     meterId: 'strategy-meter'
                 }
             },
@@ -853,27 +842,28 @@
                     potentialScore: d3.format('.1f')(this.postScores.insight / 20),
                     scoreDescription: 'Essential steps seem to have been taken to use data to better understand the customer and inform the programmes that should connect them. However, there are still disctinct gaps in insight functionality.',
                     potentialDescription: 'The gaps identified would be best addressed by the following modules.',
-                    recommendedModules: [
-                        {
-                            name: 'Program Health Assessment',
-                            id: 'bpt',
-                            sub: 'This module will allow you to:',
-                            capabilities: [
-                                'Assess areas of strength and weakness and scope of improvement',
-                                'Identify top performing customers and factors that drive their retention'
-                            ],
-                            description: 'Establish customer perception of the CRM or loyalty programme and likes or dislikes pertaining to the brand experience and identify aspects to change or act on to increase satisfaction, loyalty and LTV.'
-                        }, {
-                            name: 'Customer Demographic Profiling',
-                            id: 'cdf',
-                            sub: 'So you can:',
-                            capabilities: [
-                                'Develop actionable customer segments',
-                                'Develop personalised one to one customer tactics aligned in tone and channel preference'
-                            ],
-                            description: 'Identify what your customers look like by examining key traits and the extent to which they over or under index.  Map characteristics to product and service '
-                        }
-                    ],
+                     recommendedModules: this.strategyrecom,
+                         //[
+                    //     {
+                    //         name: 'Program Health Assessment',
+                    //         id: 'bpt',
+                    //         sub: 'This module will allow you to:',
+                    //         capabilities: [
+                    //             'Assess areas of strength and weakness and scope of improvement',
+                    //             'Identify top performing customers and factors that drive their retention'
+                    //         ],
+                    //         description: 'Establish customer perception of the CRM or loyalty programme and likes or dislikes pertaining to the brand experience and identify aspects to change or act on to increase satisfaction, loyalty and LTV.'
+                    //     }, {
+                    //         name: 'Customer Demographic Profiling',
+                    //         id: 'cdf',
+                    //         sub: 'So you can:',
+                    //         capabilities: [
+                    //             'Develop actionable customer segments',
+                    //             'Develop personalised one to one customer tactics aligned in tone and channel preference'
+                    //         ],
+                    //         description: 'Identify what your customers look like by examining key traits and the extent to which they over or under index.  Map characteristics to product and service '
+                    //     }
+                    // ],
                     meterId: 'insight-meter'
                 }
             },
@@ -989,6 +979,116 @@
                     }, 2050);
                 }
             },
+            updaterecom: function(jobid) {
+                // call apis
+                console.log(jobid)
+                getAnalysis("SalesTestDemo")
+                    .catch(err => {
+                        alert('Could not get User BALOR Job History results. ' + err.message.toString())
+                    })
+                    .then((response) => {
+                        var analysisoutput = response.data.data.SalesToolResult[0].recommendation
+                        console.log('analysisoutput', analysisoutput)
+
+                        var temprecom = []
+                        for(var i=0;i<analysisoutput.length;i++) {
+                            var tempjson = {
+                                name: analysisoutput[i].Module,
+                                id: 'bpt',
+                                sub: 'This module will allow you to:',
+                                capabilities: [
+                                        analysisoutput[i].So_You
+                                         ],
+                                description: 'Establish customer perception of the CRM or loyalty programme and likes or dislikes pertaining to the brand experience and identify aspects to change or act on to increase satisfaction, loyalty and LTV.'
+                            }
+                            temprecom.push(tempjson)
+                        }
+                        this.analysisrecom = temprecom
+                        console.log('analysisraw', this.analysisrecom)
+
+                        //     {
+                        //         name: 'Brand & Programme Tracker',
+                        //         id: 'bpt',
+                        //         sub: 'This module will allow you to:',
+                        //         capabilities: [
+                        //             'Improve and optimise key journeys',
+                        //             'Adapt the programme to improve long term member satisfaction'
+                        //         ],
+                        //         description: 'Establish customer perception of the CRM or loyalty programme and likes or dislikes pertaining to the brand experience and identify aspects to change or act on to increase satisfaction, loyalty and LTV.'
+                        //     },
+                    })
+                //var insightsraw = getInsights(jobid)
+                getInsights("SalesTestDemo")
+                    .catch(err => {
+                        alert('Could not get User BALOR Job History results. ' + err.message.toString())
+                    })
+                    .then((response) => {
+                        var insightoutput = response.data.data.SalesToolResult[0].recommendation
+                        console.log('analysisoutput', insightoutput)
+
+                        var temprecom = []
+                        for(var i=0;i<insightoutput.length;i++) {
+                            var tempjson = {
+                                name: insightoutput[i].Module,
+                                id: 'bpt',
+                                sub: 'This module will allow you to:',
+                                capabilities: [
+                                    insightoutput[i].So_You
+                                ],
+                                description: 'Establish customer perception of the CRM or loyalty programme and likes or dislikes pertaining to the brand experience and identify aspects to change or act on to increase satisfaction, loyalty and LTV.'
+                            }
+                            temprecom.push(tempjson)
+                        }
+                        this.insightsrecom = temprecom
+
+                        //     {
+                        //         name: 'Brand & Programme Tracker',
+                        //         id: 'bpt',
+                        //         sub: 'This module will allow you to:',
+                        //         capabilities: [
+                        //             'Improve and optimise key journeys',
+                        //             'Adapt the programme to improve long term member satisfaction'
+                        //         ],
+                        //         description: 'Establish customer perception of the CRM or loyalty programme and likes or dislikes pertaining to the brand experience and identify aspects to change or act on to increase satisfaction, loyalty and LTV.'
+                        //     },
+                    })
+               // var strategyraw = getStrategy(jobid)
+                getStrategy("SalesTestDemo")
+                    .catch(err => {
+                        alert('Could not get User BALOR Job History results. ' + err.message.toString())
+                    })
+                    .then((response) => {
+                        var strategyoutput = response.data.data.SalesToolResult[0].recommendation
+                        console.log('strategyoutput', strategyoutput)
+
+                        var temprecom = []
+                        for(var i=0;i<strategyoutput.length;i++) {
+                            var tempjson = {
+                                name: strategyoutput[i].Module,
+                                id: 'bpt',
+                                sub: 'This module will allow you to:',
+                                capabilities: [
+                                    strategyoutput[i].So_You
+                                ],
+                                description: 'Establish customer perception of the CRM or loyalty programme and likes or dislikes pertaining to the brand experience and identify aspects to change or act on to increase satisfaction, loyalty and LTV.'
+                            }
+                            temprecom.push(tempjson)
+                        }
+                        this.strategyrecom = temprecom
+
+                        //     {
+                        //         name: 'Brand & Programme Tracker',
+                        //         id: 'bpt',
+                        //         sub: 'This module will allow you to:',
+                        //         capabilities: [
+                        //             'Improve and optimise key journeys',
+                        //             'Adapt the programme to improve long term member satisfaction'
+                        //         ],
+                        //         description: 'Establish customer perception of the CRM or loyalty programme and likes or dislikes pertaining to the brand experience and identify aspects to change or act on to increase satisfaction, loyalty and LTV.'
+                        //     },
+                    })
+                // parse raw data
+            },
             createQuestionStatistics: function () {
                 let questions = this.questions
 
@@ -1006,9 +1106,10 @@
                 }
                 console.log('====04040404====', this.questionTotals)
             },
-            questionSelected: function (response, index, type) {
+            questionSelected: function (response, index, type, module, filename) {
                 // this.selectedIndex = this.selectedIndex + 1
-                console.log('selected', response, index, type)
+                console.log('selected', response, index, type,module,filename)
+                this.filename= filename
                 this.questionProgress[type] = index + 1
                 this.questions[type][index].response = response
                 this.calculateScores()
