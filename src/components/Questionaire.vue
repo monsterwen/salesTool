@@ -665,20 +665,23 @@ resetCarosel: function () {
 this.$emit('reload', this.category)
 },
     convertToCsv: function (output, filename) {
-       // var FileSaver = require('file-saver');
-        // const csv = JSONToCSV(output,{fields:["module","response"]})
-       // FileSystem.writeFileSync(filename, csv);
         const data = JSON.stringify(output)
+        // parse data
+
         window.localStorage.setItem(filename, data)
-        console.log('data...',data)
+        console.log('output',output)
+        var parsed = ''
+        for(var i=0;i<output.length;i++) {
+            parsed += output[i].module+'\t'
+            parsed += output[i].response+'\t'
+            parsed += '\n'
+        }
+        console.log('parsed',parsed)
         // eslint-disable-next-line no-unused-vars
         // eslint-disable-next-line no-unused-vars
-        var blob = new Blob([data], {
+        var blob = new Blob([parsed], {
             type: "text/plain;charset=utf-8"
         });
-        // eslint-disable-next-line no-unused-vars
-        // var file = new File([blob], filename, {type: "text/plain;charset=utf-8"});
-       // var file = new File([blob], filename, {type: contentType, lastModified: Date.now()});
         this.uploadfile(blob,filename)
     },
 questionSelected: function (response, index, type, module) {
@@ -686,7 +689,7 @@ this.selectedIndex = this.selectedIndex + 1
 console.log('questionSelected..', response, index, type, module)
 this.$emit('selection', response, index, type, module)
     this.output.push({module,response})
-   // if(module == "CX/MX Journey Mapping" && index == 5) {
+    if(module == "CX/MX Journey Mapping" && index == 5) {
         // 1. convert to csv
         console.log("inside question select")
         var filename = "output" + new Date().getTime()+'.txt'
@@ -697,7 +700,7 @@ this.$emit('selection', response, index, type, module)
        // this.uploadfile(filename)
         // submit job through api
         // this.submit(filename)
-   // }
+    }
 // this.questions[index].response = response
 // this.calculateScores()
 // console.log('questionSelected', this.questions)
@@ -705,7 +708,6 @@ this.$emit('selection', response, index, type, module)
 uploadfile: function (blob, filename) {
         const formData = new FormData()
         formData.append('file', blob, filename)
-       console.log('formdata', formData)
     upload(formData)
         .catch(err => {
             alert('There was an error uploading the file.  Please try again.' + err.message.toString())
