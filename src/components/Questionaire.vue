@@ -668,12 +668,12 @@ this.$emit('reload', this.category)
         // eslint-disable-next-line no-unused-vars
         const data = JSON.stringify(output)
         // parse data
-
         console.log('output',output)
         var parsed = ''
-        parsed += 'Question'+'\t'
-        parsed += 'Response'+'\t'
-        parsed += output[i].response+'\t'
+        var question = "Question"
+        var response = "Response"
+        parsed += question +'\t'
+        parsed += response+'\t'
         for(var i=0;i<output.length;i++) {
             parsed += output[i].module+'\t'
             parsed += output[i].response+'\t'
