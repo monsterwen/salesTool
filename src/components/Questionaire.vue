@@ -674,6 +674,7 @@ this.$emit('reload', this.category)
         var response = "Response"
         parsed += question +'\t'
         parsed += response+'\t'
+        parsed += '\n'
         for(var i=0;i<output.length;i++) {
             parsed += output[i].module+'\t'
             parsed += output[i].response+'\t'
