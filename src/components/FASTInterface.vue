@@ -984,7 +984,7 @@
                 console.log(jobid)
                 getAnalysis(jobid)
                     .catch(err => {
-                        alert('Could not get User BALOR Job History results. ' + err.message.toString())
+                       // alert('Could not get User BALOR Job History results. ' + err.message.toString())
                     })
                     .then((response) => {
                         var analysisoutput = response.data.data.SalesToolResult[0].recommendation
@@ -1020,7 +1020,7 @@
                 //var insightsraw = getInsights(jobid)
                 getInsights("SalesTestDemo")
                     .catch(err => {
-                        alert('Could not get User BALOR Job History results. ' + err.message.toString())
+                       // alert('Could not get User BALOR Job History results. ' + err.message.toString())
                     })
                     .then((response) => {
                         var insightoutput = response.data.data.SalesToolResult[0].recommendation
@@ -1055,7 +1055,7 @@
                // var strategyraw = getStrategy(jobid)
                 getStrategy("SalesTestDemo")
                     .catch(err => {
-                        alert('Could not get User BALOR Job History results. ' + err.message.toString())
+                       // alert('Could not get User BALOR Job History results. ' + err.message.toString())
                     })
                     .then((response) => {
                         var strategyoutput = response.data.data.SalesToolResult[0].recommendation

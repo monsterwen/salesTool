@@ -676,7 +676,7 @@ this.$emit('reload', this.category)
         parsed += response+'\t'
         parsed += '\n'
         for(var i=0;i<output.length;i++) {
-            parsed += output[i].module+'\t'
+            parsed += output[i].question+'\t'
             parsed += output[i].response+'\t'
             parsed += '\n'
         }
@@ -688,16 +688,16 @@ this.$emit('reload', this.category)
         });
         this.uploadfile(blob,filename)
     },
-questionSelected: function (response, index, type, module) {
-this.selectedIndex = this.selectedIndex + 1
-console.log('questionSelected..', response, index, type, module)
-this.$emit('selection', response, index, type, module)
-    this.output.push({module,response})
+    questionSelected: function (response, index, type, module,question) {
+        this.selectedIndex = this.selectedIndex + 1
+        console.log('questionSelected..', question)
+        this.$emit('selection', response, index, type, module)
+        this.output.push({question,response})
+        console.log("output", this.output)
     if(module == "CX/MX Journey Mapping" && index == 5) {
         // 1. convert to csv
         console.log("inside question select")
         var filename = "output" + new Date().getTime()+'.txt'
-        console.log("filename", filename)
         this.$emit('selection', response, index, type, module)
         this.convertToCsv(this.output, filename)
     }
