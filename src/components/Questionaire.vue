@@ -665,12 +665,15 @@ resetCarosel: function () {
 this.$emit('reload', this.category)
 },
     convertToCsv: function (output, filename) {
+        // eslint-disable-next-line no-unused-vars
         const data = JSON.stringify(output)
         // parse data
 
-        window.localStorage.setItem(filename, data)
         console.log('output',output)
         var parsed = ''
+        parsed += 'Question'+'\t'
+        parsed += 'Response'+'\t'
+        parsed += output[i].response+'\t'
         for(var i=0;i<output.length;i++) {
             parsed += output[i].module+'\t'
             parsed += output[i].response+'\t'
@@ -696,10 +699,6 @@ this.$emit('selection', response, index, type, module)
         console.log("filename", filename)
         this.$emit('selection', response, index, type, module)
         this.convertToCsv(this.output, filename)
-        // 2. upload to hdfs
-       // this.uploadfile(filename)
-        // submit job through api
-        // this.submit(filename)
     }
 // this.questions[index].response = response
 // this.calculateScores()
@@ -737,7 +736,7 @@ uploadfile: function (blob, filename) {
 
                     this.$emit('getrecom',fileName)
                 }, 30000);
-               // this.$emit('getrecom',fileName)
+                //this.$emit('getrecom',fileName)
                 console.log(response)
             })
     }

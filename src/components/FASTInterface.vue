@@ -982,7 +982,7 @@
             updaterecom: function(jobid) {
                 // call apis
                 console.log(jobid)
-                getAnalysis("SalesTestDemo")
+                getAnalysis(jobid)
                     .catch(err => {
                         alert('Could not get User BALOR Job History results. ' + err.message.toString())
                     })
