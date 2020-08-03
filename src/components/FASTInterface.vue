@@ -196,6 +196,9 @@
         data: () => ({
             filename: "",
             analysisrecom: [],
+            analysisrecomfinal: [],
+            insightsrecomfinal: [],
+            strategyrecomfinal: [],
             insightsrecom: [],
             strategyrecom: [],
             radarData: [[{
@@ -774,6 +777,17 @@
                 .domain(this.scoreRange)
                 .range(this.colorRange)
         },
+        watch: {
+            analysisrecom: function (val) {
+                this.analysisrecomfinal = val
+            },
+            insightsrecom: function (val) {
+                this.insightsrecomfinal = val
+            },
+            strategyrecom: function (val) {
+                this.strategyrecomfinal = val
+            }
+        },
         computed: {
             preColor: function () {
                 if (!this.colorsScale) {
@@ -796,7 +810,7 @@
                     potentialScore: d3.format('.1f')(this.postScores.analysis / 20),
                     scoreDescription: 'There are a few key areas that would elevate your analytical capability and give you improved visibility of how programmes are performing and key customer characteristics.',
                     potentialDescription: 'and ensure that all of your analytical needs are met, we recommend taking advantage of the following modules.',
-                    recommendedModules: this.analysisrecom,
+                    recommendedModules: this.analysisrecomfinal,
                     // recommendedModules: [
                     //     {
                     //         name: 'Brand & Programme Tracker',
@@ -829,7 +843,7 @@
                     potentialScore: d3.format('.1f')(this.postScores.strategy / 20),
                     scoreDescription: 'There is an opportunity to better benchmark efforts against competitor offerings and review underlying design to cultivate improved value proposition, customer experience and long term emotional loyalty.',
                     potentialDescription: 'In order to improve existing strategical efforts, we recommend the following modules',
-                    recommendedModules: this.strategyrecom,
+                    recommendedModules: this.strategyrecomfinal,
                     meterId: 'strategy-meter'
                 }
             },
@@ -842,7 +856,7 @@
                     potentialScore: d3.format('.1f')(this.postScores.insight / 20),
                     scoreDescription: 'Essential steps seem to have been taken to use data to better understand the customer and inform the programmes that should connect them. However, there are still disctinct gaps in insight functionality.',
                     potentialDescription: 'The gaps identified would be best addressed by the following modules.',
-                     recommendedModules: this.strategyrecom,
+                     recommendedModules: this.strategyrecomfinal,
                          //[
                     //     {
                     //         name: 'Program Health Assessment',
@@ -908,11 +922,11 @@
                 }
             }
         },
-        watch: {
-            summary: function () {
-                // this.changeSummary()
-            }
-        },
+        // watch: {
+        //     summary: function () {
+        //         // this.changeSummary()
+        //     }
+        // },
         methods: {
             changeSummary: function () {
                 let fastHolder = d3.select('.fastHolder')
@@ -979,10 +993,10 @@
                     }, 2050);
                 }
             },
-            updaterecom: function(jobid) {
+            updaterecom: function(jobid,timerid) {
                 // call apis
-                console.log(jobid)
                 getAnalysis(jobid)
+                    // eslint-disable-next-line no-unused-vars
                     .catch(err => {
                        // alert('Could not get User BALOR Job History results. ' + err.message.toString())
                     })
@@ -1005,6 +1019,7 @@
                         }
                         this.analysisrecom = temprecom
                         console.log('analysisraw', this.analysisrecom)
+                        clearInterval(timerid)
 
                         //     {
                         //         name: 'Brand & Programme Tracker',
@@ -1018,7 +1033,8 @@
                         //     },
                     })
                 //var insightsraw = getInsights(jobid)
-                getInsights("SalesTestDemo")
+                getInsights(jobid)
+                    // eslint-disable-next-line no-unused-vars
                     .catch(err => {
                        // alert('Could not get User BALOR Job History results. ' + err.message.toString())
                     })
@@ -1053,7 +1069,8 @@
                         //     },
                     })
                // var strategyraw = getStrategy(jobid)
-                getStrategy("SalesTestDemo")
+                getStrategy(jobid)
+                    // eslint-disable-next-line no-unused-vars
                     .catch(err => {
                        // alert('Could not get User BALOR Job History results. ' + err.message.toString())
                     })

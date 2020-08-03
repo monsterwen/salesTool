@@ -672,12 +672,12 @@ this.$emit('reload', this.category)
         var parsed = ''
         var question = "Question"
         var response = "Response"
-        parsed += question +'\t'
-        parsed += response+'\t'
+        parsed += question +','
+        parsed += response
         parsed += '\n'
         for(var i=0;i<output.length;i++) {
-            parsed += output[i].question+'\t'
-            parsed += output[i].response+'\t'
+            parsed += output[i].question+','
+            parsed += output[i].response
             parsed += '\n'
         }
         console.log('parsed',parsed)
@@ -731,12 +731,11 @@ uploadfile: function (blob, filename) {
                 alert('Problem submitting job to server.  ' + err.message.toString())
             })
             .then((response) => {
-                alert('Form Submitted!')
+               // alert('Form Submitted!')
                 // wait 30 sec
-                setTimeout(() => {
-
-                    this.$emit('getrecom',fileName)
-                }, 30000);
+                var timer = setInterval(() => {
+                    this.$emit('getrecom',fileName,timer)
+                }, 10000);
                 //this.$emit('getrecom',fileName)
                 console.log(response)
             })
