@@ -41,7 +41,7 @@
                 <p>The Loyalty Capability Diagnostic Tool</p>
             </div>
             <div class="dimension-desc">
-                <p>Visualize opportunities to elevate your loyalty programme effectiveness and value with Brierley's FASTtrack Modules</p>
+                <p>Visualize opportunities to elevate your loyalty programme effectiveness and value with Brierley's F.A.S.T track Modules</p>
             </div>
         </div>
         <div class="dimension-container" id="fast-video">
