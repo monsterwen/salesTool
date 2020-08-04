@@ -40,5 +40,26 @@
                 }
             }
         }
+    },
+    "qwert": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-salestool-qwert-165214-authRole",
+            "UnauthRoleArn": "arn:aws:iam::896815182559:role/amplify-salestool-qwert-165214-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::896815182559:role/amplify-salestool-qwert-165214-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-salestool-qwert-165214-deployment",
+            "UnauthRoleName": "amplify-salestool-qwert-165214-unauthRole",
+            "StackName": "amplify-salestool-qwert-165214",
+            "StackId": "arn:aws:cloudformation:us-east-1:896815182559:stack/amplify-salestool-qwert-165214/9911fc90-d5d3-11ea-8b08-12d7a78ee1f9",
+            "AmplifyAppId": "d1esamvmkjb59l"
+        },
+        "categories": {
+            "hosting": {
+                "amplifyhosting": {
+                    "appId": "d1esamvmkjb59l",
+                    "type": "manual"
+                }
+            }
+        }
     }
 }

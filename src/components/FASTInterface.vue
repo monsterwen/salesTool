@@ -998,6 +998,7 @@
                 getAnalysis(jobid)
                     // eslint-disable-next-line no-unused-vars
                     .catch(err => {
+                        console.log(err)
                        // alert('Could not get User BALOR Job History results. ' + err.message.toString())
                     })
                     .then((response) => {
@@ -1036,6 +1037,7 @@
                 getInsights(jobid)
                     // eslint-disable-next-line no-unused-vars
                     .catch(err => {
+                        console.log(err)
                        // alert('Could not get User BALOR Job History results. ' + err.message.toString())
                     })
                     .then((response) => {
@@ -1072,6 +1074,7 @@
                 getStrategy(jobid)
                     // eslint-disable-next-line no-unused-vars
                     .catch(err => {
+                        console.log(err)
                        // alert('Could not get User BALOR Job History results. ' + err.message.toString())
                     })
                     .then((response) => {
