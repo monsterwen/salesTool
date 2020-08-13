@@ -47,13 +47,14 @@
         <div class="dimension-container" id="fast-video">
             <div class="video-content">
                 <div class="video-container">
-                    <div class="video-placeholder">
-                        <div class="button-holder">
-                            <button class="play-button">
-                                <i class="material-icons" style="font-size: 48px; color: rgba(0,0,0,0.5)">play_arrow</i>
-                            </button>
-                        </div>
-                    </div>
+                    <iframe width="100%" height="630" src="https://www.youtube.com/embed/1kqJN1-OQkU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<!--                    <div class="video-placeholder">-->
+<!--                        <div class="button-holder">-->
+<!--                            <button class="play-button">-->
+<!--                                <i class="material-icons" style="font-size: 48px; color: rgba(0,0,0,0.5)">play_arrow</i>-->
+<!--                            </button>-->
+<!--                        </div>-->
+<!--                    </div>-->
                 </div>
             </div>
         </div>
