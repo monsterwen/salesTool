@@ -4,24 +4,24 @@
             <p>{{ question.question }}</p>
         </div>
         <div class="questionResponse">
-            <div class="responseDiv"
+            <button class="responseDiv"
                  :class="{ 'selected': selected.yes, 'deselected': !selected.yes && selectionMade }"
                  id="yes"
                  v-on:click="selection('yes')">
-                <p>Yes</p>
-            </div>
-            <div class="responseDiv"
+                Yes
+            </button>
+            <button class="responseDiv"
                  id="no"
                  :class="{ 'selected': selected.no, 'deselected': !selected.no && selectionMade }"
                  v-on:click="selection('no')">
-                <p>No</p>
-            </div>
-            <div class="responseDiv"
+                No
+            </button>
+            <button class="responseDiv"
                  id="na"
                  :class="{ 'selected': selected.na, 'deselected': !selected.na && selectionMade }"
                  v-on:click="selection('na')">
-                <p>N/A</p>
-            </div>
+                N/A
+            </button>
         </div>
         <div class="inactiveOverlay"
              :class="{ 'hidden': !inactive }"
@@ -127,7 +127,7 @@
         height: 100%;
         border-radius: 3px;
         color: #232323;
-        font-size: 16px;
+        font-size: 20px;
         font-weight: 300;
         line-height: 1.25em;
         background-color: #FEFEFE;
@@ -164,6 +164,7 @@
         font-size: 0.8em;
         display: table;
         font-weight: 600;
+        border: none;
         transition: box-shadow 0.2s ease-in-out,
         background-color 0.2s ease-in-out,
         transform 0.1s,

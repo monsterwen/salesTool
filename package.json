@@ -20,6 +20,7 @@
     "d3-voronoi-map": "^2.0.1",
     "file-saver": "^2.0.2",
     "json2csv": "^5.0.1",
+    "normalize.css": "^8.0.1",
     "sass-loader": "^8.0.2",
     "vue": "^2.6.11",
     "vue-loader": "^15.9.1",

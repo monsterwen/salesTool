@@ -1,6 +1,7 @@
 <template>
 
     <div class="questionHolder">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <div class="questionCarousel" :key="category">
             <div class="questionContainer actualQuestion"
                  v-for="(question, i) in questions"
@@ -14,6 +15,13 @@
                 ></QuestionCardV2>
             </div>
             <div class="questionContainer" style="background-color: rgba(0,0,0,0)">
+                <div class="proceed" :class="{ 'show': selectedIndex === questions.length}">
+<!--                    <button @click="convertToCsv(output, filename)">-->
+                    <button @click="proceedToResults">
+                        <p class="proceedText">Submit Survey</p>
+                        <i class="material-icons icon infoIcon" style="font-size: 26px;">arrow_forward</i>
+                    </button>
+                </div>
             </div>
         </div>
         <div class="gradientOverlay top"></div>
@@ -40,14 +48,14 @@ export default {
         QuestionCardV2
     },
     props: {
-        // questions: {
-        //     type: Array,
-        //     required: true
-        // },
-        category: {
-            type: String,
+        questions: {
+            type: Array,
             required: true
         },
+        // category: {
+        //     type: String,
+        //     required: true
+        // },
         margin: {
             type: Object,
             default: () => ({
@@ -62,108 +70,13 @@ export default {
         category: function () {
             console.log('=======questions', this.category, this.questions)
             // this.initializeValues()
-            this.selectedIndex = 0
+            // this.selectedIndex = 0
             // this.arrangeQuestions()
-        },
-    // selectedIndex: function () {
-    //     // this.initializeValues()
-    //     console.log('selectedINdex', this.selectedIndex)
-    //     this.arrangeQuestions()
-    // }
+            this.$emit('categoryChange', this.category)
+        }
     },
     data: () => {
         return {
-            questions: [
-                {
-                    question: 'Is there room to improve understanding and tracking of program KPIs pinpointing where customer value lies?',
-                    type: 'analysis',
-                    response: null
-                }, {
-                    question: 'Would increased visibility of program components driving positive ROI and incrementatility inform program development?',
-                    type: 'analysis',
-                    response: null
-                }, {
-                    question: 'Would improved application of actionable customer behaviours and metrics better enable personalised communication planning?',
-                    type: 'analysis',
-                    response: null
-                }, {
-                    question: 'Could the incorporation of external customer data for comparison and indexing purposes optimise your communication planning?',
-                    type: 'analysis',
-                    response: null
-                }, {
-                    question: 'Would an elevated understanding of brand experience and program perception present the means to enhance and develop customer satisfaction, loyalty and LTV initiatives?',
-                    type: 'analysis',
-                    response: null
-                }, {
-                    question: 'Could an ability to better predict customer action or purchasing behaviour be more effectively used for targeting purposes?',
-                    type: 'analysis',
-                    response: null
-                }, {
-                    question: 'Would the means to identify the at-risk customer and influence their retention address a gap in your lifecycle marketing strategy?',
-                    type: 'analysis',
-                    response: null
-                }, {
-                    question: 'Is there opportunity to better understand and then customise or personalise actions based on customers\' unique LTV?',
-                    type: 'analysis',
-                    response: null
-                }, {
-                    question: 'Could improvement in the identification of products creating brand stickiness and retention be better leveraged to craft personalised offerings?',
-                    type: 'analysis',
-                    response: null
-                }, {
-                    question: 'Does opportunity exist to better compare program metrics against other benchmarks and translate them into more usable dashboards for operational and executive purposes?',
-                    type: 'analysis',
-                    response: null
-                }, {
-                    question: 'Is there scope to improve the role of analytics and accompanying tools in informing strategic marketing, CX and overall growth?',
-                    type: 'analysis',
-                    response: null
-                }, {
-                    question: 'Would evaluation of current program features and experience against your competitors help to define bare minimum expectations and identify opportunities for differentiation?',
-                    type: 'strategy',
-                    response: null
-                }, {
-                    question: 'Would detailed deconstruction and review of key customer journeys better detail relevance to business goals and surface key moments of interest and interactions to develop relevant customer dialogue?',
-                    type: 'strategy',
-                    response: null
-                }, {
-                    question: 'Would identification of the most relevant program features and benefits at individual level and their operationalization be considered necessary to ensure program innovation?',
-                    type: 'strategy',
-                    response: null
-                }, {
-                    question: 'Could understanding of how customers feel about the effectiveness of your communications and the value they derive from your loyalty endeavours be better considered and applied?',
-                    type: 'strategy',
-                    response: null
-                }, {
-                    question: 'Would defining strategic program milestones to get the program to market, KPIs to measure achievement and the tools for staff to support roll-out better position the business for success?',
-                    type: 'strategy',
-                    response: null
-                }, {
-                    question: 'Does the opportunity for establishing a plan for future program evolution and enhancement have a major role to play?',
-                    type: 'strategy',
-                    response: null
-                }, {
-                    question: 'Would improved visibility of how customer communications are calibrated with channel best practices and the comparision of resulting engagement metrics against key benchmarks improve planning?',
-                    type: 'strategy',
-                    response: null
-                }, {
-                    question: 'Does distinguishing brand loyalty from program loyalty and the ability to influence customer rational and emotional needs present an opportunity to elevate your program above the competition?',
-                    type: 'strategy',
-                    response: null
-                }, {
-                    question: 'Would the evaluation of your program design and its structure serve to inform positive enhancement as it relates to the immediate competition?',
-                    type: 'strategy',
-                    response: null
-                }, {
-                    question: 'Would a defined test and learn approach for new program features coupled to an understanding of those with most impact help elevate the approach to how they are activated 1:1?',
-                    type: 'strategy',
-                    response: null
-                }, {
-                    question: 'Could data driven observations be better used to trigger more personalised communications and develop an individualised marketing pathway for each customer?',
-                    type: 'strategy',
-                    response: null
-                }
-            ],
             responses: {
                 'analysis': {
                     'yes': 0,
@@ -191,7 +104,9 @@ export default {
                     'na': 0
                 },
             },
+            category: '',
             output: [],
+            filename: '',
             scores: {
             analysis: 0,
             insight: 0,
@@ -217,17 +132,12 @@ export default {
         this.arrangeQuestions()
     },
     mounted: function () {
-    // let selectedIndex = this.selectedIndex
-    // let questionCards = questionCarousel
-    //     .selectAll('.questionContainer')
-    // let questionNumber = questionCards.size()
-    // let dimensions = questionCards.node().getBoundingClientRect()
-    // let width = dimensions.width
-    // let height = dimensions.height
-
-    // console.log('height', width, height)
+        this.category = this.questions[0].type
         this.initializeValues()
         this.arrangeQuestions()
+    },
+    created: function () {
+        this.selectedIndex = 0
     },
     methods: {
         initializeValues: function () {
@@ -259,6 +169,9 @@ export default {
 
             this.questionNum = questionNum
         },
+        proceedToResults: function () {
+            this.$emit('proceedToResults', this.questions)
+        },
         arrangeQuestions: function () {
             console.log('arrangeQuestions', this.category)
             // let div = this.div
@@ -279,7 +192,7 @@ export default {
                     translateY = (margin.top + height) * distance
                     translateZ = Math.abs(distance) * (0 - 84)
                     d3.select(this)
-                        .style('transform', `translateY(${translateY}px) translateZ(${translateZ}px)`)
+                        .style('transform', `translateX(0px) translateY(${translateY}px) translateZ(${translateZ}px)`)
                     d3.select(this)
                         .classed('moved', true)
                 })
@@ -323,16 +236,19 @@ export default {
         },
         questionSelected: function (response, index, type, module,question) {
             this.selectedIndex = this.selectedIndex + 1
+            if (this.selectedIndex < this.questions.length) {
+                this.category = this.questions[this.selectedIndex].type
+            }
             console.log('questionSelected..', question)
             this.$emit('selection', response, index, type, module)
             this.output.push({question,response})
             console.log("output", this.output)
-            if(module == "CX/MX Journey Mapping" && index == 5) {
+            if(this.selectedIndex >= this.questions.length) {
                 // 1. convert to csv
                 console.log("inside question select")
-                var filename = "output" + new Date().getTime()+'.txt'
+                this.filename = "output" + new Date().getTime()+'.txt'
                 this.$emit('selection', response, index, type, module)
-                this.convertToCsv(this.output, filename)
+                this.$emit('categoryChange', 'Complete!')
             }
         },
         uploadfile: function (blob, filename) {
@@ -363,6 +279,7 @@ export default {
                 .then((response) => {
                    // alert('Form Submitted!')
                     // wait 30 sec
+                    console.log('submitJob', response)
                     var timer = setInterval(() => {
                         this.$emit('getrecom',fileName,timer)
                     }, 10000);
@@ -375,6 +292,38 @@ export default {
 </script>
 
 <style scoped>
+    .proceed {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 1500ms;
+    }
+    .proceed.show {
+        opacity: 1;
+    }
+    .proceed button {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        align-items: center;
+        background: none;
+        border: none;
+        border-radius: 16px;
+        padding: 0;
+        font: inherit;
+        cursor: pointer;
+        outline: inherit;
+        font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+    .proceedText {
+        padding-left: 8px;
+        padding-right: 8px;
+        font-weight: bold;
+        font-size: 28px;
+    }
 .questionHolder {
     position: relative;
     width: 100%;
@@ -392,18 +341,47 @@ export default {
 }
 .gradientOverlay.top {
     top: 0;
-    background: linear-gradient(top, #ffffff, rgba(0, 0, 0, 0));
+    background: linear-gradient(to bottom, #ffffff, rgba(0, 0, 0, 0));
 }
 .gradientOverlay.bottom {
     bottom: 0;
-    background: linear-gradient(bottom, #ffffff, rgba(0, 0, 0, 0));
+    background: linear-gradient(to top, #ffffff, rgba(0, 0, 0, 0));
+}
+.navButtons {
+    width: 12%;
+    height: 96px;
+    position: absolute;
+    top: calc(50% - 84px);
+    right: 12px;
+    display: flex;
+    flex-flow: column wrap;
+    border-radius: 4px;
+}
+.navButton {
+    width: 100%;
+    height: 50%;
+    flex-basis: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0;
+    background-color: #efefef;
+}
+.navButton :hover{
+    background-color: #dedede;
+}
+.navButton.up {
+    border-radius: 4px 0 0 4px;
+}
+.navButton.down {
+    border-radius: 0 4px 4px 0;
 }
 .questionCarousel {
-    width: max(75%, 400px);
+    width: min(85%, 500px);
     height: 120px;
     position: absolute;
     top: calc(50% - 96px);
-    left: calc(50% -  max(37.5%, 200px));
+    left: calc(50% -  min(42.5%, 250px));
     /*transform: translateZ(-288px);*/
     transform-style: preserve-3d;
     transition: transform .3s;

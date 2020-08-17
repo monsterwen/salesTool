@@ -96,6 +96,7 @@
             <div class="dimension-content">
                 <div class="dimension-side dimension-left">
                     <div class="dimension-image">
+                        <img class="dimension-png" :src="require('../assets/svg/customerEx/customerExp.svg')">
                     </div>
                 </div>
                 <div class="dimension-text dimension-side dimension-right">
@@ -114,69 +115,6 @@
                 </div>
             </div>
         </div>
-        <div class="dimension-container" id="insight">
-            <div class="dimension-content">
-                <div class="dimension-text dimension-side dimension-left">
-                    <div class="dimension-wrapper">
-                        <div class="dimension-headline">
-                            <p>Insight</p>
-                        </div>
-                        <div class="dimension-subhead">
-                            <p>Can my business turn knowledge into action?</p>
-                        </div>
-                        <div class="dimension-body">
-                            <p>The ability to take available analysis and turn it into actionable insight effectively is what sets brands apart from their competition. Being able to quickly adapt in order to change actions or responses based on interpretation of underlying data is a vital ingredient of a successful programme.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="dimension-side dimension-right">
-                    <div class="dimension-image">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="dimension-container" id="technology">
-            <div class="dimension-content">
-                <div class="dimension-side dimension-left">
-                    <div class="dimension-image">
-                    </div>
-                </div>
-                <div class="dimension-text dimension-side dimension-right">
-                    <div class="dimension-wrapper">
-                        <div class="dimension-headline">
-                            <p>Technology</p>
-                        </div>
-                        <div class="dimension-subhead">
-                            <p>Is programme success supported by best in class tooling ?</p>
-                        </div>
-                        <div class="dimension-body">
-                            <p>Having the ability to operationalise your loyalty programme so as to manage both outstanding customer experience and provide necessary management insight rests with having robust yet flexible tooling to ensure programme strategy and vision can be realized. </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="dimension-container" id="cx">
-            <div class="dimension-content">
-                <div class="dimension-text dimension-side dimension-left">
-                    <div class="dimension-wrapper">
-                        <div class="dimension-headline">
-                            <p>Customer Experience</p>
-                        </div>
-                        <div class="dimension-subhead">
-                            <p>Is the customer engaged and delighted throughout the journey?</p>
-                        </div>
-                        <div class="dimension-body">
-                            <p>Engaging with the programme must be easy. Enabling frictionless, intuitive engagement that serves to address customer need and expectation across the journey is fundamental in developing positive experience. Programme integration across key inflection points and channels delivers optimum accessibility and opportunity to participate.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="dimension-side dimension-right">
-                    <div class="dimension-image" style="padding-top: 4%;padding-bottom: 4%;">
-                        <img class="dimension-png" :src="require('../assets/svg/customerEx/customerExp.svg')">
-                    </div>
-                </div>
-            </div>
         </div>
         <div class="spacer"></div>
         <div class="dimension-container signup-container">
@@ -191,7 +129,6 @@
         </div>
 <!--            <FASTModule></FASTModule>-->
 
-    </div>
     </div>
 </template>
 <script>
