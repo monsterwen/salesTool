@@ -107,10 +107,24 @@
                     recommendedModules: [
                         {
                             name: 'Brand & Programme Tracker',
-                            description: 'Establish customer perception of the CRM or loyalty programme and likes or dislikes pertaining to the brand experience and identify aspects to change or act on to increase satisfaction, loyalty and LTV.'
+                            id: 'bpt',
+                            sub: 'This module will allow you to',
+                            capabilities: [
+                                'Improve and optimise key journeys',
+                                'Adapt the programme to improve ling term member satisfaction'
+                            ],
+                            description: 'This will allow you to improve and optimise key journeys as well as adapt the program to improve long term member satisfaction'
+                            // description: 'Establish customer perception of the CRM or loyalty programme and likes or dislikes pertaining to the brand experience and identify aspects to change or act on to increase satisfaction, loyalty and LTV.'
                         }, {
                             name: 'Customer Demographic Profiling',
-                            description: 'Identify what your customers look like by examining key traits and the extent to which they over or under index.  Map characteristics to product and service '
+                            id: 'cdf',
+                            sub: 'So you can',
+                            capabilities: [
+                                'Develop actionable customer segments',
+                                'Develop personalised one to one customer tactics aligned in tone and channel preference'
+                            ],
+                            description: 'So you can enser '
+                            // description: 'Identify what your customers look like by examining key traits and the extent to which they over or under index.  Map characteristics to product and service '
                         }
                     ],
                     meterId: 'meter-weeder'
@@ -129,10 +143,24 @@
                     recommendedModules: [
                         {
                             name: 'Brand & Programme Tracker',
-                            description: 'Establish customer perception of the CRM or loyalty programme and likes or dislikes pertaining to the brand experience and identify aspects to change or act on to increase satisfaction, loyalty and LTV.'
+                            id: 'bpt',
+                            sub: 'This module will allow you to',
+                            capabilities: [
+                                'Improve and optimise key journeys',
+                                'Adapt the programme to improve ling term member satisfaction'
+                            ],
+                            description: 'This will allow you to improve and optimise key journeys as well as adapt the program to improve long term member satisfaction'
+                            // description: 'Establish customer perception of the CRM or loyalty programme and likes or dislikes pertaining to the brand experience and identify aspects to change or act on to increase satisfaction, loyalty and LTV.'
                         }, {
                             name: 'Customer Demographic Profiling',
-                            description: 'Identify what your customers look like by examining key traits and the extent to which they over or under index.  Map characteristics to product and service '
+                            id: 'cdf',
+                            sub: 'So you can',
+                            capabilities: [
+                                'Develop actionable customer segments',
+                                'Develop personalised one to one customer tactics aligned in tone and channel preference'
+                            ],
+                            description: 'So you can enser '
+                            // description: 'Identify what your customers look like by examining key traits and the extent to which they over or under index.  Map characteristics to product and service '
                         }
                     ],
                     meterId: 'strategy-meter'
@@ -206,7 +234,7 @@
             },
             renderMarkers: {
                 type: Boolean,
-                default: () => false
+                default: () => true
             }
         },
         data: () => ({})

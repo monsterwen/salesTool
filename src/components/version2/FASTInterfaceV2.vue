@@ -33,6 +33,7 @@
             <div class="reportHolder" :class="{ 'reportFinished': summary }">
                 <div class="recommendationHolder">
                     <RecommendationReportV2
+
                     ></RecommendationReportV2>
                 </div>
             </div>
@@ -57,91 +58,91 @@
                 showTooltip: false,
                 questions: [
                     {
-                        question: 'Is there room to improve understanding and tracking of program KPIs pinpointing where customer value lies?',
+                        question: 'Do you have solid reporting  and benchmarks for how well your CRM or loyalty program is performing?',
                         type: 'analysis',
                         response: null
                     }, {
-                        question: 'Would increased visibility of program components driving positive ROI and incrementatility inform program development?',
+                        question: 'Are you confidently measuring loyalty or CRM program incrementality and ROI?',
                         type: 'analysis',
                         response: null
                     }, {
-                        question: 'Would improved application of actionable customer behaviours and metrics better enable personalised communication planning?',
+                        question: 'Does your organization have a robust customer segmentation that is used to direct marketing strategy (i.e., personalization, tone and media mix)?',
                         type: 'analysis',
                         response: null
                     }, {
-                        question: 'Could the incorporation of external customer data for comparison and indexing purposes optimise your communication planning?',
+                        question: 'Do you leverage customer demographics to guide your marketing efforts?',
                         type: 'analysis',
                         response: null
                     }, {
-                        question: 'Would an elevated understanding of brand experience and program perception present the means to enhance and develop customer satisfaction, loyalty and LTV initiatives?',
+                        question: 'Do you routinely and thoroughly track how your program/CRM is perceived by your customers?',
                         type: 'analysis',
                         response: null
                     }, {
-                        question: 'Could an ability to better predict customer action or purchasing behaviour be more effectively used for targeting purposes?',
+                        question: 'Are you able to predict/model which of your customers are most (and least) likely to engage in behaviors that are key for your business?',
                         type: 'analysis',
                         response: null
                     }, {
-                        question: 'Would the means to identify the at-risk customer and influence their retention address a gap in your lifecycle marketing strategy?',
+                        question: 'Can you identify which of your customers are at risk for leaving your brand well before they officially lapse?',
                         type: 'analysis',
                         response: null
                     }, {
-                        question: 'Is there opportunity to better understand and then customise or personalise actions based on customers\' unique LTV?',
+                        question: 'Do you customize or personalize actions based on each customer\'s unique lifetime value score?',
                         type: 'analysis',
                         response: null
                     }, {
-                        question: 'Could improvement in the identification of products creating brand stickiness and retention be better leveraged to craft personalised offerings?',
+                        question: 'Do you have a data-driven strategy for personalizing product recommendations/offerings at the customer level?',
                         type: 'analysis',
                         response: null
                     }, {
-                        question: 'Does opportunity exist to better compare program metrics against other benchmarks and translate them into more usable dashboards for operational and executive purposes?',
+                        question: 'Do you have a set of KPIs and interactive dashboards that cleanly tracks your progress toward key business objectives?',
                         type: 'analysis',
                         response: null
                     }, {
-                        question: 'Is there scope to improve the role of analytics and accompanying tools in informing strategic marketing, CX and overall growth?',
+                        question: 'Is there a clear path for adopting new analytic tools and solutions to enable your long-term marketing vision?',
                         type: 'analysis',
                         response: null
                     }, {
-                        question: 'Would evaluation of current program features and experience against your competitors help to define bare minimum expectations and identify opportunities for differentiation?',
+                        question: 'Do you have a clear sense of how your program and customer experience compare to your competitive set?',
                         type: 'strategy',
                         response: null
                     }, {
-                        question: 'Would detailed deconstruction and review of key customer journeys better detail relevance to business goals and surface key moments of interest and interactions to develop relevant customer dialogue?',
+                        question: 'Are you actively enhancing the customer journeys that are most impactful to your business?',
                         type: 'strategy',
                         response: null
                     }, {
-                        question: 'Would identification of the most relevant program features and benefits at individual level and their operationalization be considered necessary to ensure program innovation?',
+                        question: 'Do you have an active idea bank of features and enhancements that will make immediate impact on your key customer segments?',
                         type: 'strategy',
                         response: null
                     }, {
-                        question: 'Could understanding of how customers feel about the effectiveness of your communications and the value they derive from your loyalty endeavours be better considered and applied?',
+                        question: 'Through the eyes of your customers, do you know how your communications efforts stack up against those of your competitors?',
                         type: 'strategy',
                         response: null
                     }, {
-                        question: 'Would defining strategic program milestones to get the program to market, KPIs to measure achievement and the tools for staff to support roll-out better position the business for success?',
+                        question: 'Do you have an action plan to effectively introduce a program to market and/or make impactful changes to an existing program?',
                         type: 'strategy',
                         response: null
                     }, {
-                        question: 'Does the opportunity for establishing a plan for future program evolution and enhancement have a major role to play?',
+                        question: 'Have you established a plan for future evolution & growth/enhancement of your current marketing program?',
                         type: 'strategy',
                         response: null
                     }, {
-                        question: 'Would improved visibility of how customer communications are calibrated with channel best practices and the comparision of resulting engagement metrics against key benchmarks improve planning?',
+                        question: 'Are your customer communications fully aligned with marketing best practices in each channel?',
                         type: 'strategy',
                         response: null
                     }, {
-                        question: 'Does distinguishing brand loyalty from program loyalty and the ability to influence customer rational and emotional needs present an opportunity to elevate your program above the competition?',
+                        question: 'Are you able to track and analyze emotional loyalty to your brand/program?',
                         type: 'strategy',
                         response: null
                     }, {
-                        question: 'Would the evaluation of your program design and its structure serve to inform positive enhancement as it relates to the immediate competition?',
+                        question: 'Are you confident your engagement and loyalty efforts incorporate best-in-class customer experiences/offerings?',
                         type: 'strategy',
                         response: null
                     }, {
-                        question: 'Would a defined test and learn approach for new program features coupled to an understanding of those with most impact help elevate the approach to how they are activated 1:1?',
+                        question: 'Are you leveraging a test and learn plan made up of the most impactful quick campaigns to support your program & communication goals?',
                         type: 'strategy',
                         response: null
                     }, {
-                        question: 'Could data driven observations be better used to trigger more personalised communications and develop an individualised marketing pathway for each customer?',
+                        question: 'Have you mapped clear desired behaviors to each of your customers via a personalized marketing plan?',
                         type: 'strategy',
                         response: null
                     }
@@ -159,7 +160,8 @@
         mounted() {
         },
         methods: {
-            goToResults: function (questions) {
+            goToResults: function () {
+                this.$emit('goToResults')
                 this.showRecommendation = true
             },
             questionSelected: function (d, i, y) {
@@ -242,6 +244,9 @@
         padding-bottom: 4px;
         padding-left: 4px;
     }
+    .recommendationHolder {
+        padding-top: 36px;
+    }
     .fastHolder {
         width: 100%;
         height: 100%;
@@ -260,6 +265,7 @@
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
+        align-content: flex-start;
     }
     .questionFlex {
         flex-basis: 100%;
@@ -278,7 +284,7 @@
         align-items: flex-start;
         align-content: flex-start;
         justify-content: flex-start;
-        height: auto;
+        height: 94px;
         width: 100%;
         flex-basis: 100%;
         margin-top: 16px;

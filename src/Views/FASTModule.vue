@@ -7,7 +7,8 @@
 <!--                </div>-->
 <!--            </div>-->
             <div class="fastContainer">
-                <FASTInterface></FASTInterface>
+                <slot name="interface">
+                </slot>
             </div>
         </div>
     </div>
@@ -15,10 +16,10 @@
 
 <script>
     // import BrierleyLogo from '../components/BrierleyLogo'
-    import FASTInterface from '../components/FASTInterface'
+    // import FASTInterface from '../components/FASTInterface'
     export default {
         name: 'FASTModule',
-        components: {FASTInterface},
+        components: {},
         data: () => ({
             radarMargins: {
                 top: 12,
@@ -48,7 +49,7 @@
     height: 64px;
     margin: 0 0px 0 0px;
     flex-basis: calc(100% + 104px);
-    background-color: #E0E0E0;
+    background-color: #ffffff;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -60,7 +61,7 @@
 }
 .fastContainer {
     width: 100%;
-    height: calc(100%);
+    /*height: calc(100%);*/
     /*padding-bottom: 56.25%;*/
     /*height: max(calc(100% - 84px), 700px);*/
     /*max-height: max(calc(100% - 84px), 700px);*/
@@ -68,7 +69,8 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    background-color: #f0f0f0;
+    border-radius: 18px;
+    background-color: #fff;
 }
 .card {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);

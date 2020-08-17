@@ -87,6 +87,7 @@
         },
         methods: {
             populateScale: function () {
+                console.log('potentialscore', this.potentialScore)
                 let triangleGenerator = d3.symbol()
                     .type(d3.symbolTriangle)
                     .size(this.margin.top * 3);

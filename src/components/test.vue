@@ -62,10 +62,10 @@
         </div>
         <div class="dimension-header">
             <div class="dimension-title">
-                <p>5 key dimensions</p>
+                <p>The Key Dimensions</p>
             </div>
             <div class="dimension-desc">
-                <p>Our 5 point loyalty maturity curve provides an in depth view of your current loyalty capability</p>
+                <p>The Loyalty Capability Diagnostic Tool tests your loyalty capabilities across two dimensions</p>
             </div>
         </div>
         <div class="dimension-container" id="analytics">
@@ -115,7 +115,6 @@
                 </div>
             </div>
         </div>
-        </div>
         <div class="spacer"></div>
         <div class="dimension-container signup-container">
             <div class="signup-content" v-if="!displayQuestionaire">
@@ -123,31 +122,40 @@
                         @submitted="displayQuestionaire = true"
                     ></SignUpField>
             </div>
-            <div class="questionaire-content" v-if="displayQuestionaire">
-                <FASTModule></FASTModule>
+            <div class="questionaire-content" :class="{ 'questionnaireMode': questionnaireMode, 'resultMode': !questionnaireMode}" v-if="displayQuestionaire">
+                <FASTModule>
+                    <template v-slot:interface>
+                        <FASTInterfaceV2
+                            @goToResults="questionnaireMode=false"></FASTInterfaceV2>
+                    </template>
+                </FASTModule>
             </div>
         </div>
 <!--            <FASTModule></FASTModule>-->
 
     </div>
+    </div>
 </template>
 <script>
     import FASTModule from "../Views/FASTModule";
     import SignUpField from "./SignUpField";
+    import FASTInterfaceV2 from "./version2/FASTInterfaceV2";
     // import BrierleyLogo from "./BrierleyLogo";
     // import * as d3 from 'd3'
 
     export default {
         name: 'Test',
         components:  {
+            SignUpField,
             FASTModule,
-            SignUpField
+            FASTInterfaceV2
         },
         data: () => ({
             briefDesk: true,
             signupModal: null,
             signupContainer: null,
-            displayQuestionaire: false
+            displayQuestionaire: false,
+            questionnaireMode: true,
         }),
         mounted: function () {
             this.signupContainer = document.getElementsByClassName('.signup-container')
@@ -456,10 +464,16 @@
     .questionaire-content {
         width: 100%;
         flex-basis: 100%;
-        max-width: 1800px;
         margin: 48px auto;
         display: flex;
         flex-flow: row wrap;
+        min-height: 50vh;
+    }
+    .questionnaireMode {
+        max-width: 600px;
+    }
+    .resultMode {
+        max-width: 1400px;
     }
     /*.dimension-left .dimension-text {*/
     /*    justify-content: flex-end;*/

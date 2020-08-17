@@ -16,11 +16,11 @@
                     </ScoreMeter>
                 </div>
             </div>
-            <div class="arrow-holder"
-                v-on:click="displayBody = !displayBody">
-                <div class="result-expand" :class="{'active': displayBody}">
-                </div>
-            </div>
+<!--            <div class="arrow-holder"-->
+<!--                v-on:click="displayBody = !displayBody">-->
+<!--                <div class="result-expand" :class="{'active': displayBody}">-->
+<!--                </div>-->
+<!--            </div>-->
         </div>
         <div class="result-body" :class="{'hide-result-body': !displayBody}">
             <div class="result-half left-half">
@@ -103,7 +103,7 @@
                             <div class="module-sub">
                                 <p>{{item.sub}}</p>
                             </div>
-                            <ul class="gap-list" v-if="item.capabilities">
+                            <ul class="gap-list">
                                 <li v-for="(cap, i) in item.capabilities" class="capability-item" v-bind:key="`cap${i}`">
                                     <!--                        <div class="module-tick"></div>-->
                                     <!--                        <div class="module-title">-->
@@ -120,9 +120,9 @@
                                     <!--                        </div>-->
                                 </li>
                             </ul>
-                            <div class="module-description" v-else>
-                                <p>{{item.description}}</p>
-                            </div>
+<!--                            <div class="module-description" v-else>-->
+<!--                                <p>{{item.description}}</p>-->
+<!--                            </div>-->
                             <button class="module-link"
                                  :class="{'selected': isSelected(item)}"
                                     v-on:click="interestedClick">
@@ -182,7 +182,7 @@
             },
             potentialPrescription: {
                 type: String,
-                default: () => 'Can be reached by addressing the identified gaps in your analytic capabilities with the following modules'
+                default: () => 'Can be attained with help from our following modules'
             },
             identifiedGaps: {
                 type: Array,
@@ -331,8 +331,8 @@
         margin-top: 12px;
     }
     .result-content {
-        width: calc(98% - 64px);
-        flex-basis: calc(98% - 64px);
+        width: calc(100% - 40px);
+        flex-basis: calc(100% - 40px);
         height: 100%;
         display: flex;
         flex-flow: row wrap;
@@ -350,15 +350,17 @@
     .result-name p {
         font-weight: 400;
         font-size: 28px;
-        font-family: Avenir, Helvetica, Arial, sans-serif;
+        font-family: "Open Sans", Avenir, Helvetica, Arial, sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         text-align: left;
         margin: 0;
         cursor: pointer;
+        margin-left: 36px;
+        font-weight: bold;
     }
     .result-name p:hover{
-        font-weight: 500;
+        /*font-weight: 500;*/
         color: #2c3e50;
     }
     .result-meter {
@@ -562,7 +564,7 @@
         width: 60%;
         min-width: 350px;
         flex-basis: 60%;
-        margin-top: 6px;
+        margin-top: 12px;
         justify-content: center;
         border-top: 1px solid #CDCDCD;
         border-bottom: 1px solid #CDCDCD;

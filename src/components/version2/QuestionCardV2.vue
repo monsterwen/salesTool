@@ -133,6 +133,7 @@
         background-color: #FEFEFE;
         border: 1px solid rgb(246, 246, 246);
         display: flex;
+        align-items: center;
         user-select: none;
         overflow: hidden;
         font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -158,6 +159,7 @@
         flex-direction: column;
     }
     .responseDiv {
+        min-height: 32px;
         height: calc(100% / 3);
         width: 100%;
         flex-basis: 100%;

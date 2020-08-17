@@ -170,6 +170,7 @@ export default {
             this.questionNum = questionNum
         },
         proceedToResults: function () {
+            this.convertToCsv(this.output, this.filename)
             this.$emit('proceedToResults', this.questions)
         },
         arrangeQuestions: function () {
@@ -254,6 +255,7 @@ export default {
         uploadfile: function (blob, filename) {
             const formData = new FormData()
             formData.append('file', blob, filename)
+            console.log('formDataUpload', formData)
             upload(formData)
             .catch(err => {
                 alert('There was an error uploading the file.  Please try again.' + err.message.toString())
@@ -300,6 +302,7 @@ export default {
         align-items: center;
         opacity: 0;
         transition: opacity 1500ms;
+        margin-top: 36px;
     }
     .proceed.show {
         opacity: 1;
