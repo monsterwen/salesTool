@@ -35,7 +35,7 @@ import QuestionCardV2 from './QuestionCardV2'
 // const JSONToCSV = require("json2csv").parse
 // const FileSystem = require("fs")
 import { upload } from '../../assets/js/fileupload'
-import {submitJob} from '../../assets/js/jobservice.js'
+import { submitJob } from '../../assets/js/jobservice.js'
 // eslint-disable-next-line no-unused-vars
 import saveAs from 'file-saver'
 
@@ -171,7 +171,7 @@ export default {
         },
         proceedToResults: function () {
             this.convertToCsv(this.output, this.filename)
-            this.$emit('proceedToResults', this.questions)
+            this.$emit('proceedToResults', this.questions, this.output, this.filename)
         },
         arrangeQuestions: function () {
             console.log('arrangeQuestions', this.category)

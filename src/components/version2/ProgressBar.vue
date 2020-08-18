@@ -122,7 +122,7 @@
     .progressBar {
         width: 100%;
         flex-basis: 100%;
-        height: 16px;
+        height: 24px;
         padding-left: 8px;
         padding-right: 8px;
         margin-top: 1px;

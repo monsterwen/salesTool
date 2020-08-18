@@ -45,6 +45,8 @@
     import QuestionaireV2 from './QuestionaireV2'
     import ProgressBar from './ProgressBar'
     import RecommendationReportV2 from './RecommendationReportV2'
+    import {getAnalysis, getStrategy, submitJob} from "../../assets/js/jobservice";
+    import {upload} from "../../assets/js/fileupload";
     export default {
         name: "FASTInterfaceV2",
         components: {
@@ -55,6 +57,10 @@
         data: function () {
             return {
                 showRecommendation: false,
+                fastState: 1,
+                analysisReady: false,
+                strategyReady: false,
+                error: false,
                 showTooltip: false,
                 questions: [
                     {
@@ -160,8 +166,9 @@
         mounted() {
         },
         methods: {
-            goToResults: function () {
+            goToResults: function (questions, output, filename) {
                 this.$emit('goToResults')
+                this.convertToCsv(output, filename)
                 this.showRecommendation = true
             },
             questionSelected: function (d, i, y) {
@@ -180,7 +187,152 @@
             },
             displayTooltip: function () {
                 this.showTooltip = !this.showTooltip
-            }
+            },
+            convertToCsv: function (output, filename) {
+                // eslint-disable-next-line no-unused-vars
+                const data = JSON.stringify(output)
+                // parse data
+                console.log('output',output)
+                var parsed = ''
+                var question = "Question"
+                var response = "Response"
+                parsed += question +','
+                parsed += response
+                parsed += '\n'
+                for(var i=0;i<output.length;i++) {
+                    parsed += output[i].question+','
+                    parsed += output[i].response
+                    parsed += '\n'
+                }
+                console.log('parsed',parsed)
+                // eslint-disable-next-line no-unused-vars
+                // eslint-disable-next-line no-unused-vars
+                var blob = new Blob([parsed], {
+                    type: "text/plain;charset=utf-8"
+                });
+                this.uploadfile(blob,filename)
+            },
+            uploadfile: function (blob, filename) {
+                const formData = new FormData()
+                formData.append('file', blob, filename)
+                console.log('formDataUpload', formData)
+                upload(formData)
+                    .catch(err => {
+                        alert('There was an error uploading the file.  Please try again.' + err.message.toString())
+                    })
+                    .then((response) => {
+                        console.log('successfully uploaded file to HDFS')
+                        console.log(response)
+                        this.submit(filename)
+                    })
+            },
+            submit: function (fileName) {
+                var jobObj = {
+                    'app': "sales",
+                    'jobId': fileName,
+                    'delimiter': ",",
+                    'fileLocation': 'hdfs:///user/admin/' + fileName,
+
+                }
+                submitJob(jobObj)
+                    .catch(err => {
+                        alert('Problem submitting job to server.  ' + err.message.toString())
+                    })
+                    .then((response) => {
+                        // alert('Form Submitted!')
+                        // wait 30 sec
+                        console.log('submitJob', response)
+                        // var timer = setInterval(() => {
+                        //     // this.$emit('getrecom',fileName,timer)
+                        //     this.updaterecom(fileName, timer)
+                        // }, 10000);
+                        //this.$emit('getrecom',fileName)
+                        console.log(response)
+                    })
+            },
+            updaterecom: function(jobid,timerid) {
+                // call apis
+                getAnalysis(jobid)
+                    // eslint-disable-next-line no-unused-vars
+                    .catch(err => {
+                        console.log(err)
+                        this.error = true
+                        // alert('Could not get User BALOR Job History results. ' + err.message.toString())
+                    })
+                    .then((response) => {
+                        let analysisoutput = response.data.data.SalesToolResult[0].recommendation
+                        console.log('analysisoutput', analysisoutput)
+
+                        let temprecom = []
+                        this.analysisReady = true
+                        for(let i=0;i<analysisoutput.length;i++) {
+                            let tempjson = {
+                                name: analysisoutput[i].Module,
+                                id: 'bpt',
+                                sub: 'This module will allow you to:',
+                                capabilities: [
+                                    analysisoutput[i].So_You
+                                ],
+                                description: 'Establish customer perception of the CRM or loyalty programme and likes or dislikes pertaining to the brand experience and identify aspects to change or act on to increase satisfaction, loyalty and LTV.'
+                            }
+                            temprecom.push(tempjson)
+                        }
+                        this.analysisrecom = temprecom
+                        console.log('analysisraw', this.analysisrecom)
+                        clearInterval(timerid)
+
+                        //     {
+                        //         name: 'Brand & Programme Tracker',
+                        //         id: 'bpt',
+                        //         sub: 'This module will allow you to:',
+                        //         capabilities: [
+                        //             'Improve and optimise key journeys',
+                        //             'Adapt the programme to improve long term member satisfaction'
+                        //         ],
+                        //         description: 'Establish customer perception of the CRM or loyalty programme and likes or dislikes pertaining to the brand experience and identify aspects to change or act on to increase satisfaction, loyalty and LTV.'
+                        //     },
+                    })
+                //let insightsraw = getInsights(jobid)
+                // let strategyraw = getStrategy(jobid)
+                getStrategy(jobid)
+                    // eslint-disable-next-line no-unused-vars
+                    .catch(err => {
+                        console.log(err)
+                        // alert('Could not get User BALOR Job History results. ' + err.message.toString())
+                    })
+                    .then((response) => {
+                        let strategyoutput = response.data.data.SalesToolResult[0].recommendation
+                        console.log('strategyoutput', strategyoutput)
+
+                        let temprecom = []
+                        this.strategyReady = true
+                        for(let i=0;i<strategyoutput.length;i++) {
+                            let tempjson = {
+                                name: strategyoutput[i].Module,
+                                id: 'bpt',
+                                sub: 'This module will allow you to:',
+                                capabilities: [
+                                    strategyoutput[i].So_You
+                                ],
+                                description: 'Establish customer perception of the CRM or loyalty programme and likes or dislikes pertaining to the brand experience and identify aspects to change or act on to increase satisfaction, loyalty and LTV.'
+                            }
+                            temprecom.push(tempjson)
+                        }
+                        this.strategyrecom = temprecom
+
+                        //     {
+                        //         name: 'Brand & Programme Tracker',
+                        //         id: 'bpt',
+                        //         sub: 'This module will allow you to:',
+                        //         capabilities: [
+                        //             'Improve and optimise key journeys',
+                        //             'Adapt the programme to improve long term member satisfaction'
+                        //         ],
+                        //         description: 'Establish customer perception of the CRM or loyalty programme and likes or dislikes pertaining to the brand experience and identify aspects to change or act on to increase satisfaction, loyalty and LTV.'
+                        //     },
+                    })
+                // parse raw data
+            },
         }
     }
 </script>
