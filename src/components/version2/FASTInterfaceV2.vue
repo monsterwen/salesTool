@@ -1,6 +1,6 @@
 <template>
     <div class="fastHolder">
-        <div class="moduleHolder flexHolder questionHolder card" v-if="!showRecommendation">
+        <div class="moduleHolder flexHolder questionHolder card" v-if="fastState === 1">
             <div class="questionFlex questionHeader">
                 <div class="questionTitle fullWidth">
                     <p class="questionCatTitle">{{ category }}</p>
@@ -29,7 +29,10 @@
                 </QuestionaireV2>
             </div>
         </div>
-        <div id="summary-hold" class="moduleHolder flexHolder questionHolder card" v-if="showRecommendation">
+        <div class="moduleHolder flexHolder questionHolder card" v-if="fastState === 2">
+            <LoadingScreen></LoadingScreen>
+        </div>
+        <div id="summary-hold" class="moduleHolder flexHolder questionHolder card" v-if="fastState === 3">
             <div class="reportHolder" :class="{ 'reportFinished': summary }">
                 <div class="recommendationHolder">
                     <RecommendationReportV2
@@ -45,6 +48,8 @@
     import QuestionaireV2 from './QuestionaireV2'
     import ProgressBar from './ProgressBar'
     import RecommendationReportV2 from './RecommendationReportV2'
+    import LoadingScreen from './LoadingScreen'
+
     import {getAnalysis, getStrategy, submitJob} from "../../assets/js/jobservice";
     import {upload} from "../../assets/js/fileupload";
     export default {
@@ -52,7 +57,8 @@
         components: {
             QuestionaireV2,
             ProgressBar,
-            RecommendationReportV2
+            RecommendationReportV2,
+            LoadingScreen
         },
         data: function () {
             return {
@@ -163,11 +169,24 @@
                 stepColor: '#48bb00'
             }
         },
+        watch: {
+            analysisReady: function () {
+                if (this.analysisReady && this.strategyReady) {
+                    this.fastState = 3
+                }
+            },
+            strategyReady: function () {
+                if (this.analysisReady && this.strategyReady) {
+                    this.fastState = 3
+                }
+            }
+        },
         mounted() {
         },
         methods: {
             goToResults: function (questions, output, filename) {
                 this.$emit('goToResults')
+                this.fastState = 2
                 this.convertToCsv(output, filename)
                 this.showRecommendation = true
             },
@@ -242,10 +261,10 @@
                         // alert('Form Submitted!')
                         // wait 30 sec
                         console.log('submitJob', response)
-                        // var timer = setInterval(() => {
-                        //     // this.$emit('getrecom',fileName,timer)
-                        //     this.updaterecom(fileName, timer)
-                        // }, 10000);
+                        var timer = setInterval(() => {
+                            // this.$emit('getrecom',fileName,timer)
+                            this.updaterecom(fileName, timer)
+                        }, 10000);
                         //this.$emit('getrecom',fileName)
                         console.log(response)
                     })
@@ -260,11 +279,11 @@
                         // alert('Could not get User BALOR Job History results. ' + err.message.toString())
                     })
                     .then((response) => {
+                        console.log('response', response)
                         let analysisoutput = response.data.data.SalesToolResult[0].recommendation
                         console.log('analysisoutput', analysisoutput)
 
                         let temprecom = []
-                        this.analysisReady = true
                         for(let i=0;i<analysisoutput.length;i++) {
                             let tempjson = {
                                 name: analysisoutput[i].Module,
@@ -280,6 +299,7 @@
                         this.analysisrecom = temprecom
                         console.log('analysisraw', this.analysisrecom)
                         clearInterval(timerid)
+                        this.analysisReady = true
 
                         //     {
                         //         name: 'Brand & Programme Tracker',
@@ -305,7 +325,6 @@
                         console.log('strategyoutput', strategyoutput)
 
                         let temprecom = []
-                        this.strategyReady = true
                         for(let i=0;i<strategyoutput.length;i++) {
                             let tempjson = {
                                 name: strategyoutput[i].Module,
@@ -319,6 +338,7 @@
                             temprecom.push(tempjson)
                         }
                         this.strategyrecom = temprecom
+                        this.strategyReady = true
 
                         //     {
                         //         name: 'Brand & Programme Tracker',
@@ -456,7 +476,7 @@
     }
     .questionTitle {
         /*height: 48px;*/
-        color: #0b0b0b;
+        color: #1d1d1f;
         display: flex;
         align-items: flex-end;
     }

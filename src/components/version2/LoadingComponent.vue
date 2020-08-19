@@ -1,8 +1,6 @@
 <template>
     <div class="loadingHolder">
-        <div class="lds-ring">
-            <svg class="loaderSVG"></svg>
-        </div>
+        <svg class="loaderSVG"></svg>
     </div>
 </template>
 
@@ -16,6 +14,14 @@
                 type: Number,
                 default: () => 24
             },
+            duration: {
+                type: Number,
+                default: () => 2400
+            },
+            loaderColor: {
+                type: String,
+                default: () => '#009fbc'
+            },
             done: {
                 type: Boolean,
                 default: () => false
@@ -23,9 +29,6 @@
         },
         data: function () {
             return {
-                animationTime: 1200,
-                loaderRadius: 40,
-                loaderColor: "#009fbc",
                 //
                 svgDimensions: {},
                 svgWidth: 0,
@@ -36,15 +39,68 @@
                 svg: null,
                 g: null,
                 loader: null,
+                startCircle: null,
+                endCircle: null,
             }
         },
         mounted: function () {
+            this.initializeLoaderElements()
         },
         methods: {
             initializeLoaderElements: function () {
+                this.svg = d3.select('.loaderSVG')
+
+                this.svgDimensions = this.svg
+                    .node()
+                    .getBoundingClientRect()
+
+                console.log('dimension', this.svgDimensions)
+                this.svgWidth = this.svgDimensions.width
+                this.svgHeight = this.svgDimensions.height
+
+                this.radius = Math.min(this.svgWidth, this.svgHeight) / 2
+                console.log('radies', this.radius)
                 this.arc = d3.arc()
                     .innerRadius(this.radius - this.loaderWidth)
                     .outerRadius(this.radius)
+
+                this.g = this.svg
+                    .append('g')
+                    .attr('transform', `translate(${this.svgWidth / 2},${this.svgHeight / 2})`)
+
+                this.loader = this.g
+                    .append('path')
+                    .datum({ endAngle: 0, startAngle: 0})
+                    .style('fill', this.loaderColor)
+                    .attr('d', this.arc)
+                // this.startCircle = this.g
+                //     .append('circle')
+                //     .style('fill', this.loaderColor)
+                //     .attr('transform', `translate(0,${(0 - this.svgHeight) / 2 + this.loaderWidth / 2})`)
+                //     .attr('width', this.loaderWidth)
+                //     .attr('height', this.loaderWidth)
+                //     .attr('r', this.loaderWidth / 2)
+                //
+                // this.endCircle = this.g
+                //     .append('circle')
+                //     .style('fill', this.loaderColor)
+                //     .attr('transform', `translate(0,${(0 - this.svgHeight) / 2 + this.loaderWidth / 2}`)
+                d3.interval(this.startInterval, this.duration * 2)
+            },
+            startInterval: function () {
+                this.loader
+                    .datum({ endAngle: 0, startAngle: 0})
+
+                this.loader
+                    .transition()
+                    .duration(this.duration)
+                    .attrTween('d', this.arcTween(this.degToRad(360), 'endAngle'))
+                this.loader
+                    .transition()
+                    .delay(this.duration)
+                    .duration(this.duration)
+                    .attrTween('d', this.arcTween(this.degToRad(360), 'startAngle'))
+
             },
             degToRad: function (degrees) {
                 return degrees * Math.PI / 180
@@ -54,7 +110,7 @@
                     let interpolate = d3.interpolate(d[angle], newAngle)
                     return (t) => {
                         d[angle] = interpolate(t)
-                        return arc(d)
+                        return this.arc(d)
                     }
                 }
             }
@@ -70,10 +126,8 @@
         width: 100%;
         height: 100%;
     }
-    .lds-ring {
-        display: inline-block;
-        position: relative;
-        width: 80px;
-        height: 80px;
+    .loaderSVG {
+        width: 100%;
+        height: 100%;
     }
 </style>

@@ -170,7 +170,7 @@ export default {
             this.questionNum = questionNum
         },
         proceedToResults: function () {
-            this.convertToCsv(this.output, this.filename)
+            // this.convertToCsv(this.output, this.filename)
             this.$emit('proceedToResults', this.questions, this.output, this.filename)
         },
         arrangeQuestions: function () {
