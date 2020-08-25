@@ -452,22 +452,6 @@
     .result-score-title p {
         font-size: 26px;
     }
-    button {
-         display: inline-block;
-         border: none;
-         margin: 0;
-         text-decoration: none;
-         background: none;
-         color: #656565;
-         font-family: sans-serif;
-         font-size: 1rem;
-         cursor: pointer;
-         text-align: center;
-         transition: background 250ms ease-in-out,
-         transform 150ms ease;
-         -webkit-appearance: none;
-         -moz-appearance: none;
-     }
     .result-score {
         width: auto;
         flex-basis: auto;
@@ -535,6 +519,7 @@
     .result-gap-description p {
         width: 60%;
         min-width: 350px;
+        text-align: center;
     }
     .hide-result-body {
         display: none;
@@ -629,6 +614,18 @@
     .module-link:hover p {
         color: #fff;
     }
+     button {
+         display: inline-block;
+         padding: 0em 3em;
+         background: #009E2D;
+         letter-spacing: 0.20em;
+         line-height: 4em;
+         text-decoration: none;
+         text-transform: uppercase;
+         font-weight: 400;
+         font-size: 1em;
+         color: #FFF;
+     }
      h3 {
          margin: 0;
          font-family: Avenir, Helvetica, Arial, sans-serif;

@@ -247,7 +247,7 @@ export default {
             if(this.selectedIndex >= this.questions.length) {
                 // 1. convert to csv
                 console.log("inside question select")
-                this.filename = "output" + new Date().getTime()+'.txt'
+                this.filename = `output${new Date().getTime()}.txt`
                 this.$emit('selection', response, index, type, module)
                 this.$emit('categoryChange', 'Complete!')
             }

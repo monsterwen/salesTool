@@ -7,19 +7,19 @@
             <button class="responseDiv"
                  :class="{ 'selected': selected.yes, 'deselected': !selected.yes && selectionMade }"
                  id="yes"
-                 v-on:click="selection('yes')">
+                 v-on:click="selection('Yes')">
                 Yes
             </button>
             <button class="responseDiv"
                  id="no"
                  :class="{ 'selected': selected.no, 'deselected': !selected.no && selectionMade }"
-                 v-on:click="selection('no')">
+                 v-on:click="selection('No')">
                 No
             </button>
             <button class="responseDiv"
                  id="na"
                  :class="{ 'selected': selected.na, 'deselected': !selected.na && selectionMade }"
-                 v-on:click="selection('na')">
+                 v-on:click="selection('N/A')">
                 N/A
             </button>
         </div>

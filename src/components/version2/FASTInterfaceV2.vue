@@ -36,7 +36,8 @@
             <div class="reportHolder" :class="{ 'reportFinished': summary }">
                 <div class="recommendationHolder">
                     <RecommendationReportV2
-
+                        :analytic="analyticsObject"
+                        :strategy="strategyObject"
                     ></RecommendationReportV2>
                 </div>
             </div>
@@ -78,7 +79,7 @@
                         type: 'analysis',
                         response: null
                     }, {
-                        question: 'Does your organization have a robust customer segmentation that is used to direct marketing strategy (i.e., personalization, tone and media mix)?',
+                        question: 'Does your organization have a robust customer segmentation that is used to direct marketing strategy (i.e. personalization tone and media mix)?',
                         type: 'analysis',
                         response: null
                     }, {
@@ -126,7 +127,7 @@
                         type: 'strategy',
                         response: null
                     }, {
-                        question: 'Through the eyes of your customers, do you know how your communications efforts stack up against those of your competitors?',
+                        question: 'Through the eyes of your customers do you know how your communications efforts stack up against those of your competitors?',
                         type: 'strategy',
                         response: null
                     }, {
@@ -181,6 +182,44 @@
                 }
             }
         },
+        computed: {
+            analyticsObject: function () {
+                return {
+                    category: 'Analytics',
+                    actualScoreDescriptor: 'low',
+                    potentialScoreDescriptor: 'high',
+                    actualScore: 2.4,
+                    potentialScore: 3.6,
+                    scoreDescription: 'There are a few key areas that would elevate your analytical capability and give you improved visibility of how programmes are performing and key customer characteristics.',
+                    potentialDescription: 'and ensure that all of your analytical needs are met, we recommend taking advantage of the following modules.',
+                    recommendedModules: this.analysisrecom,
+                    //     [
+                    //     {
+                    //         name: 'Brand & Programme Tracker',
+                    //         id: 'bpt',
+                    //         sub: 'This module will allow you to',
+                    //         capabilities: [
+                    //             'Improve and optimise key journeys',
+                    //             'Adapt the programme to improve ling term member satisfaction'
+                    //         ],
+                    //         description: 'This will allow you to improve and optimise key journeys as well as adapt the program to improve long term member satisfaction'
+                    //         // description: 'Establish customer perception of the CRM or loyalty programme and likes or dislikes pertaining to the brand experience and identify aspects to change or act on to increase satisfaction, loyalty and LTV.'
+                    //     }, {
+                    //         name: 'Customer Demographic Profiling',
+                    //         id: 'cdf',
+                    //         sub: 'So you can',
+                    //         capabilities: [
+                    //             'Develop actionable customer segments',
+                    //             'Develop personalised one to one customer tactics aligned in tone and channel preference'
+                    //         ],
+                    //         description: 'So you can enser '
+                    //         // description: 'Identify what your customers look like by examining key traits and the extent to which they over or under index.  Map characteristics to product and service '
+                    //     }
+                    // ],
+                    meterId: 'meter-weeder'
+                }
+            }
+        },
         mounted() {
         },
         methods: {
@@ -188,14 +227,15 @@
                 this.$emit('goToResults')
                 this.fastState = 2
                 this.convertToCsv(output, filename)
+                console.log('filename', filename)
                 this.showRecommendation = true
             },
             questionSelected: function (d, i, y) {
                 console.log('see;cted', d, i, y)
                 this.stepColor = '#fe1f1a'
-                if (d === 'yes') {
+                if (d === 'Yes') {
                     this.stepColor = '#48bb00'
-                } else if (d === 'na') {
+                } else if (d === 'N/A') {
                     this.stepColor = '#ffd114'
                 }
                 this.selectedIndex = i + 1
