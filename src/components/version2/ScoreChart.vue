@@ -22,6 +22,25 @@
                 type: Number,
                 default: () => 4.1
             },
+            recommendations: {
+                type: Array,
+                default: () => [
+                    {
+                        rank: 10,
+                        name: "Brand & Program Tracker",
+                        soyou:  'This will help you establish customer perception of the CRM or loyalty programme and likes or dislikes pertaining to the brand experience and identify aspects to change or act on to increase satisfaction, loyalty and LTV.'
+                    },
+                    {
+                        rank: 13,
+                        name: "Customer Demographic Profiling",
+                        soyou:  'Identify what your customers look like by examining key traits and the extent to which they over or under index.  Map characteristics to product and service.'
+                    }
+                ]
+            },
+            hoveredModule: {
+                type: Object,
+                default: () => null
+            },
             currentColor: {
                 type: String,
                 default: () => '#D83737'
@@ -33,6 +52,10 @@
             backgroundColor: {
                 type: String,
                 default: () => '#1d1d1f'
+            },
+            diffColor: {
+                type: String,
+                default: () => '#009FBC'
             },
             backgroundAltColor: {
                 type: String,
@@ -58,6 +81,10 @@
                 type: Number,
                 default: () => 500
             },
+            diffOffset: {
+                type: Number,
+                default: () => 8
+            },
             margin: {
                 type: Object,
                 default: () => ({
@@ -74,12 +101,14 @@
                 svg: null,
                 barG: null,
                 backgroundG: null,
+                lineG: null,
                 xAxisG: null,
                 yAxisG: null,
                 currentG: null,
                 targetG: null,
                 currentBar: null,
                 targetBar: null,
+                diffBars: null,
                 backgroundBar: null,
                 //
                 xAxisScale: null,
@@ -99,6 +128,9 @@
                 if (this.chartState === 'current') {
                     return ['Current']
                 }
+                if (this.chartState === 'transition') {
+                    return ['Target']
+                }
                 return ['Current', 'Target']
             },
             chartTicks: function () {
@@ -112,13 +144,37 @@
                 //     return [0, Math.min(this.chartTicks * 0.5, 5)]
                 // }
                 return [0, Math.min(this.chartTicks * 0.5, 5)]
+            },
+            scoreDiff: function () {
+                return (this.targetScore - this.currentScore) / 2
+            },
+            barWidth: function () {
+                return this.yAxisScale(0) -  this.yAxisScale(this.scoreDiff)
+            },
+            diffHeight: function () {
+                return this.yAxisScale(0) -  this.yAxisScale(this.scoreDiff) - this.diffOffset
             }
         },
         watch: {
             chartState: function () {
                 this.transformChart()
                 this.renderBackground()
-                this.renderTargetChart()
+                if (this.chartState === 'transition') {
+                    this.renderDiffChart()
+                } else {
+                    this.renderTargetChart()
+                }
+            },
+            hoveredModule: function () {
+                console.log('hovered', this.hoveredModule)
+                if (this.chartState !== 'transition') {
+                    return
+                }
+                if (this.hoveredModule) {
+                    this.diffMouseOver(this.hoveredModule)
+                    return
+                }
+                this.resetDiffBars()
             }
         },
         mounted: function () {
@@ -195,7 +251,7 @@
                     .append('text')
                     .attr('class', 'chart-text')
                     .attr('transform', 'rotate(-90)')
-                    .attr('x', 0 - 3)
+                    .attr('x', 0 - 4)
                     .attr('y', 6)
                     .attr('dy', '0.71em')
                     .attr('text-anchor', 'end')
@@ -211,12 +267,12 @@
                     .append('rect')
                     .attr('class', 'bar')
                     .attr('id', 'current-bar')
-                    .attr('rx', '4px')
-                    .attr('ry', '4px')
+                    .attr('rx', `${this.diffOffset}px`)
+                    .attr('ry', `${this.diffOffset}px`)
                     .attr('fill', this.currentColor)
-                    .attr('x', 0)
+                    .attr('x', (this.xAxisScale.bandwidth() - this.barWidth) / 2)
                     .attr('y', this.height)
-                    .attr('width', this.xAxisScale.bandwidth())
+                    .attr('width', this.barWidth)
                     .attr('height', 0)
 
                 this.currentBar
@@ -227,7 +283,7 @@
 
                 this.currentBar
                     .on('click', () => {
-                        this.chartState = 'target'
+                        this.chartState = 'transition'
                     })
 
             },
@@ -318,6 +374,151 @@
                     })
                     .tickSize(1)
             },
+            renderDiffChart: function () {
+                console.log('yAxis', this.yAxis)
+                this.xAxisG
+                    .transition()
+                    .duration(this.duration)
+                    .call(this.xAxis)
+                this.xAxisG.select('.domain').remove()
+                this.xAxisG
+                    .selectAll('.tick line')
+                    .remove()
+                this.xAxisG
+                    .selectAll('.tick text')
+                    .attr('font-size', '18px')
+                    .attr('fill', this.textColor)
+
+                this.yAxisG
+                    .transition()
+                    .duration(this.duration)
+                    .call(this.yAxis)
+                this.yAxisG.select('.domain').remove()
+                this.yAxisG
+                    .selectAll('.tick line')
+                    .remove()
+                this.yAxisG
+                    .selectAll('.tick text')
+                    .attr('font-size', '18px')
+                    .attr('fill', this.textColor)
+
+                this.yAxisText
+                    .transition()
+                    .duration(this.duration)
+                    .attr('transform', 'rotate(-90)')
+                    .attr('x', 0 - 5)
+                    .attr('y', 6)
+                    .text(this.yAxisLabel)
+
+                this.currentG
+                    .transition()
+                    .duration(this.duration)
+                    .attr('transform', `translate(${this.xAxisScale('Target')},0)`)
+                this.targetG
+                    .transition()
+                    .duration(this.duration)
+                    .attr('transform', `translate(${this.xAxisScale('Target')},0)`)
+
+                this.currentBar
+                    .transition()
+                    .duration(this.duration)
+                    .attr('x', (this.xAxisScale.bandwidth() - this.barWidth) / 2)
+                    .attr('y', this.yAxisScale(this.currentScore))
+                    .attr('width', this.barWidth)
+                    .attr('height', this.height - this.yAxisScale(this.currentScore))
+
+                this.targetBar = this.targetG
+                    .append('rect')
+                    .attr('class', 'bar')
+                    .attr('id', 'target-bar')
+                    .attr('rx', `${this.diffOffset}px`)
+                    .attr('ry', `${this.diffOffset}px`)
+                    // .attr('fill', this.diffBars)
+                    .attr('fill', this.currentColor)
+                    .attr('x', (this.xAxisScale.bandwidth() - this.barWidth) / 2)
+                    .attr('y', this.height)
+                    .attr('width', this.barWidth)
+                    .attr('height', 0)
+                this.targetBar
+                    .attr('height', this.height - this.yAxisScale(this.currentScore))
+                    .attr('y', this.yAxisScale(this.currentScore))
+
+                this.diffBars = this.targetG
+                    .selectAll('.diffBars')
+                    .data(this.recommendations)
+                    .enter()
+                    .append('rect')
+                    .attr('class', 'diffBars')
+                    .attr('rx', `${this.diffOffset}px`)
+                    .attr('ry', `${this.diffOffset}px`)
+                    .attr('fill', this.diffColor)
+                    .attr('width', this.diffHeight)
+                    .attr('height', 0)
+                    .attr('fill-opacity', 0.56)
+                this.diffBars
+                    .on('mouseover', this.diffMouseOver)
+                    .on('mouseout', this.resetDiffBars)
+                this.resetDiffBars()
+            },
+            diffMouseOver: function (diff) {
+                this.diffBars
+                    .transition()
+                    .duration(this.duration / 4)
+                    .attr('width', (d) => {
+                        if (diff.rank === d.rank) {
+                            console.log('hovvv', d, diff)
+                            return this.barWidth - this.diffOffset / 2
+                        }
+                        return this.diffHeight
+                    })
+                    .attr('height', (d) => {
+                        if (diff.rank === d.rank) {
+                            return this.barWidth - this.diffOffset / 2
+                        }
+                        return this.diffHeight
+                    })
+                    .attr('x', (d) => {
+                        if (diff.rank === d.rank) {
+                            return (this.xAxisScale.bandwidth() - this.barWidth + this.diffOffset / 2) / 2
+                        }
+                        return (this.xAxisScale.bandwidth() - this.diffHeight) / 2
+                    })
+                    .attr('y', (d, i) => {
+                        if (diff.rank === d.rank) {
+                            return this.yAxisScale(this.currentScore) - this.barWidth * (i + 1) - this.diffOffset / 4
+                        }
+                        return this.yAxisScale(this.currentScore) - this.barWidth * (i + 1)
+                    })
+                    .attr('fill-opacity', (d) => {
+                        if (diff.rank === d.rank) {
+                            return 1
+                        }
+                        return 0.56
+                    })
+
+                this.targetBar
+                    .transition()
+                    .duration(this.duration / 4)
+                    .attr('fill-opacity', 0.78)
+            },
+            resetDiffBars: function () {
+                console.log('resetetetete')
+                this.diffBars
+                    .transition()
+                    .duration(this.duration / 4)
+                    .attr('height', this.diffHeight)
+                    .attr('y', (d, i) => {
+                        return this.yAxisScale(this.currentScore) - this.barWidth * (i + 1)
+                    })
+                    .attr('width', this.diffHeight)
+                    .attr('x', (this.xAxisScale.bandwidth() - this.diffHeight) / 2)
+                    .attr('fill-opacity', 0.56)
+
+                this.targetBar
+                    .transition()
+                    .duration(this.duration / 4)
+                    .attr('fill-opacity', 1)
+            },
             renderTargetChart: function () {
                 console.log('yAxis', this.yAxis)
                 this.xAxisG
@@ -350,7 +551,7 @@
                     .transition()
                     .duration(this.duration)
                     .attr('transform', 'rotate(-90)')
-                    .attr('x', 0 - 3)
+                    .attr('x', 0 - 5)
                     .attr('y', 6)
                     .text(this.yAxisLabel)
 
@@ -366,21 +567,21 @@
                 this.currentBar
                     .transition()
                     .duration(this.duration)
-                    .attr('x', 0)
+                    .attr('x', (this.xAxisScale.bandwidth() - this.barWidth) / 2)
                     .attr('y', this.yAxisScale(this.currentScore))
-                    .attr('width', this.xAxisScale.bandwidth())
+                    .attr('width', this.barWidth)
                     .attr('height', this.height - this.yAxisScale(this.currentScore))
 
                 this.targetBar = this.targetG
                     .append('rect')
                     .attr('class', 'bar')
                     .attr('id', 'target-bar')
-                    .attr('rx', '4px')
-                    .attr('ry', '4px')
+                    .attr('rx', `${this.diffOffset}px`)
+                    .attr('ry', `${this.diffOffset}px`)
                     .attr('fill', this.targetColor)
-                    .attr('x', 0)
+                    .attr('x', (this.xAxisScale.bandwidth() - this.barWidth) / 2)
                     .attr('y', this.height)
-                    .attr('width', this.xAxisScale.bandwidth())
+                    .attr('width', this.barWidth)
                     .attr('height', 0)
                 this.targetBar
                     .transition()
@@ -388,7 +589,6 @@
                     .duration(this.duration)
                     .attr('height', this.height - this.yAxisScale(this.targetScore))
                     .attr('y', this.yAxisScale(this.targetScore))
-
             }
         }
     }

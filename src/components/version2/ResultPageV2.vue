@@ -2,7 +2,8 @@
     <div class="fit flex resultPageContainer">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <div class="pageElement chartHolder">
-            <ScoreChart></ScoreChart>
+            <ScoreChart
+                :hoveredModule="hoveredModule"></ScoreChart>
         </div>
         <div class="pageElement prescriptionHolder">
             <div class="result-header">
@@ -51,7 +52,12 @@
                         <template v-slot:prescriptions>
                             <div class="gap-list-holder" style="align-self: flex-end">
                                 <ul class="gap-list" style="padding-left: 0;">
-                                    <li v-for="(item, i) in recommendations" class="module-item" v-bind:key="`gap${i}`">
+                                    <li v-for="(item, i) in recommendations"
+                                        class="module-item"
+                                        v-bind:key="`gap${i}`"
+                                        @mouseenter="hoveredModule = item"
+                                        @mouseleave="hoveredModule = null"
+                                        >
                                         <!--                        <div class="module-tick"></div>-->
                                         <!--                        <div class="module-title">-->
                                         <!--                            <p>{{item}}</p>-->
@@ -174,7 +180,8 @@
         data: function () {
             return {
                 state: 2,
-                recommendationSelected: {}
+                recommendationSelected: {},
+                hoveredModule: null
             }
         },
         mounted: function () {

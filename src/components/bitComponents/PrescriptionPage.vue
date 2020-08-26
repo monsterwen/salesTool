@@ -1,5 +1,5 @@
 <template>
-    <div class="fit flex col justify-center align-center text-center border-box mt-4">
+    <div class="fit flex col justify-center align-center text-center border-box mt-3">
         <div class="flex-fit prescription-header">
             <slot name="header-text"></slot>
         </div>
