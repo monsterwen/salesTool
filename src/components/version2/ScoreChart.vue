@@ -37,6 +37,14 @@
                     }
                 ]
             },
+            totalRecommendations: {
+                type: Number,
+                default: () => 4
+            },
+            selectedRecommendations: {
+                type: Number,
+                default: () => 3
+            },
             selectedModules: {
                 type: Object
             },

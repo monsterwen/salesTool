@@ -42,6 +42,7 @@
 <!--                        <template v-slot:result-pages>-->
 <!--                            <div>-->
                                 <ResultPageV2
+                                    v-if="reportState === 'analytics'"
                                     category="Analytics"
                                     :chartId="'analyticsChart'"
                                     currentPrescription="Here are the shortcomings we identified that we think are affecting your analytic capabilities the most"
@@ -57,6 +58,7 @@
 <!--                            </div>-->
 <!--                            <div>-->
                                 <ResultPageV2
+                                    v-if="reportState === 'strategy'"
                                     category="Strategy"
                                     :chartId="'strategyChart'"
                                     currentPrescription="Here are the shortcomings we identified that we think are affecting your strategic capabilities the most"

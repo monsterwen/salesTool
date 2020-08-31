@@ -14,11 +14,11 @@
                 @selectedScore="setSelectedScore"></ScoreChart>
         </div>
         <div class="pageElement prescriptionHolder">
-            <div class="result-header">
-                <ResultPageHeader
-                    :category="category"></ResultPageHeader>
-            </div>
-            <div class="result-body">
+<!--            <div class="result-header">-->
+<!--                <ResultPageHeader-->
+<!--                    :category="category"></ResultPageHeader>-->
+<!--            </div>-->
+            <div class="result-body pt-5">
                 <div class="result-container w3-animate-right" :class="{ 'display': state === 1}">
                     <ResultReport>
                         <template v-slot:score-title>
@@ -48,50 +48,63 @@
                     </ResultReport>
                 </div>
                 <div class="result-container slide-in" :class="{ 'display': state === 2}">
-                    <PrescriptionPage>
-                        <template v-slot:header-text>
-                            <h3>{{ prescriptionHeader }}</h3>
-                        </template>
-                        <template v-slot:subheader-text>
-                            <h4>{{ prescriptionSubHeader }}</h4>
-                        </template>
-                        <template v-slot:prescriptions>
-                            <div class="gap-list-holder" style="align-self: flex-end">
-                                <ul class="gap-list" style="padding-left: 0;">
-                                    <li v-for="(item, i) in recommendations"
-                                        class="module-item"
-                                        v-bind:key="`gap${i}`"
-                                        @mouseenter="moduleMouseOver(item)"
-                                        @mouseleave="moduleMouseOut(item)"
-                                        >
-                                        <!--                        <div class="module-tick"></div>-->
-                                        <!--                        <div class="module-title">-->
-                                        <!--                            <p>{{item}}</p>-->
-                                        <!--                        </div>-->
-                                        <!--                        <div class="module-description">-->
-                                        <h3>{{item.name}}</h3>
-                                        <p style="margin-block-start: 6px;">{{item.soyou}}</p>
-                                        <!--                        </div>-->
-                                        <!--                        <div class="module-link"-->
-                                        <!--                             :class="{'selected': selectedModules[item.id]}"-->
-                                        <!--                             v-on:click="selectedModules[item.id] = true">-->
-                                        <!--                            <p v-on:click="selectedModules[item.id] = true">I'm interested</p>-->
-                                        <!--                        </div>-->
-                                        <button class="module-link"
-                                                v-if="!recommendationSelected[item.rank]"
-                                                @click="moduleSelected(item, $event)">
-                                            <p>I'm interested</p>
-                                        </button>
-                                        <button class="module-link selected"
-                                                v-if="recommendationSelected[item.rank]"
-                                                @click="moduleSelected(item, $event)">
-                                            <p>I'm interested</p>
-                                        </button>
-                                    </li>
-                                </ul>
-                            </div>
-                        </template>
-                    </PrescriptionPage>
+                    <div class="slide-in modult-container fit"
+                        v-for="(item, i) in recommendations"
+                        :class="{ hidden: moduleState !== i }"
+                        :key="`module${i}`">
+                        <ModuleRecommendation>
+                            <template v-slot:module-title>
+                                {{ item.name }}
+                            </template>
+                            <template v-slot:prescription>
+                                {{ item.soyou }}
+                            </template>
+                        </ModuleRecommendation>
+                    </div>
+<!--                    <PrescriptionPage>-->
+<!--                        <template v-slot:header-text>-->
+<!--                            <h3>{{ prescriptionHeader }}</h3>-->
+<!--                        </template>-->
+<!--                        <template v-slot:subheader-text>-->
+<!--                            <h4>{{ prescriptionSubHeader }}</h4>-->
+<!--                        </template>-->
+<!--                        <template v-slot:prescriptions>-->
+<!--                            <div class="gap-list-holder" style="align-self: flex-end">-->
+<!--                                <ul class="gap-list" style="padding-left: 0;">-->
+<!--                                    <li v-for="(item, i) in recommendations"-->
+<!--                                        class="module-item"-->
+<!--                                        v-bind:key="`gap${i}`"-->
+<!--                                        @mouseenter="moduleMouseOver(item)"-->
+<!--                                        @mouseleave="moduleMouseOut(item)"-->
+<!--                                        >-->
+<!--                                        &lt;!&ndash;                        <div class="module-tick"></div>&ndash;&gt;-->
+<!--                                        &lt;!&ndash;                        <div class="module-title">&ndash;&gt;-->
+<!--                                        &lt;!&ndash;                            <p>{{item}}</p>&ndash;&gt;-->
+<!--                                        &lt;!&ndash;                        </div>&ndash;&gt;-->
+<!--                                        &lt;!&ndash;                        <div class="module-description">&ndash;&gt;-->
+<!--                                        <h3>{{item.name}}</h3>-->
+<!--                                        <p style="margin-block-start: 6px;">{{item.soyou}}</p>-->
+<!--                                        &lt;!&ndash;                        </div>&ndash;&gt;-->
+<!--                                        &lt;!&ndash;                        <div class="module-link"&ndash;&gt;-->
+<!--                                        &lt;!&ndash;                             :class="{'selected': selectedModules[item.id]}"&ndash;&gt;-->
+<!--                                        &lt;!&ndash;                             v-on:click="selectedModules[item.id] = true">&ndash;&gt;-->
+<!--                                        &lt;!&ndash;                            <p v-on:click="selectedModules[item.id] = true">I'm interested</p>&ndash;&gt;-->
+<!--                                        &lt;!&ndash;                        </div>&ndash;&gt;-->
+<!--                                        <button class="module-link"-->
+<!--                                                v-if="!recommendationSelected[item.rank]"-->
+<!--                                                @click="moduleSelected(item, $event)">-->
+<!--                                            <p>I'm interested</p>-->
+<!--                                        </button>-->
+<!--                                        <button class="module-link selected"-->
+<!--                                                v-if="recommendationSelected[item.rank]"-->
+<!--                                                @click="moduleSelected(item, $event)">-->
+<!--                                            <p>I'm interested</p>-->
+<!--                                        </button>-->
+<!--                                    </li>-->
+<!--                                </ul>-->
+<!--                            </div>-->
+<!--                        </template>-->
+<!--                    </PrescriptionPage>-->
                 </div>
                 <div class="result-container slide-in" :class="{ 'display': state === 3}">
                     <ResultReport>
@@ -126,9 +139,15 @@
                 </div>
             </div>
             <div class="result-footer flex align-center justify-center">
-                <button class="button progress-button" style="vertical-align:middle" @click="nextState">
+                <button class="button progress-button" style="vertical-align:middle" @click="nextState" :class="{ hidden: state === 2 }">
                     <h3>{{ buttonText }}</h3>
                     <i class="material-icons icon infoIcon pl-1" style="font-size: 26px;">arrow_forward</i>
+                </button>
+                <button class="button progress-button" style="vertical-align:middle" @click="nextModule" :class="{ hidden: state !== 2 }">
+                    <h4>No thanks</h4>
+                </button>
+                <button class="button progress-button" style="vertical-align:middle" @click="interested" :class="{ hidden: state !== 2 }">
+                    <h4>Im Interested</h4>
                 </button>
             </div>
         </div>
@@ -141,14 +160,17 @@
     import ResultPageHeader from '../bitComponents/ResultPageHeader'
     import PrescriptionPage from '../bitComponents/PrescriptionPage'
     import * as d3 from "d3";
+    import ModuleRecommendation from './ModuleRecommendation'
 
     export default {
         name: "ResultPageV2",
         components: {
+            ModuleRecommendation,
             ResultReport,
             ScoreChart,
             ResultPageHeader,
-            PrescriptionPage
+            PrescriptionPage,
+            // ModuleRecommendation
         },
         props: {
             chartId: {
@@ -266,7 +288,7 @@
             buttonState: {
                 type: Object,
                 default: () => ({
-                    1: 'Address Shortcomings',
+                    1: 'Select Recommended Modules',
                     2: 'Proceed with selected modules',
                     3: 'Continue to Strategy Review'
                 })
@@ -283,6 +305,7 @@
         data: function () {
             return {
                 state: 1,
+                moduleState: 0,
                 recommendationSelected: {},
                 hoveredModule: null,
                 changeModules: false,
@@ -336,6 +359,13 @@
             formatScore: function (score) {
                 return d3.format('.1f')(score)
             },
+            interested: function () {
+                this.recommendationSelected[this.recommendations[this.moduleState]] = true
+                this.nextModule()
+            },
+            nextModule: function () {
+                this.moduleState = this.moduleState + 1
+            },
             isSelected: function (rec) {
                 console.log('press', rec, this.recommendationSelected)
                 if (Object.prototype.hasOwnProperty.call(this.recommendationSelected, rec.rank)) {
@@ -378,6 +408,9 @@
 <style scoped>
     p {
         margin-bottom: 0.5rem !important;
+    }
+    .hidden {
+        display: none !important;
     }
     .module-link {
         margin-top: 0;
