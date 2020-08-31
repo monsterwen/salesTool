@@ -8,13 +8,14 @@
         </div>
         <div class="result-score-div flex-row-wrap flex-full" id="cur-score-hold">
             <div class="result-score">
-                <p>{{score}}</p>
+<!--                <p>{{score}}</p>-->
+                <slot name="score"></slot>
             </div>
 <!--            <div class="result-score-description" :class="{ 'result-hidden': !actualDesc}">-->
 <!--                <p style="min-width: 96%;">{{scoreDescription}}</p>-->
 <!--                <template v-slot:description-slot></template>-->
 <!--            </div>-->
-            <div class="result-score-collapse">
+            <div class="result-score-collapse pl-2">
                 <span class="result-score-button">
                     <i class="material-icons icon">info</i>
                 </span>
@@ -56,7 +57,15 @@
             score: {
                 type: Number,
                 default: () => 2.4
-            }
+            },
+            colorDomain: {
+                type: Array,
+                default: () => [0, 2.5, 2.5000001, 3.5, 3.500001, 5]
+            },
+            colorRange: {
+                type: Array,
+                default: () => ['#D83737','#D83737','#FFBF00','#FFBF00','#A5BB00','#A5BB00']
+            },
         }
     }
 </script>
@@ -87,6 +96,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        text-align: center;
         font-weight: normal;
         font-family: Avenir, Helvetica, Arial, sans-serif;
         -webkit-font-smoothing: antialiased;
@@ -115,6 +125,7 @@
     }
     .result-gap-description p {
         text-align: center;
+        font-size: 20px;
     }
     .result-score {
         width: auto;

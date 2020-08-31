@@ -32,12 +32,53 @@
         <div class="moduleHolder flexHolder questionHolder card" v-if="fastState === 2">
             <LoadingScreen></LoadingScreen>
         </div>
-        <div id="summary-hold" class="moduleHolder flexHolder questionHolder card" v-if="fastState === 3">
-            <div class="reportHolder" :class="{ 'reportFinished': summary }">
+        <div id="report-hold" class="moduleHolder flexHolder questionHolder card" v-if="fastState === 3">
+            <div class="reportHolder">
+                <div class="recommendationHolder">
+<!--                    <ReportPage-->
+<!--                        :analytic="analyticsObject"-->
+<!--                        :strategy="strategyObject"-->
+<!--                    >-->
+<!--                        <template v-slot:result-pages>-->
+<!--                            <div>-->
+                                <ResultPageV2
+                                    category="Analytics"
+                                    :chartId="'analyticsChart'"
+                                    currentPrescription="Here are the shortcomings we identified that we think are affecting your analytic capabilities the most"
+                                    :recommendations="analysisrecom"
+                                    :currentScore="scores.analysis.current"
+                                    :targetScore="scores.analysis.target"
+                                    :prescriptionHeader="'You can take immediate, effective action to address the critical shortcomings we\'ve identified'"
+                                    :prescriptionSubHeader="'with the following modules'"
+                                    :targetHeader="'With the use of your selected modules, you can expect your analytical capabilities to improve to'"
+                                    :buttonState="analyticButtons"
+                                    @lastStep="reportState = 'strategy'">
+                                </ResultPageV2>
+<!--                            </div>-->
+<!--                            <div>-->
+                                <ResultPageV2
+                                    category="Strategy"
+                                    :chartId="'strategyChart'"
+                                    currentPrescription="Here are the shortcomings we identified that we think are affecting your strategic capabilities the most"
+                                    :recommendations="strategyrecom"
+                                    :currentScore="scores.strategy.current"
+                                    :targetScore="scores.strategy.target"
+                                    :prescriptionHeader="'You can take immediate, effective action to address the critical shortcomings we\'ve identified'"
+                                    :prescriptionSubHeader="'with the following modules'"
+                                    :targetHeader="'With the use of your selected modules, you can expect your strategic capabilities to improve to'"
+                                    :buttonState="strategyButtons"
+                                    @lastStep="fastState = 4">
+                                </ResultPageV2>
+<!--                            </div>-->
+<!--                        </template>-->
+<!--                    </ReportPage>-->
+                </div>
+            </div>
+        </div>
+        <div id="summary-hold" class="moduleHolder flexHolder questionHolder card" v-if="fastState === 4">
+            <div class="reportHolder">
                 <div class="recommendationHolder">
                     <RecommendationReportV2
-                        :analytic="analyticsObject"
-                        :strategy="strategyObject"
                     ></RecommendationReportV2>
                 </div>
             </div>
@@ -48,14 +89,20 @@
 <script>
     import QuestionaireV2 from './QuestionaireV2'
     import ProgressBar from './ProgressBar'
+    // import ReportPage from '../bitComponents/ReportPage'
     import RecommendationReportV2 from './RecommendationReportV2'
     import LoadingScreen from './LoadingScreen'
+    import ResultPageV2 from './ResultPageV2'
 
-    import {getAnalysis, getStrategy, submitJob} from "../../assets/js/jobservice";
-    import {upload} from "../../assets/js/fileupload";
+    import { getAnalysis, getStrategy, submitJob } from '../../assets/js/jobservice'
+    import { upload } from '../../assets/js/fileupload'
+    import { getScores } from '../../assets/js/scoreCalculator'
+
     export default {
         name: "FASTInterfaceV2",
         components: {
+            ResultPageV2,
+            // ReportPage,
             QuestionaireV2,
             ProgressBar,
             RecommendationReportV2,
@@ -67,8 +114,22 @@
                 fastState: 1,
                 analysisReady: false,
                 strategyReady: false,
+                analysisrecom: [],
+                strategyrecom: [],
                 error: false,
+                reportState: 'analytics',
                 showTooltip: false,
+                scores: {},
+                analyticButtons: {
+                    1: 'View Prescriptions',
+                    2: 'Proceed with selected modules',
+                    3: 'Continue to Strategy Review'
+                },
+                strategyButtons: {
+                    1: 'Address Shortcomings',
+                    2: 'Proceed with selected modules',
+                    3: 'Complete Survey Review'
+                },
                 questions: [
                     {
                         question: 'Do you have solid reporting  and benchmarks for how well your CRM or loyalty program is performing?',
@@ -193,29 +254,6 @@
                     scoreDescription: 'There are a few key areas that would elevate your analytical capability and give you improved visibility of how programmes are performing and key customer characteristics.',
                     potentialDescription: 'and ensure that all of your analytical needs are met, we recommend taking advantage of the following modules.',
                     recommendedModules: this.analysisrecom,
-                    //     [
-                    //     {
-                    //         name: 'Brand & Programme Tracker',
-                    //         id: 'bpt',
-                    //         sub: 'This module will allow you to',
-                    //         capabilities: [
-                    //             'Improve and optimise key journeys',
-                    //             'Adapt the programme to improve ling term member satisfaction'
-                    //         ],
-                    //         description: 'This will allow you to improve and optimise key journeys as well as adapt the program to improve long term member satisfaction'
-                    //         // description: 'Establish customer perception of the CRM or loyalty programme and likes or dislikes pertaining to the brand experience and identify aspects to change or act on to increase satisfaction, loyalty and LTV.'
-                    //     }, {
-                    //         name: 'Customer Demographic Profiling',
-                    //         id: 'cdf',
-                    //         sub: 'So you can',
-                    //         capabilities: [
-                    //             'Develop actionable customer segments',
-                    //             'Develop personalised one to one customer tactics aligned in tone and channel preference'
-                    //         ],
-                    //         description: 'So you can enser '
-                    //         // description: 'Identify what your customers look like by examining key traits and the extent to which they over or under index.  Map characteristics to product and service '
-                    //     }
-                    // ],
                     meterId: 'meter-weeder'
                 }
             }
@@ -226,6 +264,7 @@
             goToResults: function (questions, output, filename) {
                 this.$emit('goToResults')
                 this.fastState = 2
+                this.scores = getScores(questions)
                 this.convertToCsv(output, filename)
                 console.log('filename', filename)
                 this.showRecommendation = true
@@ -238,6 +277,7 @@
                 } else if (d === 'N/A') {
                     this.stepColor = '#ffd114'
                 }
+                this.questions[i].response = d
                 this.selectedIndex = i + 1
             },
             setCategory: function (category) {
@@ -274,7 +314,6 @@
             uploadfile: function (blob, filename) {
                 const formData = new FormData()
                 formData.append('file', blob, filename)
-                console.log('formDataUpload', formData)
                 upload(formData)
                     .catch(err => {
                         alert('There was an error uploading the file.  Please try again.' + err.message.toString())
@@ -327,11 +366,9 @@
                         for(let i=0;i<analysisoutput.length;i++) {
                             let tempjson = {
                                 name: analysisoutput[i].Module,
-                                id: 'bpt',
+                                id: analysisoutput[i].rank,
                                 sub: 'This module will allow you to:',
-                                capabilities: [
-                                    analysisoutput[i].So_You
-                                ],
+                                soyou: analysisoutput[i].So_You,
                                 description: 'Establish customer perception of the CRM or loyalty programme and likes or dislikes pertaining to the brand experience and identify aspects to change or act on to increase satisfaction, loyalty and LTV.'
                             }
                             temprecom.push(tempjson)
@@ -368,18 +405,16 @@
                         for(let i=0;i<strategyoutput.length;i++) {
                             let tempjson = {
                                 name: strategyoutput[i].Module,
-                                id: 'bpt',
+                                id: strategyoutput[i].rank,
                                 sub: 'This module will allow you to:',
-                                capabilities: [
-                                    strategyoutput[i].So_You
-                                ],
+                                soyou: strategyoutput[i].So_You,
                                 description: 'Establish customer perception of the CRM or loyalty programme and likes or dislikes pertaining to the brand experience and identify aspects to change or act on to increase satisfaction, loyalty and LTV.'
                             }
                             temprecom.push(tempjson)
                         }
                         this.strategyrecom = temprecom
                         this.strategyReady = true
-
+                        console.log('this.trategyrecom', this.strategyrecom)
                         //     {
                         //         name: 'Brand & Programme Tracker',
                         //         id: 'bpt',
@@ -457,7 +492,7 @@
         padding-left: 4px;
     }
     .recommendationHolder {
-        padding-top: 36px;
+        min-height: 100%;
     }
     .fastHolder {
         width: 100%;
@@ -471,7 +506,15 @@
         width: 100%;
         max-width: 100%;
         flex-basis: 100%;
-        max-height: 100%;
+        min-height: 100%;
+    }
+    .reportHolder {
+        min-height: 100%;
+        width: 100%;
+        flex-basis: 100%;
+        padding: 24px;
+        position: relative;
+        overflow: hidden;
     }
     .flexHolder {
         display: flex;

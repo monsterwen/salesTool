@@ -29,55 +29,6 @@
                 <p>Proceed with Selected Modules</p>
             </div>
         </div>
-        <!--        <div class="overall-holder">-->
-        <!--            <div class="overall-header">-->
-        <!--                <div class="overall-name">-->
-        <!--                    <p>Overall</p>-->
-        <!--                </div>-->
-        <!--            </div>-->
-        <!--            <div class="overall-body">-->
-        <!--                <div class="selected-score-title">-->
-        <!--                    <p>Your Selected Modules</p>-->
-        <!--                </div>-->
-        <!--                <div class="selected-modules">-->
-        <!--                    <p>Your Selected Modules</p>-->
-        <!--                </div>-->
-        <!--                <div class="result-score-title">-->
-        <!--                    <p>Your <b>Current</b> score based on your selected modules</p>-->
-        <!--                </div>-->
-        <!--                <div class="result-score">-->
-        <!--                    <p>{{selectedScore}}</p>-->
-        <!--                </div>-->
-        <!--                <div class="result-score-description">-->
-        <!--                    <p>reflects the </p>-->
-        <!--                </div>-->
-        <!--                <div class="result-score-title" style="margin-top: 24px;">-->
-        <!--                    <p>To Reach Your <b>Potential</b> {{category}} score of</p>-->
-        <!--                </div>-->
-        <!--                <div class="result-score" :style="`color: ${statusColors[potentialScoreDescriptor]}`">-->
-        <!--                    <p>{{potentialScore}}</p>-->
-        <!--                </div>-->
-        <!--                <div class="result-score-description" style="width: 60%">-->
-        <!--                    <p>{{potentialDescription}}</p>-->
-        <!--                </div>-->
-        <!--                <div class="module-list">-->
-        <!--                    <div v-for="(item, i) in recommendedModules" class="module-item" v-bind:key="`module${category}${i}`">-->
-        <!--                        <div class="module-tick"></div>-->
-        <!--                        <div class="module-title">-->
-        <!--                            <p>{{item.name}}</p>-->
-        <!--                        </div>-->
-        <!--                        <div class="module-description">-->
-        <!--                            <p>{{item.description}}</p>-->
-        <!--                        </div>-->
-        <!--                        <div class="module-link"-->
-        <!--                             :class="{'selected': selectedModules[item.id]}"-->
-        <!--                             v-on:click="selectedModules[item.id] = true">-->
-        <!--                            <p v-on:click="selectedModules[item.id] = true">I'm interested</p>-->
-        <!--                        </div>-->
-        <!--                    </div>-->
-        <!--                </div>-->
-        <!--            </div>-->
-        <!--        </div>-->
     </div>
 </template>
 

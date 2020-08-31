@@ -3,10 +3,10 @@
         <div class="flex-fit prescription-header">
             <slot name="header-text"></slot>
         </div>
-        <div class="flex-fit prescription-sub-header pt-2 pb-2">
+        <div class="flex-fit prescription-sub-header pt-3 pb-2">
             <slot name="subheader-text"></slot>
         </div>
-        <div class="flex-fit prescription-body">
+        <div class="flex-fit prescription-body pt-2">
             <slot name="prescriptions"></slot>
         </div>
     </div>

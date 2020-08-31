@@ -61,7 +61,7 @@
 }
 .fastContainer {
     width: 100%;
-    /*height: calc(100%);*/
+    min-height: 100%;
     /*padding-bottom: 56.25%;*/
     /*height: max(calc(100% - 84px), 700px);*/
     /*max-height: max(calc(100% - 84px), 700px);*/
