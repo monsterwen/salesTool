@@ -53,7 +53,7 @@
                                     :prescriptionSubHeader="'with the following modules'"
                                     :targetHeader="'With the use of your selected modules, you can expect your analytical capabilities to improve to'"
                                     :buttonState="analyticButtons"
-                                    @lastStep="reportState = 'strategy'">
+                                    @lastStep="lastStep">
                                 </ResultPageV2>
 <!--                            </div>-->
 <!--                            <div>-->
@@ -271,6 +271,10 @@
                 console.log('filename', filename)
                 this.showRecommendation = true
             },
+            lastStep: function () {
+                console.log('go th')
+                this.reportState = 'strategy'
+            },
             questionSelected: function (d, i, y) {
                 console.log('see;cted', d, i, y)
                 this.stepColor = '#fe1f1a'
@@ -368,7 +372,7 @@
                         for(let i=0;i<analysisoutput.length;i++) {
                             let tempjson = {
                                 name: analysisoutput[i].Module,
-                                id: analysisoutput[i].rank,
+                                rank: analysisoutput[i].rank,
                                 sub: 'This module will allow you to:',
                                 soyou: analysisoutput[i].So_You,
                                 description: 'Establish customer perception of the CRM or loyalty programme and likes or dislikes pertaining to the brand experience and identify aspects to change or act on to increase satisfaction, loyalty and LTV.'
@@ -407,7 +411,7 @@
                         for(let i=0;i<strategyoutput.length;i++) {
                             let tempjson = {
                                 name: strategyoutput[i].Module,
-                                id: strategyoutput[i].rank,
+                                rank: strategyoutput[i].rank,
                                 sub: 'This module will allow you to:',
                                 soyou: strategyoutput[i].So_You,
                                 description: 'Establish customer perception of the CRM or loyalty programme and likes or dislikes pertaining to the brand experience and identify aspects to change or act on to increase satisfaction, loyalty and LTV.'
@@ -494,7 +498,7 @@
         padding-left: 4px;
     }
     .recommendationHolder {
-        min-height: 100%;
+        min-height: 760px;
     }
     .fastHolder {
         width: 100%;

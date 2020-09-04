@@ -20,7 +20,7 @@
             },
             targetScore: {
                 type: Number,
-                default: () => 4.1
+                default: () => 5
             },
             recommendations: {
                 type: Array,
@@ -42,6 +42,10 @@
                 default: () => 4
             },
             selectedRecommendations: {
+                type: Number,
+                default: () => 0
+            },
+            availableRecommendations: {
                 type: Number,
                 default: () => 3
             },
@@ -151,7 +155,7 @@
                 lineScores: {
                     current: this.currentScore,
                     selected: this.currentScore,
-                    potential: this.targetScore,
+                    potential: 5,
                 }
             }
         },
@@ -183,8 +187,8 @@
                             name: 'Target',
                             score: this.lineScores.selected
                         }, {
-                            name: 'Goal',
-                            score: this.lineScores.potential
+                            name: 'Potential',
+                            score: this.targetScore
                         },
                     ]
                 }
@@ -202,13 +206,16 @@
                 if (this.chartState === 'current') {
                     return (Math.floor(this.currentScore * 1.05 / 0.5) + 1)
                 }
-                return (Math.floor(this.targetScore * 1.05 / 0.5) + 1)
+                return 11
             },
             yAxisRange: function () {
-                return [0, Math.min(this.chartTicks * 0.5, 5)]
+                if (this.chartState === 'current') {
+                    return [0, Math.min(this.chartTicks * 0.5, 5)]
+                }
+                return [0, 5]
             },
             scoreDiff: function () {
-                return (this.targetScore - this.currentScore) / this.selRec().length
+                return (5 - this.currentScore) / this.totalRecommendations
             },
             barWidth: function () {
                 return this.yAxisScale(0) -  this.yAxisScale(this.scoreDiff)
@@ -219,8 +226,9 @@
         },
         watch: {
             changeModules: function () {
-                console.log('selecemodule', this.selectedModules)
-                this.lineScores.selected = this.lineScores.current + this.scoreDiff * (this.recommendations.length - this.selRec().length)
+                console.log('selecemodule', this.selectedModules, this.selectedRecommendations)
+                this.lineScores.selected = this.lineScores.current + this.scoreDiff * this.selectedRecommendations
+                console.log('selectedpls', this.lineScores.selected, this.lineScores.current, this.scoreDiff, this.selectedRecommendations)
                 this.transformChart()
                 this.drawMarkers()
                 this.renderDiffChart()
@@ -229,6 +237,7 @@
                 this.transformChart()
                 this.renderBackground()
                 this.drawMarkers()
+                console.log('chartstate', this.chartState)
                 if (this.chartState === 'transition') {
                     this.renderDiffChart()
                 } else {
@@ -252,6 +261,11 @@
                 console.log('linescterdsfd', this.lineScores, this.recommendations, this.selRec())
                 this.drawMarkers()
                 this.resetDiffBars()
+            },
+            availableRecommendations: function () {
+                if (this.chartState !== 'target') {
+                    this.renderDiffChart()
+                }
             }
         },
         mounted: function () {
@@ -261,6 +275,7 @@
             this.drawMarkers()
             this.renderCurrentChart()
             this.rendered = true
+            console.log(this.totalRecommendations, 'dsdsdsdsdsdfdsafdsa')
         },
         methods: {
             selRec: function () {
@@ -555,7 +570,8 @@
                     .range(this.colorRange)
             },
             renderDiffChart: function () {
-                console.log('yAxis', this.yAxis)
+                let diffBars = [...Array(this.availableRecommendations).keys()]
+                console.log('yAxiDIUFFFCHARTRs', this.yAxis)
                 this.xAxisG
                     .transition()
                     .duration(this.duration)
@@ -632,12 +648,13 @@
 
                 this.diffBars = this.targetG
                     .selectAll('.diffBars')
-                    .data(this.selRec())
+                    .data(diffBars)
                 this.diffBars
                     .exit()
                     .transition()
                     .duration(this.duration)
                     .attr('height', 0)
+                    .attr('fill-opacity', 0)
                     .remove()
                 this.diffBars = this.diffBars
                     .enter()
@@ -691,7 +708,7 @@
                 //     .attr('fill-opacity', 1)
             },
             renderTargetChart: function () {
-                console.log('yAxis', this.yAxis)
+                console.log('TARGERCTERF', this.yAxis)
                 this.xAxisG
                     .transition()
                     .duration(this.duration)

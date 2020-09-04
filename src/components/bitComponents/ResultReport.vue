@@ -27,25 +27,6 @@
         </div>
         <div class="gap-holder">
             <slot name="gap-holder"></slot>
-<!--            <div class="gap-list-holder" style="align-self: flex-end">-->
-<!--                <ul class="gap-list" style="padding-left: 0;">-->
-<!--                    <li v-for="(item, i) in identifiedGaps" class="module-item" v-bind:key="`gap${i}`">-->
-<!--                        &lt;!&ndash;                        <div class="module-tick"></div>&ndash;&gt;-->
-<!--                        &lt;!&ndash;                        <div class="module-title">&ndash;&gt;-->
-<!--                        &lt;!&ndash;                            <p>{{item}}</p>&ndash;&gt;-->
-<!--                        &lt;!&ndash;                        </div>&ndash;&gt;-->
-<!--                        &lt;!&ndash;                        <div class="module-description">&ndash;&gt;-->
-<!--                        <h3>{{item.header}}</h3>-->
-<!--                        <p style="margin-block-start: 6px;">{{item.desc}}</p>-->
-<!--                        &lt;!&ndash;                        </div>&ndash;&gt;-->
-<!--                        &lt;!&ndash;                        <div class="module-link"&ndash;&gt;-->
-<!--                        &lt;!&ndash;                             :class="{'selected': selectedModules[item.id]}"&ndash;&gt;-->
-<!--                        &lt;!&ndash;                             v-on:click="selectedModules[item.id] = true">&ndash;&gt;-->
-<!--                        &lt;!&ndash;                            <p v-on:click="selectedModules[item.id] = true">I'm interested</p>&ndash;&gt;-->
-<!--                        &lt;!&ndash;                        </div>&ndash;&gt;-->
-<!--                    </li>-->
-<!--                </ul>-->
-<!--            </div>-->
         </div>
     </div>
 </template>

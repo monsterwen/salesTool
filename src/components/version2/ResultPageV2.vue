@@ -11,6 +11,9 @@
                 :hoveredModule="hoveredModule"
                 :changeModules="changeModules"
                 :chartState="chartState"
+                :totalRecommendations="recommendations.length"
+                :selectedRecommendations="selectedRecommendations"
+                :availableRecommendations="availableRecommendations"
                 @selectedScore="setSelectedScore"></ScoreChart>
         </div>
         <div class="pageElement prescriptionHolder">
@@ -119,18 +122,24 @@
                         </template>
                         <template v-slot:gap-holder>
                             <div class="gap-list-holder review-container" style="align-self: flex-end">
-                                <ul class="gap-list" style="padding-left: 0;">
-                                    <li class="module-item">
+                                <ul class="gap-list mb-1" style="padding-left: 0;">
+                                    <li class="module-item mt-0" v-if="selectedRec.length > 0">
                                         <h3>Selected</h3>
                                     </li>
-                                    <li v-for="(item, i) in selRec" class="module-item" v-bind:key="`selected${i}`">
-                                        <p>{{item.name}}</p>
+                                    <li v-for="(item, i) in selectedRec" class="module-item" v-bind:key="`selected${i}`">
+                                        <a class="recommendation"
+                                           @click="recommendationClick(item)">
+                                            <p>{{item.name}}</p>
+                                        </a>
                                     </li>
-                                    <li class="module-item">
+                                    <li class="module-item mt-0" v-if="notSelected.length > 0">
                                         <h3>Not Selected</h3>
                                     </li>
-                                    <li v-for="(item, i) in modules" class="module-item" v-bind:key="`module${i}`">
-                                        <p>{{item.name}}</p>
+                                    <li v-for="(item, i) in notSelected" class="module-item" v-bind:key="`module${i}`">
+                                        <a class="recommendation"
+                                           @click="recommendationClick(item)">
+                                            <p>{{item.name}}</p>
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
@@ -143,12 +152,12 @@
                     <h3>{{ buttonText }}</h3>
                     <i class="material-icons icon infoIcon pl-1" style="font-size: 26px;">arrow_forward</i>
                 </button>
-                <button class="button progress-button" style="vertical-align:middle" @click="nextModule" :class="{ hidden: state !== 2 }">
+                <a class="button no-button mt-1 mr-2" style="vertical-align:middle" @click="nothanks" :class="{ hidden: state !== 2 }">
                     <h4>No thanks</h4>
-                </button>
-                <button class="button progress-button" style="vertical-align:middle" @click="interested" :class="{ hidden: state !== 2 }">
-                    <h4>Im Interested</h4>
-                </button>
+                </a>
+                <a class="button interested-button mt-1 ml-2" style="vertical-align:middle" @click="interested" :class="{ hidden: state !== 2 }">
+                    <h4>I'm Interested</h4>
+                </a>
             </div>
         </div>
     </div>
@@ -157,8 +166,8 @@
 <script>
     import ScoreChart from './ScoreChart'
     import ResultReport from '../bitComponents/ResultReport'
-    import ResultPageHeader from '../bitComponents/ResultPageHeader'
-    import PrescriptionPage from '../bitComponents/PrescriptionPage'
+    // import ResultPageHeader from '../bitComponents/ResultPageHeader'
+    // import PrescriptionPage from '../bitComponents/PrescriptionPage'
     import * as d3 from "d3";
     import ModuleRecommendation from './ModuleRecommendation'
 
@@ -168,8 +177,8 @@
             ModuleRecommendation,
             ResultReport,
             ScoreChart,
-            ResultPageHeader,
-            PrescriptionPage,
+            // ResultPageHeader,
+            // PrescriptionPage,
             // ModuleRecommendation
         },
         props: {
@@ -250,16 +259,31 @@
                         rank: 13,
                         name: "Customer Demographic Profiling",
                         soyou:  'Identify what your customers look like by examining key traits and the extent to which they over or under index.  Map characteristics to product and service.'
+                    },
+                    {
+                        rank: 1,
+                        name: "Program Health Assessment",
+                        soyou:  'This will help you establish customer perception of the CRM or loyalty programme and likes or dislikes pertaining to the brand experience and identify aspects to change or act on to increase satisfaction, loyalty and LTV.'
+                    },
+                    {
+                        rank: 4,
+                        name: "Program Cost-Benefit Analysis",
+                        soyou:  'This will help you establish customer perception of the CRM or loyalty programme and likes or dislikes pertaining to the brand experience and identify aspects to change or act on to increase satisfaction, loyalty and LTV.'
+                    },
+                    {
+                        rank: 2,
+                        name: "Core Customer Segmentation",
+                        soyou:  'This will help you establish customer perception of the CRM or loyalty programme and likes or dislikes pertaining to the brand experience and identify aspects to change or act on to increase satisfaction, loyalty and LTV.'
                     }
                 ]
             },
             currentScore: {
                 type: Number,
-                default: () => 2.4
+                default: () => 3
             },
             targetScore: {
                 type: Number,
-                default: () => 4.1
+                default: () => 5
             },
             prescriptionHeader: {
                 type: String,
@@ -306,6 +330,7 @@
             return {
                 state: 1,
                 moduleState: 0,
+                selectedRecommendations: 0,
                 recommendationSelected: {},
                 hoveredModule: null,
                 changeModules: false,
@@ -314,6 +339,8 @@
                     2: 'transition',
                     3: 'target'
                 },
+                selectedRec: [],
+                notSelected: [],
                 selectedScore: 0,
                 colorScale: d3.scaleThreshold()
                     .domain(this.colorDomain)
@@ -323,21 +350,32 @@
                     .range(this.scoreRange),
             }
         },
+        watch: {
+            moduleState: function () {
+                if (this.moduleState === this.recommendations.length) {
+                    this.state = this.state + 1
+                }
+            }
+        },
         computed: {
-            selRec: function () {
-                let modules = []
-                this.recommendations.forEach(d => {
-                    if (!this.recommendationSelected[d.rank]) {
-                        modules.push(d)
-                    }
-                })
-                return modules
-            },
+            // selRec: function () {
+            //     let modules = []
+            //     this.recommendations.forEach(d => {
+            //         console.log('selrec', d)
+            //         if (this.recommendationSelected[d.rank]) {
+            //             modules.push(d)
+            //         }
+            //     })
+            //     return modules
+            // },
             buttonText: function () {
                 return this.buttonState[this.state]
             },
             chartState: function () {
-                return this.stateConversion[this.state]
+                if (this.state < 4) {
+                    return this.stateConversion[this.state]
+                }
+                return this.stateConversion[3]
             },
             scoreColor: function () {
                 return this.colorScale(this.currentScore)
@@ -347,7 +385,13 @@
             },
             selectedLabel: function () {
                 return this.labelScale(this.selectedScore)
-            }
+            },
+            scoreDiff: function () {
+                return (this.targetScore - this.currentScore) / this.recommendations.length
+            },
+            availableRecommendations: function () {
+                return this.recommendations.length - this.moduleState
+            },
         },
         mounted: function () {
             this.colorScale = d3.scaleThreshold()
@@ -359,12 +403,50 @@
             formatScore: function (score) {
                 return d3.format('.1f')(score)
             },
+            recommendationClick: function (item) {
+                this.recommendationSelected[item.rank] = !this.recommendationSelected[item.rank]
+
+                let selected = []
+                let notselected = []
+                this.recommendations.forEach(d => {
+                    if (this.recommendationSelected[d.rank]) {
+                        selected.push(d)
+                    } else {
+                        notselected.push(d)
+                    }
+                })
+                this.selectedRec = selected
+                this.notSelected = notselected
+            },
+            nothanks: function () {
+                this.targetScore = this.targetScore - this.scoreDiff
+                this.nextModule()
+            },
             interested: function () {
-                this.recommendationSelected[this.recommendations[this.moduleState]] = true
+                console.log('interested')
+                let selections = 0
+                this.recommendationSelected[this.recommendations[this.moduleState].rank] = true
+                let selected = []
+                let notselected = []
+                this.recommendations.forEach(d => {
+                    if (this.recommendationSelected[d.rank]) {
+                        selections = selections + 1
+                        selected.push(d)
+                    } else {
+                        notselected.push(d)
+                    }
+                })
+                this.selectedRec = selected
+                this.notSelected = notselected
+                this.selectedRecommendations = selections
+                console.log(this.recommendationSelected)
                 this.nextModule()
             },
             nextModule: function () {
                 this.moduleState = this.moduleState + 1
+                if (this.state !== 3) {
+                    this.changeModules = !this.changeModules
+                }
             },
             isSelected: function (rec) {
                 console.log('press', rec, this.recommendationSelected)
@@ -406,8 +488,27 @@
 </script>
 
 <style scoped>
+    @import url('https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css');
+
+    body {
+        line-height: 1.3 !important;
+        color: #1d1d1f !important;
+    }
     p {
         margin-bottom: 0.5rem !important;
+    }
+    .no-button {
+        color: #9f9fa1 !important;
+    }
+    .no-button :hover{
+        color: #3c3c3e !important;
+    }
+    .interested-button {
+        box-sizing: border-box;
+        border-radius: 4px;
+    }
+    .interested-button :hover{
+        border: 2px solid #009FBC;
     }
     .hidden {
         display: none !important;
@@ -439,6 +540,9 @@
     }
     .resultPageContainer {
         min-height: 100%;
+    }
+    .recommendation :hover {
+        border: 1px solid #9d9d9f;
     }
     h3 {
         margin: 0;
@@ -483,6 +587,7 @@
         width: 100%;
         height: 100%;
         min-height: 100%;
+        max-height: 100%;
     }
     .flex {
         display: flex;
@@ -491,7 +596,9 @@
     .pageElement {
         width: 50%;
         flex-basis: 50%;
-        min-height: 512px;
+        min-height: 760px;
+        height: 760px;
+        max-height: 760px;
     }
     .chartHolder {
         /*padding-top: 56px;*/

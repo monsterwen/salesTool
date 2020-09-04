@@ -48,6 +48,9 @@
 </script>
 
 <style scoped>
+    ul, p {
+        margin-bottom: 0.5rem;
+    }
     .fit {
         width: 100%;
         height: 100%;
@@ -75,9 +78,13 @@
         font-size: 20px;
     }
     .included-container {
+        margin-top: 0.5rem;
+        padding-top: 0.5rem;
         padding-right: 24px;
         padding-left: 24px;
         width: 420px;
+        border-top: 1px solid #CDCDCD;
+        border-bottom: 1px solid #CDCDCD;
     }
     .included-container h5 {
         display: flex;
