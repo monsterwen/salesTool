@@ -356,7 +356,8 @@
             },
             updaterecom: function(jobid,timerid) {
                 // call apis
-                getAnalysis(jobid)
+                // getAnalysis(jobid)
+                getAnalysis()
                     // eslint-disable-next-line no-unused-vars
                     .catch(err => {
                         console.log(err)
@@ -397,7 +398,7 @@
                     })
                 //let insightsraw = getInsights(jobid)
                 // let strategyraw = getStrategy(jobid)
-                getStrategy(jobid)
+                getStrategy()
                     // eslint-disable-next-line no-unused-vars
                     .catch(err => {
                         console.log(err)
