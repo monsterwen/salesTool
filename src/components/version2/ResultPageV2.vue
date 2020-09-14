@@ -1,5 +1,5 @@
 <template>
-    <div class="fit flex resultPageContainer">
+    <div class="fit flex resultPageContainer" :id="category">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <div class="pageElement chartHolder">
             <ScoreChart
@@ -355,6 +355,9 @@
                 if (this.moduleState === this.recommendations.length) {
                     this.state = this.state + 1
                 }
+            },
+            state: function () {
+                console.log('state', this.state)
             }
         },
         computed: {
@@ -394,6 +397,7 @@
             },
         },
         mounted: function () {
+            console.log('rendering', this.category)
             this.colorScale = d3.scaleThreshold()
                 .domain(this.colorDomain)
                 .range(this.colorRange)
@@ -470,8 +474,9 @@
             },
             nextState: function () {
                 this.state = this.state + 1
-                if (this.state === 3) {
-                    this.$emit('lastStep')
+                console.log('statestate', this.state)
+                if (this.state === 4) {
+                    this.$emit('lastStep', this.category)
                 }
             },
             initializeRecommendationSelected: function () {

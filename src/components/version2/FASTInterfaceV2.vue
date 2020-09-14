@@ -33,16 +33,10 @@
             <LoadingScreen></LoadingScreen>
         </div>
         <div id="report-hold" class="moduleHolder flexHolder questionHolder card" v-if="fastState === 3">
-            <div class="reportHolder">
-                <div class="recommendationHolder">
-<!--                    <ReportPage-->
-<!--                        :analytic="analyticsObject"-->
-<!--                        :strategy="strategyObject"-->
-<!--                    >-->
-<!--                        <template v-slot:result-pages>-->
-<!--                            <div>-->
+            <div class="reportHolder" :key="reportState">
+                <div class="recommendationHolder"
+                     v-if="reportState === 'analytics'">
                                 <ResultPageV2
-                                    v-if="reportState === 'analytics'"
                                     category="Analytics"
                                     :chartId="'analyticsChart'"
                                     currentPrescription="Here are the shortcomings we identified that we think are affecting your analytic capabilities the most"
@@ -55,10 +49,10 @@
                                     :buttonState="analyticButtons"
                                     @lastStep="lastStep">
                                 </ResultPageV2>
-<!--                            </div>-->
-<!--                            <div>-->
+                </div>
+                <div class="recommendationHolder"
+                     v-else>
                                 <ResultPageV2
-                                    v-if="reportState === 'strategy'"
                                     category="Strategy"
                                     :chartId="'strategyChart'"
                                     currentPrescription="Here are the shortcomings we identified that we think are affecting your strategic capabilities the most"
@@ -69,19 +63,16 @@
                                     :prescriptionSubHeader="'with the following modules'"
                                     :targetHeader="'With the use of your selected modules, you can expect your strategic capabilities to improve to'"
                                     :buttonState="strategyButtons"
-                                    @lastStep="fastState = 4">
+                                    @lastStep="lastStep">
                                 </ResultPageV2>
-<!--                            </div>-->
-<!--                        </template>-->
-<!--                    </ReportPage>-->
                 </div>
             </div>
         </div>
         <div id="summary-hold" class="moduleHolder flexHolder questionHolder card" v-if="fastState === 4">
             <div class="reportHolder">
                 <div class="recommendationHolder">
-                    <RecommendationReportV2
-                    ></RecommendationReportV2>
+                    <all-done
+                    ></all-done>
                 </div>
             </div>
         </div>
@@ -92,22 +83,23 @@
     import QuestionaireV2 from './QuestionaireV2'
     import ProgressBar from './ProgressBar'
     // import ReportPage from '../bitComponents/ReportPage'
-    import RecommendationReportV2 from './RecommendationReportV2'
+    // import RecommendationReportV2 from './RecommendationReportV2'
     import LoadingScreen from './LoadingScreen'
     import ResultPageV2 from './ResultPageV2'
-
+    import AllDone from "./AllDone";
     import { getAnalysis, getStrategy, submitJob } from '../../assets/js/jobservice'
     import { upload } from '../../assets/js/fileupload'
-    import { getScores } from '../../assets/js/scoreCalculator'
+    import { getScores, getRecommendations } from '../../assets/js/scoreCalculator'
 
     export default {
         name: "FASTInterfaceV2",
         components: {
             ResultPageV2,
+            AllDone,
             // ReportPage,
             QuestionaireV2,
             ProgressBar,
-            RecommendationReportV2,
+            // RecommendationReportV2,
             LoadingScreen
         },
         data: function () {
@@ -134,90 +126,112 @@
                 },
                 questions: [
                     {
-                        question: 'Do you have solid reporting  and benchmarks for how well your CRM or loyalty program is performing?',
+                        id: 1,
+                        question: 'Do you have solid reporting and benchmarks for how well your CRM or loyalty program is performing?',
                         type: 'analysis',
                         response: null
                     }, {
+                        id: 2,
                         question: 'Are you confidently measuring loyalty or CRM program incrementality and ROI?',
                         type: 'analysis',
                         response: null
                     }, {
-                        question: 'Does your organization have a robust customer segmentation that is used to direct marketing strategy (i.e. personalization tone and media mix)?',
+                        id: 3,
+                        question: 'Does your organization have a robust customer segmentation that is used to direct marketing strategy (i.e., personalization, tone, and media mix)?',
                         type: 'analysis',
                         response: null
                     }, {
+                        id: 4,
                         question: 'Do you leverage customer demographics to guide your marketing efforts?',
                         type: 'analysis',
                         response: null
                     }, {
+                        id: 5,
                         question: 'Do you routinely and thoroughly track how your program/CRM is perceived by your customers?',
                         type: 'analysis',
                         response: null
                     }, {
+                        id: 6,
                         question: 'Are you able to predict/model which of your customers are most (and least) likely to engage in behaviors that are key for your business?',
                         type: 'analysis',
                         response: null
                     }, {
+                        id: 7,
                         question: 'Can you identify which of your customers are at risk for leaving your brand well before they officially lapse?',
                         type: 'analysis',
                         response: null
                     }, {
+                        id: 8,
                         question: 'Do you customize or personalize actions based on each customer\'s unique lifetime value score?',
                         type: 'analysis',
                         response: null
                     }, {
+                        id: 9,
                         question: 'Do you have a data-driven strategy for personalizing product recommendations/offerings at the customer level?',
                         type: 'analysis',
                         response: null
                     }, {
+                        id: 10,
                         question: 'Do you have a set of KPIs and interactive dashboards that cleanly tracks your progress toward key business objectives?',
                         type: 'analysis',
                         response: null
                     }, {
+                        id: 11,
                         question: 'Is there a clear path for adopting new analytic tools and solutions to enable your long-term marketing vision?',
                         type: 'analysis',
                         response: null
                     }, {
+                        id: 12,
                         question: 'Do you have a clear sense of how your program and customer experience compare to your competitive set?',
                         type: 'strategy',
                         response: null
                     }, {
+                        id: 13,
                         question: 'Are you actively enhancing the customer journeys that are most impactful to your business?',
                         type: 'strategy',
                         response: null
                     }, {
+                        id: 14,
                         question: 'Do you have an active idea bank of features and enhancements that will make immediate impact on your key customer segments?',
                         type: 'strategy',
                         response: null
                     }, {
-                        question: 'Through the eyes of your customers do you know how your communications efforts stack up against those of your competitors?',
+                        id: 15,
+                        question: 'Through the eyes of your customers, do you know how your communications efforts stack up against those of your competitors?',
                         type: 'strategy',
                         response: null
                     }, {
+                        id: 16,
                         question: 'Do you have an action plan to effectively introduce a program to market and/or make impactful changes to an existing program?',
                         type: 'strategy',
                         response: null
                     }, {
+                        id: 17,
                         question: 'Have you established a plan for future evolution & growth/enhancement of your current marketing program?',
                         type: 'strategy',
                         response: null
                     }, {
+                        id: 18,
                         question: 'Are your customer communications fully aligned with marketing best practices in each channel?',
                         type: 'strategy',
                         response: null
                     }, {
+                        id: 19,
                         question: 'Are you able to track and analyze emotional loyalty to your brand/program?',
                         type: 'strategy',
                         response: null
                     }, {
+                        id: 20,
                         question: 'Are you confident your engagement and loyalty efforts incorporate best-in-class customer experiences/offerings?',
                         type: 'strategy',
                         response: null
                     }, {
+                        id: 21,
                         question: 'Are you leveraging a test and learn plan made up of the most impactful quick campaigns to support your program & communication goals?',
                         type: 'strategy',
                         response: null
                     }, {
+                        id: 22,
                         question: 'Have you mapped clear desired behaviors to each of your customers via a personalized marketing plan?',
                         type: 'strategy',
                         response: null
@@ -230,7 +244,8 @@
                     strategy: 'strategytext',
                     '': null
                 },
-                stepColor: '#48bb00'
+                stepColor: '#48bb00',
+                recommendations: {}
             }
         },
         watch: {
@@ -243,6 +258,9 @@
                 if (this.analysisReady && this.strategyReady) {
                     this.fastState = 3
                 }
+            },
+            reportState: function () {
+                console.log('report state', this.reportState)
             }
         },
         computed: {
@@ -267,13 +285,18 @@
                 this.$emit('goToResults')
                 this.fastState = 2
                 this.scores = getScores(questions)
+                this.recommendations = getRecommendations(questions)
                 this.convertToCsv(output, filename)
                 console.log('filename', filename)
                 this.showRecommendation = true
             },
-            lastStep: function () {
-                console.log('go th')
-                this.reportState = 'strategy'
+            lastStep: function (category) {
+                console.log('go th', category)
+                if (category === 'Analytics') {
+                    this.reportState = 'strategy'
+                } else {
+                    this.fastState = 4
+                }
             },
             questionSelected: function (d, i, y) {
                 console.log('see;cted', d, i, y)
@@ -298,24 +321,25 @@
                 const data = JSON.stringify(output)
                 // parse data
                 console.log('output',output)
-                var parsed = ''
-                var question = "Question"
-                var response = "Response"
-                parsed += question +','
-                parsed += response
-                parsed += '\n'
-                for(var i=0;i<output.length;i++) {
-                    parsed += output[i].question+','
-                    parsed += output[i].response
-                    parsed += '\n'
-                }
-                console.log('parsed',parsed)
-                // eslint-disable-next-line no-unused-vars
-                // eslint-disable-next-line no-unused-vars
-                var blob = new Blob([parsed], {
-                    type: "text/plain;charset=utf-8"
-                });
-                this.uploadfile(blob,filename)
+                // var parsed = ''
+                // var question = "Question"
+                // var response = "Response"
+                // parsed += question +','
+                // parsed += response
+                // parsed += '\n'
+                // for(var i=0;i<output.length;i++) {
+                //     parsed += output[i].question+','
+                //     parsed += output[i].response
+                //     parsed += '\n'
+                // }
+                // console.log('parsed',parsed)
+                // // eslint-disable-next-line no-unused-vars
+                // // eslint-disable-next-line no-unused-vars
+                // var blob = new Blob([parsed], {
+                //     type: "text/plain;charset=utf-8"
+                // });
+                // this.uploadfile(blob,filename)
+                this.submit(filename, data)
             },
             uploadfile: function (blob, filename) {
                 const formData = new FormData()
@@ -330,16 +354,18 @@
                         this.submit(filename)
                     })
             },
-            submit: function (fileName) {
+            submit: function (fileName, data) {
+                console.log('subimiitteting', fileName, data)
                 var jobObj = {
                     'app': "sales",
                     'jobId': fileName,
                     'delimiter': ",",
-                    'fileLocation': 'hdfs:///user/admin/' + fileName,
+                    'fileLocation': data,
 
                 }
                 submitJob(jobObj)
                     .catch(err => {
+                        console.log('error job submit', err)
                         alert('Problem submitting job to server.  ' + err.message.toString())
                     })
                     .then((response) => {
@@ -357,7 +383,7 @@
             updaterecom: function(jobid,timerid) {
                 // call apis
                 // getAnalysis(jobid)
-                getAnalysis()
+                getAnalysis(jobid)
                     // eslint-disable-next-line no-unused-vars
                     .catch(err => {
                         console.log(err)
@@ -398,7 +424,7 @@
                     })
                 //let insightsraw = getInsights(jobid)
                 // let strategyraw = getStrategy(jobid)
-                getStrategy()
+                getStrategy(jobid)
                     // eslint-disable-next-line no-unused-vars
                     .catch(err => {
                         console.log(err)

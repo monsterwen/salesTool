@@ -242,7 +242,10 @@ export default {
             }
             console.log('questionSelected..', question)
             this.$emit('selection', response, index, type, module)
-            this.output.push({question,response})
+            this.output.push({
+                    'Question': question,
+                    'Response': response
+            })
             console.log("output", this.output)
             if(this.selectedIndex >= this.questions.length) {
                 // 1. convert to csv
@@ -324,6 +327,7 @@ export default {
     .proceedText {
         padding-left: 8px;
         padding-right: 8px;
+        margin-bottom: 0.5rem !important;
         font-weight: bold;
         font-size: 28px;
     }
