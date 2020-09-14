@@ -58,6 +58,9 @@
     .dimension-image {
         height: 100%;
         display: flex;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        box-sizing: border-box;
     }
     .dimension-png {
         height: 100%;
@@ -93,6 +96,9 @@
     .includes-list {
         list-style: none;
     }
+    .includes-item:last-of-type {
+        border-bottom: none !important;
+    }
     .includes-item {
         display: flex;
         flex-flow: row wrap;
@@ -101,5 +107,6 @@
         justify-content: center;
         list-style: none;
         text-align: center;
+        border-bottom: 0.5px solid #eeeeee;
     }
 </style>

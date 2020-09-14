@@ -59,6 +59,8 @@ function getScores(questions) {
 function getRecommendations(questions) {
     let recData = {
         1: {
+            id: 1,
+            rank: 1,
             name: 'Program Health Assessment',
             gapDesc: 'Benchmarking your program’s performance',
             soYouHeader: 'See how your program measures up',
@@ -72,6 +74,8 @@ function getRecommendations(questions) {
             ]
         },
         2: {
+            id: 2,
+            rank: 2,
             name: 'Program Cost-Benefit Analysis',
             gapDesc: 'Quantifying your program’s profitability and ROI',
             soYouHeader: 'Discover if your program is profitable',
@@ -85,6 +89,8 @@ function getRecommendations(questions) {
             ]
         },
         3: {
+            id: 3,
+            rank: 3,
             name: 'Core Customer Segmentation',
             gapDesc: 'Personalizing marketing through clear and distinct customer segments',
             soYouHeader: 'Know your customers and how to speak to them',
@@ -97,6 +103,8 @@ function getRecommendations(questions) {
             ]
         },
         4: {
+            id: 4,
+            rank: 4,
             name: 'Customer Demographic Profiling',
             gapDesc: 'Identifying and actioning your customers’ demographics',
             soYouHeader: 'B-Informed by your best customers',
@@ -108,6 +116,8 @@ function getRecommendations(questions) {
             ]
         },
         5: {
+            id: 5,
+            rank: 5,
             name: 'Brand and Program Tracker',
             gapDesc: 'Establishing customer perception of the CRM/Loyalty program',
             soYouHeader: 'Ask your customers the important questions',
@@ -119,6 +129,8 @@ function getRecommendations(questions) {
             ]
         },
         6: {
+            id: 6,
+            rank: 6,
             name: 'Propensity Modeling',
             gapDesc: 'Leveraging predictive analytics to inform marketing efforts',
             soYouHeader: 'Bring predictive power to your marketing efforts',
@@ -131,6 +143,8 @@ function getRecommendations(questions) {
             ]
         },
         7: {
+            id: 7,
+            rank: 7,
             name: 'Proactive Churn Modeling',
             gapDesc: 'Addressing the traits of your customers',
             soYouHeader: 'Retain your customers and maximize their value',
@@ -143,6 +157,8 @@ function getRecommendations(questions) {
             ]
         },
         8: {
+            id: 8,
+            rank: 8,
             name: 'Lifetime Value Modeling',
             gapDesc: 'Optimizing marketing efforts against each customer’s lifetime value',
             soYouHeader: 'Know what your customers are worth',
@@ -155,6 +171,8 @@ function getRecommendations(questions) {
             ]
         },
         9: {
+            id: 9,
+            rank: 9,
             name: 'Personalized Product Recommendations',
             gapDesc: 'Prescribing next best product for each customer',
             soYouHeader: 'Keep customers engaged with next best action insights',
@@ -167,6 +185,8 @@ function getRecommendations(questions) {
             ]
         },
         10: {
+            id: 10,
+            rank: 10,
             name: 'KPI/Metric Audit & Dashboard Design',
             gapDesc: 'Tracking against business objectives with compelling dashboards',
             soYouHeader: 'Stay on track to meet your business objectives',
@@ -179,6 +199,8 @@ function getRecommendations(questions) {
             ]
         },
         11: {
+            id: 11,
+            rank: 11,
             name: 'Analytic Vision & Roadmap',
             gapDesc: 'Following an analytic roadmap aligned with your business vision',
             soYouHeader: 'Put your data to work toward your business goals',
@@ -190,6 +212,8 @@ function getRecommendations(questions) {
             ]
         },
         12: {
+            id: 12,
+            rank: 12,
             name: 'Competitive Evaluation',
             gapDesc: 'Addressing gaps and differentiating your program from the competition',
             soYouHeader: 'Distinguish yourself from the competition',
@@ -202,6 +226,8 @@ function getRecommendations(questions) {
             ]
         },
         13: {
+            id: 13,
+            rank: 13,
             name: 'CX/MX Journey Mapping',
             gapDesc: 'Optimizing customer experience flow across all key touchpoints',
             soYouHeader: 'Experience your customers’ journeys',
@@ -213,6 +239,8 @@ function getRecommendations(questions) {
             ]
         },
         14: {
+            id: 14,
+            rank: 14,
             name: 'Loyalty Ideation Workshop',
             gapDesc: 'Leveraging an idea bank to actively enhance your CRM/Loyalty program',
             soYouHeader: 'Transform ideas into actionable insights',
@@ -225,6 +253,8 @@ function getRecommendations(questions) {
             ]
         },
         15: {
+            id: 15,
+            rank: 15,
             name: 'Relationship Analyser',
             gapDesc: 'Identifying how your customers perceive your CRM/Loyalty efforts',
             soYouHeader: 'Discover how customers perceive your relationship',
@@ -237,6 +267,8 @@ function getRecommendations(questions) {
             ]
         },
         16: {
+            id: 16,
+            rank: 16,
             name: 'Loyalty Launch & Planning',
             gapDesc: 'Following a detailed plan for launching a pilot or revised program',
             soYouHeader: 'Get your loyalty program off to a successful start',
@@ -249,6 +281,8 @@ function getRecommendations(questions) {
             ]
         },
         17: {
+            id: 17,
+            rank: 17,
             name: 'Strategic Vision & Roadmap',
             gapDesc: 'Detailing a long-term strategic plan and guide to optimize marketing ',
             soYouHeader: 'Keep your program relevant',
@@ -260,6 +294,8 @@ function getRecommendations(questions) {
             ]
         },
         18: {
+            id: 18,
+            rank: 18,
             name: 'Communications Audit',
             gapDesc: 'Following a plan to address communications gaps and opportunities',
             soYouHeader: 'Find out how your communications stack up',
@@ -271,6 +307,8 @@ function getRecommendations(questions) {
             ]
         },
         19: {
+            id: 19,
+            rank: 19,
             name: 'Emotional Loyalty Measurement',
             gapDesc: 'Tracking your customers’ rational and emotional loyalty to your brand',
             soYouHeader: 'Measure both sides of the equation',
@@ -282,6 +320,8 @@ function getRecommendations(questions) {
             ]
         },
         20: {
+            id: 20,
+            rank: 20,
             name: 'Loyalty Checkup',
             gapDesc: 'Contextualizing your program against best-in-class standards',
             soYouHeader: 'Give your loyalty program a thorough examination',
@@ -294,6 +334,8 @@ function getRecommendations(questions) {
             ]
         },
         21: {
+            id: 21,
+            rank: 21,
             name: 'Marketing Jumpstart',
             gapDesc: 'Executing against a progression of quick win marketing campaigns',
             soYouHeader: 'Drive immediate results and learnings',
@@ -306,6 +348,8 @@ function getRecommendations(questions) {
             ]
         },
         22: {
+            id: 22,
+            rank: 22,
             name: 'Next Best Action Marketing Plan',
             gapDesc: 'Following a plan to move each customer to her or his next best action',
             soYouHeader: 'Motivate customers to take the next step',

@@ -17,15 +17,11 @@
                 @selectedScore="setSelectedScore"></ScoreChart>
         </div>
         <div class="pageElement prescriptionHolder">
-<!--            <div class="result-header">-->
-<!--                <ResultPageHeader-->
-<!--                    :category="category"></ResultPageHeader>-->
-<!--            </div>-->
-            <div class="result-body pt-5">
+            <div class="result-body pt-3">
                 <div class="result-container w3-animate-right" :class="{ 'display': state === 1}">
                     <ResultReport>
                         <template v-slot:score-title>
-                            Your <b class="emphasized">Current</b> Overall Score is:
+                            Your <b class="emphasized">Current</b> {{ category }} Score is:
                         </template>
                         <template v-slot:score>
                             <p :style="{ color: scoreColor }">{{ formatScore(currentScore) }}</p>
@@ -37,12 +33,7 @@
                             <div class="gap-list-holder" style="align-self: flex-end">
                                 <ul class="gap-list" style="padding-left: 0;">
                                     <li v-for="(item, i) in recommendations" class="module-item" v-bind:key="`gap${i}`">
-                                        <!--                        <div class="module-tick"></div>-->
-                                        <!--                        <div class="module-title">-->
-                                        <!--                            <p>{{item}}</p>-->
-                                        <!--                        </div>-->
-                                        <!--                        <div class="module-description">-->
-                                        <h3>{{item.gapDesc}}</h3>
+                                        <h5>{{item.gapDesc}}</h5>
                                     </li>
                                 </ul>
                             </div>
@@ -63,50 +54,6 @@
                             </template>
                         </ModuleRecommendation>
                     </div>
-<!--                    <PrescriptionPage>-->
-<!--                        <template v-slot:header-text>-->
-<!--                            <h3>{{ prescriptionHeader }}</h3>-->
-<!--                        </template>-->
-<!--                        <template v-slot:subheader-text>-->
-<!--                            <h4>{{ prescriptionSubHeader }}</h4>-->
-<!--                        </template>-->
-<!--                        <template v-slot:prescriptions>-->
-<!--                            <div class="gap-list-holder" style="align-self: flex-end">-->
-<!--                                <ul class="gap-list" style="padding-left: 0;">-->
-<!--                                    <li v-for="(item, i) in recommendations"-->
-<!--                                        class="module-item"-->
-<!--                                        v-bind:key="`gap${i}`"-->
-<!--                                        @mouseenter="moduleMouseOver(item)"-->
-<!--                                        @mouseleave="moduleMouseOut(item)"-->
-<!--                                        >-->
-<!--                                        &lt;!&ndash;                        <div class="module-tick"></div>&ndash;&gt;-->
-<!--                                        &lt;!&ndash;                        <div class="module-title">&ndash;&gt;-->
-<!--                                        &lt;!&ndash;                            <p>{{item}}</p>&ndash;&gt;-->
-<!--                                        &lt;!&ndash;                        </div>&ndash;&gt;-->
-<!--                                        &lt;!&ndash;                        <div class="module-description">&ndash;&gt;-->
-<!--                                        <h3>{{item.name}}</h3>-->
-<!--                                        <p style="margin-block-start: 6px;">{{item.soyou}}</p>-->
-<!--                                        &lt;!&ndash;                        </div>&ndash;&gt;-->
-<!--                                        &lt;!&ndash;                        <div class="module-link"&ndash;&gt;-->
-<!--                                        &lt;!&ndash;                             :class="{'selected': selectedModules[item.id]}"&ndash;&gt;-->
-<!--                                        &lt;!&ndash;                             v-on:click="selectedModules[item.id] = true">&ndash;&gt;-->
-<!--                                        &lt;!&ndash;                            <p v-on:click="selectedModules[item.id] = true">I'm interested</p>&ndash;&gt;-->
-<!--                                        &lt;!&ndash;                        </div>&ndash;&gt;-->
-<!--                                        <button class="module-link"-->
-<!--                                                v-if="!recommendationSelected[item.rank]"-->
-<!--                                                @click="moduleSelected(item, $event)">-->
-<!--                                            <p>I'm interested</p>-->
-<!--                                        </button>-->
-<!--                                        <button class="module-link selected"-->
-<!--                                                v-if="recommendationSelected[item.rank]"-->
-<!--                                                @click="moduleSelected(item, $event)">-->
-<!--                                            <p>I'm interested</p>-->
-<!--                                        </button>-->
-<!--                                    </li>-->
-<!--                                </ul>-->
-<!--                            </div>-->
-<!--                        </template>-->
-<!--                    </PrescriptionPage>-->
                 </div>
                 <div class="result-container slide-in" :class="{ 'display': state === 3}">
                     <ResultReport>
@@ -250,30 +197,93 @@
                 type: Array,
                 default: () => [
                     {
-                        rank: 10,
-                        name: "Brand & Program Tracker",
-                        soyou:  'This will help you establish customer perception of the CRM or loyalty programme and likes or dislikes pertaining to the brand experience and identify aspects to change or act on to increase satisfaction, loyalty and LTV.'
-                    },
-                    {
+                        id: 13,
                         rank: 13,
-                        name: "Customer Demographic Profiling",
-                        soyou:  'Identify what your customers look like by examining key traits and the extent to which they over or under index.  Map characteristics to product and service.'
+                        name: 'CX/MX Journey Mapping',
+                        gapDesc: 'Optimizing customer experience flow across all key touchpoints',
+                        soYouHeader: 'Experience your customers’ journeys',
+                        soYouDesc: 'Leverage all available data to map and evaluate your customer journey, identifying pain points, recommending strategies for improvement, and generating actionable insights',
+                        includes: [
+                            'Collaborative Work Sessions to Map Out Touchpoints and Key Moments',
+                            'Optimized Customer Journey Map Informed by T.A.R.G.E.T. (Touchpoint And Relationship Gap Evaluation Tool)',
+                            'Recommendations for Enhancements to Address Gaps and Redundancies'
+                        ]
+                    },{
+                        id: 14,
+                        rank: 14,
+                        name: 'Loyalty Ideation Workshop',
+                        gapDesc: 'Leveraging an idea bank to actively enhance your CRM/Loyalty program',
+                        soYouHeader: 'Transform ideas into actionable insights',
+                        soYouDesc: 'Through an ideation exercise with key stakeholders, we will take the lead in turning abstract ideas into a list of program concepts and immediate enhancements',
+                        includes: [
+                            'Categorized Idea Bank',
+                            'Level of Effort/Impact Matrix',
+                            'Straw Man Program Concepts',
+                            'Quick Wins for Program Enhancement'
+                        ]
+                    },{
+                        id: 15,
+                        rank: 15,
+                        name: 'Relationship Analyser',
+                        gapDesc: 'Identifying how your customers perceive your CRM/Loyalty efforts',
+                        soYouHeader: 'Discover how customers perceive your relationship',
+                        soYouDesc: 'Employ a specialized set of research questions to gain a better understanding of customer sentiment toward your marketing efforts, loyalty program, and/or CRM initiatives',
+                        includes: [
+                            'Survey of Current Customers Tailored to Business Needs',
+                            'Index of Survey Results Compared to Competitive Set',
+                            'Recommendations to Strengthen Customer Relationships',
+                            'Research Readout and Consulting Session'
+                        ]
+                    },{
+                        id: 16,
+                        rank: 16,
+                        name: 'Loyalty Launch & Planning',
+                        gapDesc: 'Following a detailed plan for launching a pilot or revised program',
+                        soYouHeader: 'Get your loyalty program off to a successful start',
+                        soYouDesc: 'This comprehensive resource outlines a pilot program structure, implementation plan, training plan, and post-launch measurement guide tailored to your specific needs',
+                        includes: [
+                            'Launch Roadmap with Milestones for Key Stakeholder Groups',
+                            'Employee Training Manual',
+                            'Employee Training Communications Kit',
+                            'SPIF Recommendations'
+                        ]
+                    },{
+                        id: 17,
+                        rank: 17,
+                        name: 'Strategic Vision & Roadmap',
+                        gapDesc: 'Detailing a long-term strategic plan and guide to optimize marketing ',
+                        soYouHeader: 'Keep your program relevant',
+                        soYouDesc: 'We will develop a dynamic roadmap to guide program evolution and identify themes for short- and long-term program vision, resulting in a detailed 3-year strategic plan',
+                        includes: [
+                            'Topline Review of Corporate/Brand Initiatives and Directives',
+                            'Joint Ideation and Planning Sessions for Program Goals Alignment',
+                            'Details 3-Year Strategic Roadmap and Implementation Guide'
+                        ]
+                    },{
+                        id: 18,
+                        rank: 18,
+                        name: 'Communications Audit',
+                        gapDesc: 'Following a plan to address communications gaps and opportunities',
+                        soYouHeader: 'Find out how your communications stack up',
+                        soYouDesc: 'Our strategy team will inventory customer communications and analyze engagement metrics to identify weaknesses and recommend improvements',
+                        includes: [
+                            'Presentation Deck Identifying Communications Trends and Benchmarking Insights',
+                            'Member Communications Scorecard',
+                            'Recommendations for Enhancements to Address Gaps and Redundancies'
+                        ]
+                    },{
+                        id: 19,
+                        rank: 19,
+                        name: 'Emotional Loyalty Measurement',
+                        gapDesc: 'Tracking your customers’ rational and emotional loyalty to your brand',
+                        soYouHeader: 'Measure both sides of the equation',
+                        soYouDesc: 'Identify the depth of your customers’ emotional and rational connections to your brand and loyalty program with our proprietary Brierley Loyalty Quotient',
+                        includes: [
+                            'Survey of Current Customers Tailored to Business Needs',
+                            'Interactive BLQ Dashboard with Rational & Emotional Measures by Brand',
+                            'Recommendations to Improve Overall BLQ Scores'
+                        ]
                     },
-                    {
-                        rank: 1,
-                        name: "Program Health Assessment",
-                        soyou:  'This will help you establish customer perception of the CRM or loyalty programme and likes or dislikes pertaining to the brand experience and identify aspects to change or act on to increase satisfaction, loyalty and LTV.'
-                    },
-                    {
-                        rank: 4,
-                        name: "Program Cost-Benefit Analysis",
-                        soyou:  'This will help you establish customer perception of the CRM or loyalty programme and likes or dislikes pertaining to the brand experience and identify aspects to change or act on to increase satisfaction, loyalty and LTV.'
-                    },
-                    {
-                        rank: 2,
-                        name: "Core Customer Segmentation",
-                        soyou:  'This will help you establish customer perception of the CRM or loyalty programme and likes or dislikes pertaining to the brand experience and identify aspects to change or act on to increase satisfaction, loyalty and LTV.'
-                    }
                 ]
             },
             currentScore: {
@@ -389,6 +399,7 @@
                 return this.labelScale(this.selectedScore)
             },
             scoreDiff: function () {
+                console.log(';scorefidd', this.targetScore, this.currentScore, this.recommendations)
                 return (this.targetScore - this.currentScore) / this.recommendations.length
             },
             availableRecommendations: function () {
@@ -396,7 +407,7 @@
             },
         },
         mounted: function () {
-            console.log('rendering', this.category)
+            console.log('rendering', this.category, this.recommendations)
             this.colorScale = d3.scaleThreshold()
                 .domain(this.colorDomain)
                 .range(this.colorRange)
@@ -422,6 +433,7 @@
                 this.notSelected = notselected
             },
             nothanks: function () {
+                console.log('nothanks', this.targetScore)
                 this.targetScore = this.targetScore - this.scoreDiff
                 this.nextModule()
             },
@@ -668,6 +680,8 @@
         border-top: 1px solid #CDCDCD;
         border-bottom: 1px solid #CDCDCD;
         padding-bottom: 3px;
+        max-height: 400px;
+        overflow-y: auto;
     }
     .review-container {
         max-height: 310px;
@@ -680,11 +694,11 @@
         flex-basis: 100%;
         justify-content: center;
         margin-top: 6px;
-        list-style: none;
         text-align: center;
     }
-    .module-item h3 {
+    .module-item h5 {
         margin-top: 6px;
+        font-weight: normal !important;
         margin-bottom: 6px;
     }
     .module-item p {

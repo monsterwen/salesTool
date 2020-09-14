@@ -2,19 +2,13 @@
     <div class="result-div">
         <div class="result-title-holder">
             <h2 class="result-score-title">
-<!--                Your <b>Current</b> {{category}} score is-->
                 <slot name="score-title"></slot>
             </h2>
         </div>
         <div class="result-score-div flex-row-wrap flex-full" id="cur-score-hold">
             <div class="result-score">
-<!--                <p>{{score}}</p>-->
                 <slot name="score"></slot>
             </div>
-<!--            <div class="result-score-description" :class="{ 'result-hidden': !actualDesc}">-->
-<!--                <p style="min-width: 96%;">{{scoreDescription}}</p>-->
-<!--                <template v-slot:description-slot></template>-->
-<!--            </div>-->
             <div class="result-score-collapse pl-2">
                 <span class="result-score-button">
                     <i class="material-icons icon">info</i>
@@ -22,7 +16,6 @@
             </div>
         </div>
         <div class="result-gap-description" style="width: 100%">
-<!--            <p>{{actualPrescription}}</p>-->
             <p><slot name="prescription"></slot></p>
         </div>
         <div class="gap-holder">

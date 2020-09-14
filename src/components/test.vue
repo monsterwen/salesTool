@@ -534,8 +534,6 @@
     }
     .dimension-png {
         height: calc(100% - 24px);
-        margin-top: 12px;
-        margin-bottom: 12px;
     }
     .closebtn {
         margin-left: 15px;
