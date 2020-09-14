@@ -40,7 +40,7 @@
                                     category="Analytics"
                                     :chartId="'analyticsChart'"
                                     currentPrescription="Here are the shortcomings we identified that we think are affecting your analytic capabilities the most"
-                                    :recommendations="analysisrecom"
+                                    :recommendations="recommendations.analysis"
                                     :currentScore="scores.analysis.current"
                                     :targetScore="scores.analysis.target"
                                     :prescriptionHeader="'You can take immediate, effective action to address the critical shortcomings we\'ve identified'"
@@ -56,7 +56,7 @@
                                     category="Strategy"
                                     :chartId="'strategyChart'"
                                     currentPrescription="Here are the shortcomings we identified that we think are affecting your strategic capabilities the most"
-                                    :recommendations="strategyrecom"
+                                    :recommendations="recommendations.strategy"
                                     :currentScore="scores.strategy.current"
                                     :targetScore="scores.strategy.target"
                                     :prescriptionHeader="'You can take immediate, effective action to address the critical shortcomings we\'ve identified'"
@@ -286,7 +286,11 @@
                 this.fastState = 2
                 this.scores = getScores(questions)
                 this.recommendations = getRecommendations(questions)
-                this.convertToCsv(output, filename)
+                setTimeout(() => {
+                    this.analysisReady = true
+                    this.strategyReady = true
+                }, 5000)
+                // this.convertToCsv(output, filename)
                 console.log('filename', filename)
                 this.showRecommendation = true
             },

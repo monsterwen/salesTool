@@ -36,14 +36,13 @@
                         <template v-slot:gap-holder>
                             <div class="gap-list-holder" style="align-self: flex-end">
                                 <ul class="gap-list" style="padding-left: 0;">
-                                    <li v-for="(item, i) in identifiedGaps" class="module-item" v-bind:key="`gap${i}`">
+                                    <li v-for="(item, i) in recommendations" class="module-item" v-bind:key="`gap${i}`">
                                         <!--                        <div class="module-tick"></div>-->
                                         <!--                        <div class="module-title">-->
                                         <!--                            <p>{{item}}</p>-->
                                         <!--                        </div>-->
                                         <!--                        <div class="module-description">-->
-                                        <h3>{{item.header}}</h3>
-                                        <p style="margin-block-start: 6px;">{{item.desc}}</p>
+                                        <h3>{{item.gapDesc}}</h3>
                                     </li>
                                 </ul>
                             </div>
@@ -60,7 +59,7 @@
                                 {{ item.name }}
                             </template>
                             <template v-slot:prescription>
-                                {{ item.soyou }}
+                                {{ item.soYouDesc }}
                             </template>
                         </ModuleRecommendation>
                     </div>
