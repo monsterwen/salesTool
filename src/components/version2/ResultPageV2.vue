@@ -26,6 +26,9 @@
                         <template v-slot:score>
                             <p :style="{ color: scoreColor }">{{ formatScore(currentScore) }}</p>
                         </template>
+                        <template v-slot:score-desc>
+                            {{ currentDescription[currentLabel] }}
+                        </template>
                         <template v-slot:prescription>
                             {{ currentPrescription }}
                         </template>
@@ -49,8 +52,19 @@
                             <template v-slot:module-title>
                                 {{ item.name }}
                             </template>
+                            <template v-slot:module-logo>
+                                <img class="dimension-png" :src="require(`../../assets/svg/logos/${svgPath[item.id]}.svg`)">
+                            </template>
+                            <template v-slot:header>
+                                {{ item.soYouHeader }}
+                            </template>
                             <template v-slot:prescription>
                                 {{ item.soYouDesc }}
+                            </template>
+                            <template v-slot:includes-list-items>
+                                <li v-for="(item, i) in item.includes" class="includes-item" v-bind:key="`selected${i}`">
+                                    <p>{{item}}</p>
+                                </li>
                             </template>
                         </ModuleRecommendation>
                     </div>
@@ -58,18 +72,21 @@
                 <div class="result-container slide-in" :class="{ 'display': state === 3}">
                     <ResultReport>
                         <template v-slot:score-title>
-                            {{ targetHeader }}
+                            <h3 class="pt-4">{{ targetHeader }}</h3>
                         </template>
                         <template v-slot:score>
                             <p :style="{ color: targetColor }">{{ formatScore(selectedScore) }}</p>
                         </template>
+                        <template v-slot:score-desc>
+                            {{ descLabel }}
+                        </template>
                         <template v-slot:prescription>
-                            {{ scoreDescription[selectedLabel] }}
+                            <h3>Review your selections below</h3>
                         </template>
                         <template v-slot:gap-holder>
                             <div class="gap-list-holder review-container" style="align-self: flex-end">
                                 <ul class="gap-list mb-1" style="padding-left: 0;">
-                                    <li class="module-item mt-0" v-if="selectedRec.length > 0">
+                                    <li class="module-item title-module mt-0" v-if="selectedRec.length > 0">
                                         <h3>Selected</h3>
                                     </li>
                                     <li v-for="(item, i) in selectedRec" class="module-item" v-bind:key="`selected${i}`">
@@ -78,7 +95,7 @@
                                             <p>{{item.name}}</p>
                                         </a>
                                     </li>
-                                    <li class="module-item mt-0" v-if="notSelected.length > 0">
+                                    <li class="module-item title-module mt-0" v-if="notSelected.length > 0">
                                         <h3>Not Selected</h3>
                                     </li>
                                     <li v-for="(item, i) in notSelected" class="module-item" v-bind:key="`module${i}`">
@@ -138,7 +155,7 @@
             },
             currentPrescription: {
                 type: String,
-                default: () => 'Here are the shortcomings we identified that we think are affecting your analytic capabilities the most'
+                default: () => 'Here are the areas we identified that we think are affecting your analytic capabilities the most'
             },
             identifiedGaps: {
                 type: Array,
@@ -202,7 +219,7 @@
                         name: 'CX/MX Journey Mapping',
                         gapDesc: 'Optimizing customer experience flow across all key touchpoints',
                         soYouHeader: 'Experience your customers’ journeys',
-                        soYouDesc: 'Leverage all available data to map and evaluate your customer journey, identifying pain points, recommending strategies for improvement, and generating actionable insights',
+                        soYouDesc: 'Leverage all available data to map and evaluate your customer journey, recommending strategies for improvement, and generating actionable insights',
                         includes: [
                             'Collaborative Work Sessions to Map Out Touchpoints and Key Moments',
                             'Optimized Customer Journey Map Informed by T.A.R.G.E.T. (Touchpoint And Relationship Gap Evaluation Tool)',
@@ -308,7 +325,11 @@
             },
             colorDomain: {
                 type: Array,
-                default: () => [2.50000001, 3.50000001]
+                default: () => [2.50000001, 3.50000001, 5]
+            },
+            descDomain: {
+                type: Array,
+                default: () => [0, .49999999, .5, 1]
             },
             colorRange: {
                 type: Array,
@@ -316,7 +337,11 @@
             },
             scoreRange: {
                 type: Array,
-                default: () => ['basic','emerging','sophisicated']
+                default: () => ['basic','emerging','sophisicated', 'perfect']
+            },
+            descRange: {
+                type: Array,
+                default: () => ['none','less','more', 'all']
             },
             buttonState: {
                 type: Object,
@@ -326,12 +351,30 @@
                     3: 'Continue to Strategy Review'
                 })
             },
+            currentDescription: {
+                type: Object,
+                default: () => ({
+                    basic: 'There is opportunity to expand your analytical toolkit to further uncover actionable insights',
+                    emerging: 'The fundamentals of marketing analytics are evident, and there are additional steps you can take to further shore up your',
+                    sophisicated: 'You have impressive analytics capabilities, and we may be able to help further augment your impressive marketing practice',
+                    perfect: 'You Rock! You are clearly part of a data-driven marketing organization. There may be areas where we can augment or help out'
+                })
+            },
+            // scoreDescription: {
+            //     type: Object,
+            //     default: () => ({
+            //         basic: 'Work will be required to better leverage customer and member insights to develop a program that differentiates itself from the competition.',
+            //         emerging: 'A clear program strategy is in play that is informed and driven by maturing customer insights drawn from an evolving analytic function.',
+            //         sophisicated: 'The program will be clearly differentiated form the competition and driven by solid analytic and insight capabilities that informs a cultured loyalty strategy.'
+            //     })
+            // },
             scoreDescription: {
                 type: Object,
                 default: () => ({
-                    basic: 'Work will be required to better leverage customer and member insights to develop a program that differentiates itself from the competition.',
-                    emerging: 'A clear program strategy is in play that is informed and driven by maturing customer insights drawn from an evolving analytic function.',
-                    sophisicated: 'The program will be clearly differentiated form the competition and driven by solid analytic and insight capabilities that informs a cultured loyalty strategy.'
+                    none: 'While you may not have immediate interest in any of the modules we recommended, Brierley is here to provide analytics, strategic thinking and staff augmentation.',
+                    less: 'These are great solutions to help address some of your most immediate opportunities. We would love to discuss these with you.',
+                    more: 'There are plenty of solutions that we can put to work for you quickly. We would love to discuss options for an action plan with you.',
+                    all: 'Great choices! We would love to help tailor an action plan to your needs and look forward to discussing these with you.'
                 })
             }
         },
@@ -357,6 +400,33 @@
                 labelScale: d3.scaleThreshold()
                     .domain(this.colorDomain)
                     .range(this.scoreRange),
+                descScale: d3.scaleThreshold()
+                    .domain(this.descDomain)
+                    .range(this.descRange),
+                svgPath: {
+                    1: 'ProgramHealthAssessment',
+                    2: 'ProgramCostBenefitAnalysis',
+                    3: 'CoreCustomerSegmentation',
+                    4: 'CustomerDemoProfile',
+                    5: 'BrandProgramTracker',
+                    6: 'PropensityModeling',
+                    7: 'ProactiveChurnModeling',
+                    8: 'LifetimeValueModeling',
+                    9: 'PropensityModeling',
+                    10: 'KPIMetricAudit',
+                    11: 'AnalyticVisionRoadmap',
+                    12: 'CompetitiveEvaluation',
+                    13: 'cxmxjourneymapping',
+                    14: 'LoyaltyIdeationWorkshop',
+                    15: 'RelationshipAnalyzer',
+                    16: 'LoyaltyLaunchPlanning',
+                    17: 'StrategicVisionRoadmap',
+                    18: 'RelationshipAnalyzer',
+                    19: 'EmotionalLoyaltyMeasure',
+                    20: 'LoyaltyCheckup',
+                    21: 'MarketingJumpstart',
+                    22: 'NBAMarketingPlan',
+                }
             }
         },
         watch: {
@@ -380,6 +450,22 @@
             //     })
             //     return modules
             // },
+            descSelect: function () {
+                return this.selectedRec.length / this.recommendations.length
+            },
+            descLabel: function () {
+                let descSelect = this.descSelect
+                if (descSelect === 0) {
+                    return this.scoreDescription.none
+                }
+                if (descSelect === 1) {
+                    return this.scoreDescription.all
+                }
+                if (descSelect < 0.5) {
+                    return this.scoreDescription.less
+                }
+                return this.scoreDescription.more
+            },
             buttonText: function () {
                 return this.buttonState[this.state]
             },
@@ -394,6 +480,9 @@
             },
             targetColor: function () {
                 return this.colorScale(this.selectedScore)
+            },
+            currentLabel: function () {
+                return this.labelScale(this.selectedScore)
             },
             selectedLabel: function () {
                 return this.labelScale(this.selectedScore)
@@ -687,19 +776,23 @@
         max-height: 310px;
         overflow-y: auto;
     }
+
+    .module-item:last-of-type, .module-item.title-module{
+        border-bottom: none !important;
+    }
     .module-item {
         display: flex;
         flex-flow: row wrap;
         width: 100%;
         flex-basis: 100%;
         justify-content: center;
-        margin-top: 6px;
         text-align: center;
+        border-bottom: 0.5px solid #eeeeee;
     }
     .module-item h5 {
-        margin-top: 6px;
+        margin-top: 8px;
         font-weight: normal !important;
-        margin-bottom: 6px;
+        margin-bottom: 8px;
     }
     .module-item p {
         color: #1d1d1f;

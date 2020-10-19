@@ -66,11 +66,11 @@ function getRecommendations(questions) {
             soYouHeader: 'See how your program measures up',
             soYouDesc: 'We score your program on key performance metrics and compare the results to industry benchmarks, identifying next actionable steps to increase customers’ lifetime value.',
             includes: [
-                'KPI Scorecard and Benchmarks',
-                'Customer Pareto Analysis and Product Indexing',
-                'Customer Life Cycle Segmentation and Migration Analysis',
-                'Leaky Bucket Diagnostic (BALOR Report card)',
-                'Readout and Consulting Session'
+                'KPI scorecard and benchmarks',
+                'Customer Pareto analysis and product indexing',
+                'Customer life cycle segmentation and migration analysis',
+                'Leaky bucket diagnostic (BALOR report card)',
+                'Readout and consulting session'
             ]
         },
         2: {
@@ -82,10 +82,10 @@ function getRecommendations(questions) {
             soYouDesc: 'We provide a comprehensive, objective evaluation of program benefits (incremental revenue) and costs to measure your return on investment and identify your greatest opportunities for growth.',
             includes: [
                 'Incremental Revenue/Lift Analysis (Dual Methodology: Matched Cohort Analysis and Econometric Model)',
-                'Itemized Cost Ledger',
-                'Cost-Benefit and ROI Summary',
-                'Segment/Driver Profitability Profile',
-                'Readout and Consulting Session'
+                'Itemized cost ledger',
+                'Cost-benefit and roi summary',
+                'Segment/Driver profitability profile',
+                'Readout and consulting session'
             ]
         },
         3: {
@@ -96,10 +96,10 @@ function getRecommendations(questions) {
             soYouHeader: 'Know your customers and how to speak to them',
             soYouDesc: 'We group your customers into actionable types and work directly with you to identify a topline solution for optimizing marketing and communications.',
             includes: [
-                'Core Customer Segmentation with Robust Profiles',
-                'Presentation Deck Identifying Methodology and Scoring',
-                'Collaborative Work Sessions to Audition Multiple Algorithms and Solutions',
-                'Consulting and Communications planning Sessions'
+                'Core customer segmentation with robust profiles',
+                'Presentation deck identifying methodology and scoring',
+                'Collaborative work sessions to audition multiple algorithms and solutions',
+                'Consulting and communications planning sessions'
             ]
         },
         4: {
@@ -110,22 +110,22 @@ function getRecommendations(questions) {
             soYouHeader: 'B-Informed by your best customers',
             soYouDesc: 'We leverage specific data about your customer base to identify key segments and traits, informing marketing tactics for existing.',
             includes: [
-                'Demographic Overlay File of Customer Base Using Experian ConsumerViewTM',
-                'Up to 5 Infographics for Key Segments/Targets',
-                'Interactive Dashboard Suite for Generating Queries and Profiles'
+                'Demographic overlay file of customer base using Experian ConsumerView',
+                'Up to 5 infographics for key segments/targets',
+                'Interactive dashboard suite for generating queries and profiles'
             ]
         },
         5: {
             id: 5,
             rank: 5,
-            name: 'Brand and Program Tracker',
+            name: 'Brand & Program Tracker',
             gapDesc: 'Establishing customer perception of the CRM/Loyalty program',
             soYouHeader: 'Ask your customers the important questions',
             soYouDesc: 'We group your customers into actionable types and work directly with you to identify a topline solution for optimizing marketing and communications.',
             includes: [
-                'Core Customer Segmentation with Robust Profiles',
-                'Presentation Deck Identifying Methodology and Scoring',
-                'Collaborative Work Sessions to Audition Multiple Algorithms and Solutions'
+                'Survey of current customers tailored to business needs',
+                'Presentation deck identifying trends, benchmarking, insights, and scoring responses',
+                'Interactive dashboard for user queries and drill-down'
             ]
         },
         6: {
@@ -136,10 +136,10 @@ function getRecommendations(questions) {
             soYouHeader: 'Bring predictive power to your marketing efforts',
             soYouDesc: 'We develop precision models from your current customer data to determine best actions for increasing response and driving the profitable behaviors that matter most to your business',
             includes: [
-                'Bundle of 3 Predictive Models (Tailored to Your Specific Business Needs)',
-                'Presentation Deck Identifying Methodology, Scoring, Validation, Insight/Profiles, and Strategic Use Cases',
-                'Scoring Code and Algorithms (Become your IP)',
-                'Consulting and Strategy Session'
+                'Bundle of 3 predictive models tailored to your specific business needs',
+                'Presentation deck identifying methodology, scoring, validation, insight/profiles, and strategic use cases',
+                'Scoring code and algorithms that become your IP',
+                'Consulting and strategy session'
             ]
         },
         7: {
@@ -150,10 +150,10 @@ function getRecommendations(questions) {
             soYouHeader: 'Retain your customers and maximize their value',
             soYouDesc: 'Our experts analyze your company’s data to identify at-risk customers and determine cost-effective, highly personalized retention campaigns for your business',
             includes: [
-                'Proactive Churn Model with Time-Risk and Potential Value Scores',
-                'Presentation Deck Identifying Methodology, Scoring, Validation, Insights/Profiles, and Strategic Use Cases',
-                'Scoring Code and Algorithms (Become your own IP)',
-                'Consulting and Strategy Session',
+                'Proactive churn model with time-risk and potential value scores',
+                'Presentation deck identifying methodology, scoring, validation, insights/profiles, and strategic use cases',
+                'Scoring code and algorithms that become your own IP',
+                'Consulting and strategy session',
             ]
         },
         8: {
@@ -166,7 +166,7 @@ function getRecommendations(questions) {
             includes: [
                 'Customer Lifetime Value Model Comprised of Annual Spend/Profit, Retention Rate, and CLV Scores',
                 'Presentation Deck Identifying Methodology, Scoring, Assumptions, Validation, Insights/Profiles, and Strategic Use Cases',
-                'Scoring Code and Algorithms (Become your IP)',
+                'Scoring code and algorithms that become your own IP',
                 'Consulting and Strategy Session'
             ]
         },
@@ -178,10 +178,10 @@ function getRecommendations(questions) {
             soYouHeader: 'Keep customers engaged with next best action insights',
             soYouDesc: 'Using customer-centric data, we identify purchase patterns and utilize proprietary tools to rank product recommendations for highly personalized and prescriptive campaigns',
             includes: [
-                'Topline Products Diagnostic Bundle, Including Cross-Sell Patterns, Item-Item Association Metrics, Heat Map, and Stickiness Recommendations',
-                'Customer-Centric Recommendation Scores Rank-Ordered by Relevance for up to 20 Products/Categories',
-                'Presentation Deck Identifying Methodology, Insights, and Use Cases',
-                'Consulting and Strategy Session'
+                'Topline products diagnostic bundle, including cross-sell patterns, item-item association metrics, heat map, and stickiness recommendations',
+                'Customer-centric recommendation scores rank-ordered by relevance for up to 20 products/categories',
+                'Presentation deck identifying methodology, insights, and use cases',
+                'Consulting and strategy session'
             ]
         },
         10: {
@@ -192,10 +192,10 @@ function getRecommendations(questions) {
             soYouHeader: 'Stay on track to meet your business objectives',
             soYouDesc: 'Our experts work with you to evaluate and enhance your existing BI reports and dashboards, ensuring you cleanly track the most actionable KPIs for your business',
             includes: [
-                'Full Evaluation of Existing Marketing BI/Reports',
-                'Prescriptions and Recommendations for Additional Metrics/Measurement, Benchmarks, and Goals',
-                'Executive Dashboard Design (Wireframes, Metadata/Aggregation Design/Code) Built Using Sample Customer Data',
-                'Interactive Consulting and Design Session'
+                'Full evaluation of existing marketing bi/reports',
+                'Prescriptions and recommendations for additional metrics/measurement, benchmarks, and goals',
+                'Executive dashboard design (wireframes, metadata/aggregation design/code) built using sample customer data',
+                'Interactive consulting and design session'
             ]
         },
         11: {
@@ -208,7 +208,7 @@ function getRecommendations(questions) {
             includes: [
                 'Topline Review of Existing Analytic Set',
                 'Joint Ideation and Planning Sessions for Business Goal and Analytic Alignment',
-                'Detailed 3-Year Analytic Roadmap and Implementation Guide'
+                'Detailed 3-year analytic roadmap and implementation guide'
             ]
         },
         12: {
@@ -219,10 +219,10 @@ function getRecommendations(questions) {
             soYouHeader: 'Distinguish yourself from the competition',
             soYouDesc: 'By assessing the loyalty landscape and competitors’ offerings, we identify gaps in the market and recommend ways to differentiate your program.',
             includes: [
-                'Presentation Deck Identifying Industry Trends and Benchmarks',
-                'Competitor Scorecards and Rankings',
-                'Scatter Map Indexing Competitive Landscape',
-                'Recommendation of Differentiating Program Features'
+                'Presentation deck identifying industry trends and benchmarks',
+                'Competitor scorecards and rankings',
+                'Scatter map indexing competitive landscape',
+                'Recommendation of differentiating program features'
             ]
         },
         13: {
@@ -231,11 +231,11 @@ function getRecommendations(questions) {
             name: 'CX/MX Journey Mapping',
             gapDesc: 'Optimizing customer experience flow across all key touchpoints',
             soYouHeader: 'Experience your customers’ journeys',
-            soYouDesc: 'Leverage all available data to map and evaluate your customer journey, identifying pain points, recommending strategies for improvement, and generating actionable insights',
+            soYouDesc: 'Leverage all available data to map and evaluate your customer journey, recommending strategies for improvement, and generating actionable insights',
             includes: [
-                'Collaborative Work Sessions to Map Out Touchpoints and Key Moments',
-                'Optimized Customer Journey Map Informed by T.A.R.G.E.T. (Touchpoint And Relationship Gap Evaluation Tool)',
-                'Recommendations for Enhancements to Address Gaps and Redundancies'
+                'Collaborative work sessions to map out touchpoints and key moments',
+                'Optimized customer journey map informed by T.A.R.G.E.T. (Touchpoint And Relationship Gap Evaluation Tool)',
+                'Recommendations for enhancements to address gaps and redundancies'
             ]
         },
         14: {
@@ -246,10 +246,10 @@ function getRecommendations(questions) {
             soYouHeader: 'Transform ideas into actionable insights',
             soYouDesc: 'Through an ideation exercise with key stakeholders, we will take the lead in turning abstract ideas into a list of program concepts and immediate enhancements',
             includes: [
-                'Categorized Idea Bank',
-                'Level of Effort/Impact Matrix',
-                'Straw Man Program Concepts',
-                'Quick Wins for Program Enhancement'
+                'Categorized idea bank',
+                'Level of effort/impact matrix',
+                'Straw-man program concepts',
+                'Quick wins for program enhancement'
             ]
         },
         15: {
@@ -260,10 +260,10 @@ function getRecommendations(questions) {
             soYouHeader: 'Discover how customers perceive your relationship',
             soYouDesc: 'Employ a specialized set of research questions to gain a better understanding of customer sentiment toward your marketing efforts, loyalty program, and/or CRM initiatives',
             includes: [
-                'Survey of Current Customers Tailored to Business Needs',
-                'Index of Survey Results Compared to Competitive Set',
-                'Recommendations to Strengthen Customer Relationships',
-                'Research Readout and Consulting Session'
+                'Survey of current customers tailored to business needs',
+                'Index of survey results compared to competitive set',
+                'Recommendations to strengthen customer relationships',
+                'Research readout and consulting session'
             ]
         },
         16: {
@@ -274,10 +274,10 @@ function getRecommendations(questions) {
             soYouHeader: 'Get your loyalty program off to a successful start',
             soYouDesc: 'This comprehensive resource outlines a pilot program structure, implementation plan, training plan, and post-launch measurement guide tailored to your specific needs',
             includes: [
-                'Launch Roadmap with Milestones for Key Stakeholder Groups',
-                'Employee Training Manual',
-                'Employee Training Communications Kit',
-                'SPIF Recommendations'
+                'Launch roadmap with milestones for key stakeholder groups',
+                'Employee training manual',
+                'Employee training communications kit',
+                'SPIF recommendations'
             ]
         },
         17: {
@@ -288,9 +288,9 @@ function getRecommendations(questions) {
             soYouHeader: 'Keep your program relevant',
             soYouDesc: 'We will develop a dynamic roadmap to guide program evolution and identify themes for short- and long-term program vision, resulting in a detailed 3-year strategic plan',
             includes: [
-                'Topline Review of Corporate/Brand Initiatives and Directives',
-                'Joint Ideation and Planning Sessions for Program Goals Alignment',
-                'Details 3-Year Strategic Roadmap and Implementation Guide'
+                'Topline review of corporate/brand initiatives and directives',
+                'Joint ideation and planning sessions for program goals alignment',
+                'Details 3-year strategic roadmap and implementation guide'
             ]
         },
         18: {
@@ -301,9 +301,9 @@ function getRecommendations(questions) {
             soYouHeader: 'Find out how your communications stack up',
             soYouDesc: 'Our strategy team will inventory customer communications and analyze engagement metrics to identify weaknesses and recommend improvements',
             includes: [
-                'Presentation Deck Identifying Communications Trends and Benchmarking Insights',
-                'Member Communications Scorecard',
-                'Recommendations for Enhancements to Address Gaps and Redundancies'
+                'Presentation deck identifying communications trends and benchmarking insights',
+                'Member communications scorecard',
+                'Recommendations for enhancements to address gaps and redundancies'
             ]
         },
         19: {
@@ -314,9 +314,9 @@ function getRecommendations(questions) {
             soYouHeader: 'Measure both sides of the equation',
             soYouDesc: 'Identify the depth of your customers’ emotional and rational connections to your brand and loyalty program with our proprietary Brierley Loyalty Quotient',
             includes: [
-                'Survey of Current Customers Tailored to Business Needs',
-                'Interactive BLQ Dashboard with Rational & Emotional Measures by Brand',
-                'Recommendations to Improve Overall BLQ Scores'
+                'Survey of current customers tailored to business needs',
+                'Interactive BLQ dashboard with rational & emotional measures by brand',
+                'Recommendations to improve overall BLQ scores'
             ]
         },
         20: {
@@ -327,10 +327,10 @@ function getRecommendations(questions) {
             soYouHeader: 'Give your loyalty program a thorough examination',
             soYouDesc: 'Strategists will score existing program elements against best-in-class core design principles and develop recommendations for near-term wins and immediate program enhancements',
             includes: [
-                'Discovery Findings Summary',
-                'KPI Scorecard and Benchmarks',
-                'Core Design Principles Scorecard',
-                'Quick Wins for Program Enhancement'
+                'Discovery findings summary',
+                'KPI scorecard and benchmarks',
+                'Core design principles scorecard',
+                'Quick wins for program enhancement'
             ]
         },
         21: {
@@ -341,10 +341,10 @@ function getRecommendations(questions) {
             soYouHeader: 'Drive immediate results and learnings',
             soYouDesc: 'Optimize your existing program with a suite of targeted loyalty campaigns designed to deliver tangible insights and complement your program design goals',
             includes: [
-                'Marketing Quick Wins Summary',
-                'Presentation Deck for Socializing Campaigns to Internal Stakeholders',
-                'Campaign Execution Checklist',
-                'Post-Campaign Measurement Plan'
+                'Marketing quick wins summary',
+                'Presentation deck for socializing campaigns to internal stakeholders',
+                'Campaign execution checklist',
+                'Post-Campaign measurement plan'
             ]
         },
         22: {
@@ -355,9 +355,9 @@ function getRecommendations(questions) {
             soYouHeader: 'Motivate customers to take the next step',
             soYouDesc: 'Increase customer engagement and grow lifetime value by focusing on a limited, yet impactful, set of behaviors that are mapped to move each customer through a relevant and personalized marketing path',
             includes: [
-                'Optimized Set of Desired Behaviors for Customer-Centric Mapping',
-                'Personalized Marketing Plan to Motivate Next Best Action',
-                'Research Design, Test Plan, and Measurement Scheme'
+                'Optimized set of desired behaviors for customer-centric mapping',
+                'Personalized marketing plan to motivate next best action',
+                'Research design, test plan, and measurement scheme'
             ]
         },
     }

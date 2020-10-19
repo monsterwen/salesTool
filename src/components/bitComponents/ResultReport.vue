@@ -16,6 +16,9 @@
             </div>
         </div>
         <div class="result-gap-description" style="width: 100%">
+            <p><slot name="score-desc"></slot></p>
+        </div>
+        <div class="result-gap-header" style="width: 100%">
             <p><slot name="prescription"></slot></p>
         </div>
         <div class="gap-holder">
@@ -100,6 +103,11 @@
     .result-gap-description p {
         text-align: center;
         font-size: 20px;
+    }
+    .result-gap-header p {
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
     }
     .result-score {
         width: auto;
