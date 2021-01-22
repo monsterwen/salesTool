@@ -3,22 +3,23 @@
         <div class="sign-up-header">
             <div class="sign-up-title">
                 <p>
-                    Enter your information to get started
+                   {{ enterYourInfo }}
                 </p>
             </div>
             <div class="sign-up-subhead">
                 <p>
-                    This will help us personalize your results and assist you in your program calibration
+                    {{ enterYourInfoSub }}
                 </p>
             </div>
         </div>
         <form
             class="sign-up-form"
             @submit="checkForm"
+            action="javascript:void(0);"
             method="post">
             <div class="input-div">
                 <div class="input-field">
-                    <label for="fname">Name</label>
+                    <label for="fname">{{ nameField }}</label>
                 </div>
                 <div class="input-field">
                     <input class="input-text-field"
@@ -36,7 +37,7 @@
             </div>
             <div class="input-div">
                 <div class="input-field">
-                    <label for="email">Email</label>
+                    <label for="email">{{ emailField }}</label>
                 </div>
                 <div class="input-field">
                     <input class="input-text-field"
@@ -57,7 +58,7 @@
             </div>
             <div class="input-div">
                 <div class="input-field">
-                    <label for="phone">Phone Number</label>
+                    <label for="phone">{{ phoneField }} <small>({{ optionalText }})</small></label>
                 </div>
                 <div class="input-field">
                     <input class="input-text-field"
@@ -70,7 +71,7 @@
             </div>
             <div class="input-div">
                 <div class="input-field">
-                    <label for="orgname">Organization Name</label>
+                    <label for="orgname">{{ organizationField }}</label>
                 </div>
                 <div class="input-field">
                     <input class="input-text-field"
@@ -82,40 +83,24 @@
                 </div>
                 <div class="input-field">
                     <div class="input-error" :class="{ 'show-error': !this.orgName && this.submitted}">
-                        <p>Please input your organizations name</p>
+                        <p>Please input your company's name</p>
                     </div>
                 </div>
             </div>
             <div class="input-div">
                 <div class="input-field">
-                    <label for="orgname">Industry</label>
+                    <label for="languagename">{{ languageText }}</label>
                 </div>
-                <div class="input-field">
-                    <select v-model="industry"
-                            class="input-text-field"
-                            id="industry">
-                        <option value="Accommodation">Accommodation</option>
-                        <option value="Accommodation and Food Services">Accommodation and Food Services</option>
-                        <option value="Administrative and Support Services">Administrative and Support Services</option>
-                        <option value="Agriculture, Forestry, Fishing and Hunting">Agriculture, Forestry, Fishing and Hunting</option>
-                        <option value="Beverage and Tobacco Product Manufacturing">Beverage and Tobacco Product Manufacturing</option>
-                        <option value="Clothing and Clothing Accessories Stores">Clothing and Clothing Accessories Stores</option>
-                        <option value="Computer and Electronic Product Manufacturing">Computer and Electronic Product Manufacturing</option>
-                        <option value="Merchant Wholesalers, Nondurable Goods">Merchant Wholesalers, Nondurable Goods</option>
-                        <option value="
-Wholesale Electronic Markets and Agents and Brokers">
-                            Wholesale Electronic Markets and Agents and Brokers</option>
-                    </select>
-                </div>
-                <div class="input-field">
-                    <div class="input-error" :class="{ 'show-error': !this.industry && this.submitted}">
-                        <p>Please select your industry</p>
-                    </div>
+                <div class="input-field pl-2">
+                    <input type="radio" id="one" value="en" v-model="language">
+                    <label for="one">English</label>
+                    <input type="radio" id="two" value="spa" v-model="language">
+                    <label for="two">Español</label>
                 </div>
             </div>
             <div class="input-div">
                 <div class="input-submit">
-                    <button class="sign-up-button">Start the Assessment</button>
+                    <button class="sign-up-button">{{ startButtonText }}</button>
                 </div>
             </div>
         </form>
@@ -123,6 +108,18 @@ Wholesale Electronic Markets and Agents and Brokers">
 </template>
 
 <script>
+    import {
+        enterYourInfo,
+        enterYourInfoSub,
+        nameField,
+        emailField,
+        phoneField,
+        organizationField,
+        startButtonText,
+        languageText,
+        optionalText
+    } from '../copy/copy'
+
     export default {
         name: "SignUpField",
         data: () => ({
@@ -130,11 +127,41 @@ Wholesale Electronic Markets and Agents and Brokers">
             email: null,
             phone: null,
             orgName: null,
-            industry: null,
+            industry: '',
             //
+            payload: {},
+            //
+            language: 'en',
             submitted: false
         }),
         computed: {
+            enterYourInfo: function () {
+                return enterYourInfo[this.language]
+            },
+            enterYourInfoSub: function () {
+                return enterYourInfoSub[this.language]
+            },
+            nameField: function () {
+                return nameField[this.language]
+            },
+            emailField: function () {
+                return emailField[this.language]
+            },
+            phoneField: function () {
+                return phoneField[this.language]
+            },
+            organizationField: function () {
+                return organizationField[this.language]
+            },
+            startButtonText: function () {
+                return startButtonText[this.language]
+            },
+            languageText: function () {
+                return languageText[this.language]
+            },
+            optionalText: function () {
+                return optionalText[this.language]
+            },
             validEmail: function () {
                 // eslint-disable-next-line no-useless-escape
                 if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email)) {
@@ -144,15 +171,34 @@ Wholesale Electronic Markets and Agents and Brokers">
             }
         },
         methods: {
+            hashString: function(string) {
+                var hash = 0, i, chr;
+                for (i = 0; i < string.length; i++) {
+                    chr   = string.charCodeAt(i);
+                    hash  = ((hash << 5) - hash) + chr;
+                    hash |= 0; // Convert to 32bit integer
+                }
+                console.log(hash)
+                return hash + new Date().getTime();
+            },
             checkForm: function (e) {
                 console.log('submitted', e)
                 this.submitted = true
                 if (!this.name || !this.email ||
-                    !this.orgName || !this.industry ||
+                    !this.orgName ||
                     !this.validEmail) {
                     e.preventDefault();
                 } else {
-                    this.$emit('submitted')
+                    this.payload = {
+                        'Name': this.name,
+                        'phone': '' + this.phone,
+                        'emailAddress': this.email,
+                        'companyName': this.orgName,
+                        'industry': this.industry,
+                        'demo': true,
+                        jobKey: this.hashString(this.name + this.email + this.phone + this.orgName + this.industry) + '.csv'
+                    }
+                    this.$emit('submitted', this.payload, this.language)
                 }
 
             }
@@ -240,6 +286,29 @@ Wholesale Electronic Markets and Agents and Brokers">
     }
     .show-error {
         display: block;
+    }
+    input + label {
+        font-size: 1.2rem;
+        width: auto !important;
+        padding-left: 6px !important;
+        padding-right: 12px;
+        height: 2rem;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: inline-block !important;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        border: none !important;
+        border-radius: 0 !important;
+        background: none !important;
+        -webkit-transition: .1s all;
+        transition: .1s all;
+        cursor: pointer;
+        z-index: 999 !important;
     }
     .sign-up-button {
         box-sizing: border-box;

@@ -8,19 +8,19 @@
                  :class="{ 'selected': selected.yes, 'deselected': !selected.yes && selectionMade }"
                  id="yes"
                  v-on:click="selection('Yes')">
-                Yes
+                {{ yesText }}
             </button>
             <button class="responseDiv"
                  id="no"
                  :class="{ 'selected': selected.no, 'deselected': !selected.no && selectionMade }"
                  v-on:click="selection('No')">
-                No
+                {{ noText }}
             </button>
             <button class="responseDiv"
                  id="na"
                  :class="{ 'selected': selected.na, 'deselected': !selected.na && selectionMade }"
                  v-on:click="selection('N/A')">
-                N/A
+                {{ naText }}
             </button>
         </div>
         <div class="inactiveOverlay"
@@ -31,6 +31,11 @@
 
 <script>
     import * as d3 from 'd3'
+    import {
+        yesText,
+        noText,
+        naText
+    } from "../../copy/copy";
 
     export default {
         name: 'QuestionCardV2',
@@ -48,6 +53,10 @@
             index: {
                 type: Number,
                 default: () => 0
+            },
+            language: {
+                type: String,
+                default: () => 'en'
             }
         },
         data: () => ({
@@ -63,6 +72,17 @@
             },
             selectionMade: false
         }),
+        computed: {
+            yesText: function () {
+                return yesText[this.language]
+            },
+            noText: function () {
+                return noText[this.language]
+            },
+            naText: function () {
+                return naText[this.language]
+            },
+        },
         mounted: function () {
             this.selectResponses()
             this.scaleText()

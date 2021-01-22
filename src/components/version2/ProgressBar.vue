@@ -1,7 +1,7 @@
 <template>
     <div class="progressBarHolder">
         <div class="progressBarLabel">
-            <p class="questionText"><span class="currentQuestion">{{ currQ }}</span>of<span class="totalQuestion">{{ numberQuestion }}</span></p>
+            <p class="questionText"><span class="currentQuestion">{{ currQ }}</span>{{ ofText }}<span class="totalQuestion">{{ numberQuestion }}</span></p>
         </div>
         <div class="progressBar">
             <div class="progressBarBody">
@@ -27,6 +27,9 @@
             colorRange: {
                 type: Array,
                 default: () => ['#ff2f2a','#fe1f1a','#FFBF00','#ffd114','#A5BB00','#48bb00']
+            },
+            ofText: {
+                type: String
             },
             stepColor: {
                 type: String,

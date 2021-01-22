@@ -4,28 +4,30 @@
             <div class="questionFlex questionHeader">
                 <div class="questionTitle fullWidth">
                     <p class="questionCatTitle">{{ category }}</p>
-                    <button class="infoButton" @click="displayTooltip">
-                        <i class="material-icons icon infoIcon" style="font-size: 22px;">info_outline</i>
-                    </button>
-                    <div class="meter-tooltip" :class="{ 'show': showTooltip }">
-                        <p>{{ tooltipText[category] }}</p>
-                    </div>
+<!--                    <button class="infoButton" @click="displayTooltip">-->
+<!--                        <i class="material-icons icon infoIcon" style="font-size: 22px;">info_outline</i>-->
+<!--                    </button>-->
+<!--                    <div class="meter-tooltip" :class="{ 'show': showTooltip }">-->
+<!--                        <p>{{ tooltipText[category] }}</p>-->
+<!--                    </div>-->
                 </div>
                 <div class="questionProgress fullWidth">
                     <ProgressBar
                         :currentQuestion="selectedIndex + 1"
                         :numberQuestion="questions.length"
+                        :of-text="ofText"
                         :stepColor="stepColor">
                     </ProgressBar>
                 </div>
             </div>
             <div class="questionFlex questionContainer">
                 <QuestionaireV2
-                        :questions="questions"
-                        @selection="questionSelected"
-                        @reload="changeCategory"
-                        @proceedToResults="goToResults"
-                        @categoryChange="setCategory">
+                    :questions="questions"
+                    :language="language"
+                    @selection="questionSelected"
+                    @reload="changeCategory"
+                    @proceedToResults="goToResults"
+                    @categoryChange="setCategory">
                 </QuestionaireV2>
             </div>
         </div>
@@ -37,35 +39,50 @@
                 <div class="recommendationHolder"
                      v-if="reportState === 'analytics'">
                                 <ResultPageV2
-                                    category="Analytics"
+                                    :current-text="currentText"
+                                    :target-text="targetText"
+                                    :potential-text="potentialText"
+                                    :category="analysisLabel"
                                     :chartId="'analyticsChart'"
-                                    currentPrescription="We’ve identified a few areas we think are affecting your analytic capabilities the most."
-                                    :recommendations="recommendations.analysis"
-                                    :currentScore="scores.analysis.current"
+                                    :currentPrescription="analysisCurrPrescription"
+                                    :recommendations="recommendations.analytics"
+                                    :currentScore="scores.analytics.current"
                                     :targetScore="5"
-                                    :prescriptionHeader="'You can take immediate, effective action to address the critical shortcomings we\'ve identified'"
-                                    :prescriptionSubHeader="'with the following modules'"
-                                    :targetHeader="'With your selected modules, you can expect your analytical capabilities to improve to'"
+                                    :language="language"
+                                    :prescriptionHeader="analysisPrescHeader"
+                                    :prescriptionSubHeader="analysisPrescSubHeader"
+                                    :targetHeader="analysisTargetHead"
                                     :buttonState="analyticButtons"
                                     :currentDescription="analysisCurrDesc"
+                                    :prescription-title="analysisTitle"
+                                    :scoreDescription="analyticScoreDesc"
+                                    :no-thanks="noThanks"
+                                    :interestedText="interested"
                                     @lastStep="lastStep">
                                 </ResultPageV2>
                 </div>
                 <div class="recommendationHolder"
                      v-else>
                                 <ResultPageV2
-                                    category="Strategy"
+                                    :current-text="currentText"
+                                    :target-text="targetText"
+                                    :potential-text="potentialText"
+                                    :category="strategyLabel"
                                     :chartId="'strategyChart'"
-                                    currentPrescription="We’ve identified a few areas we think are affecting your strategic capabilities the most."
+                                    :currentPrescription="strategyCurrPrescription"
                                     :recommendations="recommendations.strategy"
                                     :currentScore="scores.strategy.current"
                                     :targetScore="5"
-                                    :prescriptionHeader="'You can take immediate, effective action to address the critical shortcomings we\'ve identified'"
-                                    :prescriptionSubHeader="'with the following modules'"
-                                    :targetHeader="'With your selected modules, you can expect your strategic capabilities to improve to'"
+                                    :language="language"
+                                    :prescriptionHeader="strategyPrescHeader"
+                                    :prescriptionSubHeader="strategyPrescSubHeader"
+                                    :targetHeader="strategyTargetHead"
                                     :buttonState="strategyButtons"
                                     :currentDescription="strategyCurrDesc"
+                                    :prescription-title="strategyTitle"
                                     :scoreDescription="strategyScoreDesc"
+                                    :no-thanks="noThanks"
+                                    :interestedText="interested"
                                     @lastStep="lastStep">
                                 </ResultPageV2>
                 </div>
@@ -75,6 +92,7 @@
             <div class="reportHolder">
                 <div class="recommendationHolder">
                     <all-done
+                        :language="language"
                     ></all-done>
                 </div>
             </div>
@@ -90,9 +108,36 @@
     import LoadingScreen from './LoadingScreen'
     import ResultPageV2 from './ResultPageV2'
     import AllDone from "./AllDone";
-    import { getAnalysis, getStrategy, submitJob } from '../../assets/js/jobservice'
+    import { getAnalysis, getStrategy, submitJob, salesEmail } from '../../assets/js/jobservice'
     import { upload } from '../../assets/js/fileupload'
     import { getScores, getRecommendations } from '../../assets/js/scoreCalculator'
+    import { surveyQuestions,
+        analyticsScoreDesription,
+        analyticButtons,
+        analysisCurrentScoreDescription,
+        analysisPrescriptionHeader,
+        analysisPrescriptionSubHeader,
+        analysisTargetHeader,
+        strategyScoreDescriptions,
+        stratButtons,
+        strategyCurrentScoreDescription,
+        strategyPrescriptionHeader,
+        strategyPrescriptionSubHeader,
+        strategyTargetHeader,
+        analysisTitle,
+        strategyTitle,
+        analysisText,
+        strategyText,
+        analysisCurrentPrescription,
+        strategyCurrentPrescription,
+        recommendationsObject,
+        interested,
+        noThanks,
+        targetText,
+        currentText,
+        potentialText,
+        ofText
+    } from '../../copy/copy'
 
     export default {
         name: "FASTInterfaceV2",
@@ -104,6 +149,16 @@
             ProgressBar,
             // RecommendationReportV2,
             LoadingScreen
+        },
+        props: {
+            jobKey: {
+                type: String,
+                default: () => Math.random() + ''
+            },
+            language: {
+                type: String,
+                default: () => 'en'
+            }
         },
         data: function () {
             return {
@@ -117,147 +172,35 @@
                 reportState: 'analytics',
                 showTooltip: false,
                 scores: {},
-                strategyScoreDesc: {
-                    none: 'While you may not have immediate interest in any of the modules we recommended, Brierley is  here to provide analytics, strategic thinking and staff augmentation.',
-                    less: 'These are great solutions to help address some of your most immediate opportunities. We would love to discuss these with you.',
-                    more: 'There are plenty of solutions that we can put to work for you quickly. We would love to discuss options for an action plan with you.',
-                    all: 'Great choices! We would love to help tailor an action plan to your needs and look forward to discussing these with you'
-                },
-                analyticButtons: {
-                    1: 'Select From Recommended Modules',
-                    2: 'Proceed with selected modules',
-                    3: 'Continue to Strategy Review'
-                },
-                strategyButtons: {
-                    1: 'Select From Recommended Modules',
-                    2: 'Proceed with selected modules',
-                    3: 'Complete Your Survey'
-                },
-                analysisCurrDesc: {
-                    basic: 'You’ve got an exciting journey ahead. Expand your analytical toolkit to further uncover actionable insights.',
-                    emerging: 'You’ve got the fundamentals of marketing analytics down. Now take your  capabilities to the next level.',
-                    sophisicated: 'Your analytics capabilities are impressive. Here’s how you can further augment your marketing practice.',
-                    perfect: 'You Rock! You are clearly part of a data-driven marketing organization. There may be areas where we can augment or help out'
-                },
-                strategyCurrDesc: {
-                    basic: 'The opportunities are endless! Increase your strategic planning to optimize your marketing efforts.',
-                    emerging: 'You clearly have solid strategic chops. Level up your efforts with a little help from us.',
-                    sophisicated: 'Your strategic acumen is impressive. Here are a few places to bolster your efforts.',
-                    perfect: 'You’re a strategy stud! You know better than most that there’s always room for new POVs. Check out how we can help evolve your practice.'
-                },
-                questions: [
-                    {
-                        id: 1,
-                        question: 'Do you have solid reporting and benchmarks for how well your CRM or loyalty program is performing?',
-                        type: 'analysis',
-                        response: null
-                    }, {
-                        id: 2,
-                        question: 'Are you confidently measuring loyalty or CRM program incrementality and ROI?',
-                        type: 'analysis',
-                        response: null
-                    }, {
-                        id: 3,
-                        question: 'Does your organization have a robust customer segmentation that is used to direct marketing strategy (i.e., personalization, tone, and media mix)?',
-                        type: 'analysis',
-                        response: null
-                    }, {
-                        id: 4,
-                        question: 'Do you leverage customer demographics to guide your marketing efforts?',
-                        type: 'analysis',
-                        response: null
-                    }, {
-                        id: 5,
-                        question: 'Do you routinely and thoroughly track how your program/CRM is perceived by your customers?',
-                        type: 'analysis',
-                        response: null
-                    }, {
-                        id: 6,
-                        question: 'Are you able to predict/model which of your customers are most (and least) likely to engage in behaviors that are key for your business?',
-                        type: 'analysis',
-                        response: null
-                    }, {
-                        id: 7,
-                        question: 'Can you identify which of your customers are at risk for leaving your brand well before they officially lapse?',
-                        type: 'analysis',
-                        response: null
-                    }, {
-                        id: 8,
-                        question: 'Do you customize or personalize actions based on each customer\'s unique lifetime value score?',
-                        type: 'analysis',
-                        response: null
-                    }, {
-                        id: 9,
-                        question: 'Do you have a data-driven strategy for personalizing product recommendations/offerings at the customer level?',
-                        type: 'analysis',
-                        response: null
-                    }, {
-                        id: 10,
-                        question: 'Do you have a set of KPIs and interactive dashboards that cleanly tracks your progress toward key business objectives?',
-                        type: 'analysis',
-                        response: null
-                    }, {
-                        id: 11,
-                        question: 'Is there a clear path for adopting new analytic tools and solutions to enable your long-term marketing vision?',
-                        type: 'analysis',
-                        response: null
-                    }, {
-                        id: 12,
-                        question: 'Do you have a clear sense of how your program and customer experience compare to your competitive set?',
-                        type: 'strategy',
-                        response: null
-                    }, {
-                        id: 13,
-                        question: 'Are you actively enhancing the customer journeys that are most impactful to your business?',
-                        type: 'strategy',
-                        response: null
-                    }, {
-                        id: 14,
-                        question: 'Do you have an active idea bank of features and enhancements that will make immediate impact on your key customer segments?',
-                        type: 'strategy',
-                        response: null
-                    }, {
-                        id: 15,
-                        question: 'Through the eyes of your customers, do you know how your communications efforts stack up against those of your competitors?',
-                        type: 'strategy',
-                        response: null
-                    }, {
-                        id: 16,
-                        question: 'Do you have an action plan to effectively introduce a program to market and/or make impactful changes to an existing program?',
-                        type: 'strategy',
-                        response: null
-                    }, {
-                        id: 17,
-                        question: 'Have you established a plan for future evolution & growth/enhancement of your current marketing program?',
-                        type: 'strategy',
-                        response: null
-                    }, {
-                        id: 18,
-                        question: 'Are your customer communications fully aligned with marketing best practices in each channel?',
-                        type: 'strategy',
-                        response: null
-                    }, {
-                        id: 19,
-                        question: 'Are you able to track and analyze emotional loyalty to your brand/program?',
-                        type: 'strategy',
-                        response: null
-                    }, {
-                        id: 20,
-                        question: 'Are you confident your engagement and loyalty efforts incorporate best-in-class customer experiences/offerings?',
-                        type: 'strategy',
-                        response: null
-                    }, {
-                        id: 21,
-                        question: 'Are you leveraging a test and learn plan made up of the most impactful quick campaigns to support your program & communication goals?',
-                        type: 'strategy',
-                        response: null
-                    }, {
-                        id: 22,
-                        question: 'Have you mapped clear desired behaviors to each of your customers via a personalized marketing plan?',
-                        type: 'strategy',
-                        response: null
-                    }
-                ],
+                // strategyScoreDesc: {
+                //     none: 'While you may not have immediate interest in any of the modules we recommended, Brierley is  here to provide analytics, strategic thinking and staff augmentation.',
+                //     less: 'These are great solutions to help address some of your most immediate opportunities. We would love to discuss these with you.',
+                //     more: 'There are plenty of solutions that we can put to work for you quickly. We would love to discuss options for an action plan with you.',
+                //     all: 'Great choices! We would love to help tailor an action plan to your needs and look forward to discussing these with you'
+                // },
+                // analyticButtons: {
+                //     1: 'Select From Recommended Modules',
+                //     2: 'Proceed with selected modules',
+                //     3: 'Continue to Strategy Review'
+                // },
+                // strategyButtons: {
+                //     1: 'Select From Recommended Modules',
+                //     2: 'Proceed with selected modules',
+                //     3: 'Complete Your Survey'
+                // },
+                // analysisCurrDesc: {
+                //     basic: 'You’ve got an exciting journey ahead. Expand your analytical toolkit to further uncover actionable insights.',
+                //     emerging: 'You’ve got the fundamentals of marketing analytics down. Now take your  capabilities to the next level.',
+                //     sophisicated: 'Your analytics capabilities are impressive. Here’s how you can further augment your marketing practice.',
+                //     perfect: 'You Rock! You are clearly part of a data-driven marketing organization. There may be areas where we can augment or help out'
+                // },
+                // strategyCurrDesc: {
+                //     basic: 'The opportunities are endless! Increase your strategic planning to optimize your marketing efforts.',
+                //     emerging: 'You clearly have solid strategic chops. Level up your efforts with a little help from us.',
+                //     sophisicated: 'Your strategic acumen is impressive. Here are a few places to bolster your efforts.',
+                //     perfect: 'You’re a strategy stud! You know better than most that there’s always room for new POVs. Check out how we can help evolve your practice.'
+                // },
+                questions: [],
                 category: '',
                 selectedIndex: 0,
                 tooltipText: {
@@ -266,7 +209,8 @@
                     '': null
                 },
                 stepColor: '#48bb00',
-                recommendations: {}
+                recommendations: {},
+                salesToolResult: []
             }
         },
         watch: {
@@ -282,45 +226,125 @@
             },
             reportState: function () {
                 console.log('report state', this.reportState)
+            },
+            language: function () {
+                this.questions = this.surveyQuestions[this.language]
             }
         },
         computed: {
-            analyticsObject: function () {
+            ofText: function () {
+                return ofText[this.language]
+            },
+            currentText: function () {
+                return currentText[this.language]
+            },
+            targetText: function () {
+                return targetText[this.language]
+            },
+            potentialText: function () {
+                return potentialText[this.language]
+            },
+            noThanks: function () {
+                return noThanks[this.language]
+            },
+            interested: function () {
+                return interested[this.language]
+            },
+            salesObject: function () {
                 return {
-                    category: 'Analytics',
-                    actualScoreDescriptor: 'low',
-                    potentialScoreDescriptor: 'high',
-                    actualScore: 2.4,
-                    potentialScore: 3.6,
-                    scoreDescription: 'There are a few key areas that would elevate your analytical capability and give you improved visibility of how programmes are performing and key customer characteristics.',
-                    potentialDescription: 'and ensure that all of your analytical needs are met, we recommend taking advantage of the following modules.',
-                    recommendedModules: this.analysisrecom,
-                    meterId: 'meter-weeder'
+                    'jobKey': this.jobKey,
+                    'salesToolResult': this.salesToolResult
                 }
+            },
+            analyticScoreDesc: function () {
+                return analyticsScoreDesription[this.language]
+            },
+            strategyScoreDesc: function () {
+                return strategyScoreDescriptions[this.language]
+            },
+            analyticButtons: function () {
+                return analyticButtons[this.language]
+            },
+            strategyButtons: function () {
+                return stratButtons[this.language]
+            },
+            analysisTitle: function () {
+                return analysisTitle[this.language]
+            },
+            strategyTitle: function () {
+                return strategyTitle[this.language]
+            },
+            analysisCurrDesc: function () {
+                return analysisCurrentScoreDescription[this.language]
+            },
+            strategyCurrDesc: function () {
+                return strategyCurrentScoreDescription[this.language]
+            },
+            analysisPrescHeader: function () {
+                return analysisPrescriptionHeader[this.language]
+            },
+            strategyPrescHeader: function () {
+                return strategyPrescriptionHeader[this.language]
+            },
+            analysisPrescSubHeader: function () {
+                return analysisPrescriptionSubHeader[this.language]
+            },
+            strategyPrescSubHeader: function () {
+                return strategyPrescriptionSubHeader[this.language]
+            },
+            analysisTargetHead: function () {
+                return analysisTargetHeader[this.language]
+            },
+            strategyTargetHead: function () {
+                return strategyTargetHeader[this.language]
+            },
+            analysisCurrPrescription: function () {
+                return analysisCurrentPrescription[this.language]
+            },
+            strategyCurrPrescription: function () {
+                return strategyCurrentPrescription[this.language]
+            },
+            analysisLabel: function () {
+                return analysisText[this.language]
+            },
+            strategyLabel: function () {
+                return strategyText[this.language]
+            },
+            recData: function () {
+                return recommendationsObject[this.language]
             }
         },
         mounted() {
+            this.questions = [...surveyQuestions[this.language]]
         },
         methods: {
             goToResults: function (questions, output, filename) {
                 this.$emit('goToResults')
                 this.fastState = 2
-                this.recommendations = getRecommendations(questions)
+                this.recommendations = getRecommendations(questions, this.recData)
                 this.scores = getScores(questions)
-                setTimeout(() => {
-                    this.analysisReady = true
-                    this.strategyReady = true
-                }, 500)
+                this.analysisReady = true
+                this.strategyReady = true
                 // this.convertToCsv(output, filename)
                 console.log('filename', filename)
                 this.showRecommendation = true
             },
-            lastStep: function (category) {
+            lastStep: function (category, obj) {
                 console.log('go th', category)
-                if (category === 'Analytics') {
+                this.salesToolResult.push(obj)
+                if (category === 'Analytics' || category === 'Analítica') {
                     this.reportState = 'strategy'
                 } else {
                     this.fastState = 4
+                    console.log('salesobject', this.salesObject)
+                    salesEmail(this.salesObject)
+                        .catch(err => {
+                            alert('There was an error uploading the file.  Please try again.' + err.message.toString())
+                        })
+                        .then((response) => {
+                            console.log('SALESOBJECT')
+                            console.log(response)
+                        })
                 }
             },
             questionSelected: function (d, i, y) {
@@ -533,7 +557,7 @@
         padding-left: 4px;
     }
     .recommendationHolder {
-        min-height: 760px;
+        min-height: 700px;
     }
     .fastHolder {
         width: 100%;
@@ -553,7 +577,7 @@
         min-height: 100%;
         width: 100%;
         flex-basis: 100%;
-        padding: 24px;
+        /*padding: 24px;*/
         position: relative;
         overflow: hidden;
     }

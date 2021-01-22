@@ -19,7 +19,7 @@
             <p><slot name="prescription"></slot></p>
         </div>
         <div class="included-container">
-            <h5>What You Get:</h5>
+            <h5>{{ label }}</h5>
             <div class="includes-list-holder review-container" style="align-self: flex-end">
                 <ul class="includes-list" style="padding-left: 0;">
                     <slot name="includes-list-items"></slot>
@@ -36,6 +36,9 @@
             svgPath: {
                 type: String,
                 default: () => 'analytics'
+            },
+            label: {
+                type: String
             },
             included: {
                 type: Array,

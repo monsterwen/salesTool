@@ -3,7 +3,7 @@
         <div class="loadingContainer">
             <div class="loadingContent">
                 <p class="loadingHeader">
-                    Survey Complete!
+                    {{ surveyCompleteText }}
                 </p>
             </div>
             <div class="loadingContent">
@@ -13,7 +13,7 @@
             </div>
             <div class="loadingContent">
                 <p class="loadingHeader">
-                    You'll be hearing from us soon
+                    {{ thanksCompleteText }}
                 </p>
             </div>
         </div>
@@ -21,8 +21,26 @@
 </template>
 
 <script>
+    import {
+        surveyComplete,
+        thanksComplete
+    } from "../../copy/copy";
+
     export default {
-        name: "AllDone"
+        name: "AllDone",
+        props: {
+            language: {
+                type: String
+            }
+        },
+        computed: {
+            surveyCompleteText: function () {
+                return surveyComplete[this.language]
+            },
+            thanksCompleteText: function () {
+                return thanksComplete[this.language]
+            }
+        }
     }
 </script>
 

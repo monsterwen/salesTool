@@ -21,4 +21,15 @@ function getStrategy (jobid) {
     return axios.get(url)
 }
 
-export {getAnalysis, getInsights, getStrategy,submitJob}
+function signUp (payload) {
+    // const url = 'http://10.4.3.18:9062/api/v1/Diagnostic/salesRecommendation/JobId/output1598975366291.txt/Dimension/Strategy'
+    const url = 'https://fastdiagnostic.brierley.com/api/v1/Diagnostic/signup'
+    return axios.post(url, payload)
+}
+function salesEmail (payload) {
+    // const url = 'http://10.4.3.18:9062/api/v1/Diagnostic/salesRecommendation/JobId/output1598975366291.txt/Dimension/Strategy'
+    const url = 'https://fastdiagnostic.brierley.com/api/v1/Diagnostic/salesEmail'
+    return axios.post(url, payload)
+}
+
+export {getAnalysis, getInsights, getStrategy,submitJob, signUp, salesEmail}

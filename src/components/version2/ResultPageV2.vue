@@ -11,6 +11,9 @@
                 :hoveredModule="hoveredModule"
                 :changeModules="changeModules"
                 :chartState="chartState"
+                :current-text="currentText"
+                :target-text="targetText"
+                :potential-text="potentialText"
                 :totalRecommendations="recommendations.length"
                 :selectedRecommendations="selectedRecommendations"
                 :availableRecommendations="availableRecommendations"
@@ -21,7 +24,7 @@
                 <div class="result-container w3-animate-right" :class="{ 'display': state === 1}">
                     <ResultReport>
                         <template v-slot:score-title>
-                            Your <b class="emphasized">Current</b> {{ category }} Score is:
+                            <b class="emphasized">{{ prescriptionTitle }}</b>
                         </template>
                         <template v-slot:score>
                             <p :style="{ color: scoreColor }">{{ formatScore(currentScore) }}</p>
@@ -48,7 +51,8 @@
                         v-for="(item, i) in recommendations"
                         :class="{ hidden: moduleState !== i }"
                         :key="`module${i}`">
-                        <ModuleRecommendation>
+                        <ModuleRecommendation
+                            :label="whatUgetText">
                             <template v-slot:module-title>
                                 {{ item.name }}
                             </template>
@@ -81,13 +85,13 @@
                             {{ descLabel }}
                         </template>
                         <template v-slot:prescription>
-                            <h3>Review your selections below</h3>
+                            <h3>{{ reviewSelectionLabel }}</h3>
                         </template>
                         <template v-slot:gap-holder>
                             <div class="gap-list-holder review-container" style="align-self: flex-end">
                                 <ul class="gap-list mb-1" style="padding-left: 0;">
                                     <li class="module-item title-module mt-0" v-if="selectedRec.length > 0">
-                                        <h3>Selected</h3>
+                                        <h3>{{ selectedText }}</h3>
                                     </li>
                                     <li v-for="(item, i) in selectedRec" class="module-item" v-bind:key="`selected${i}`">
                                         <a class="recommendation"
@@ -96,7 +100,7 @@
                                         </a>
                                     </li>
                                     <li class="module-item title-module mt-0" v-if="notSelected.length > 0">
-                                        <h3>Not Selected</h3>
+                                        <h3>{{ notSelectedText }}</h3>
                                     </li>
                                     <li v-for="(item, i) in notSelected" class="module-item" v-bind:key="`module${i}`">
                                         <a class="recommendation"
@@ -116,10 +120,10 @@
                     <i class="material-icons icon infoIcon pl-1" style="font-size: 26px;">arrow_forward</i>
                 </button>
                 <a class="button no-button mt-1 mr-2" style="vertical-align:middle" @click="nothanks" :class="{ hidden: state !== 2 }">
-                    <h4>No thanks</h4>
+                    <h4>{{ noThanks }}</h4>
                 </a>
                 <a class="button interested-button mt-1 ml-2" style="vertical-align:middle" @click="interested" :class="{ hidden: state !== 2 }">
-                    <h4>I'm Interested</h4>
+                    <h4>{{ interestedText }}</h4>
                 </a>
             </div>
         </div>
@@ -133,6 +137,12 @@
     // import PrescriptionPage from '../bitComponents/PrescriptionPage'
     import * as d3 from "d3";
     import ModuleRecommendation from './ModuleRecommendation'
+    import {
+        reviewSelectionText,
+        selectedText,
+        notSelectedText,
+        whatUGet
+    } from "../../copy/copy";
 
     export default {
         name: "ResultPageV2",
@@ -145,6 +155,12 @@
             // ModuleRecommendation
         },
         props: {
+            noThanks: {
+                type: String,
+            },
+            interestedText: {
+                type: String,
+            },
             chartId: {
                 type: String,
                 default: () => 'chartchart'
@@ -156,6 +172,21 @@
             currentPrescription: {
                 type: String,
                 default: () => 'Here are the areas we identified that we think are affecting your analytic capabilities the most'
+            },
+            currentText: {
+                type: String,
+                default: () => 'Current'
+            },
+            targetText: {
+                type: String,
+                default: () => 'Target'
+            },
+            potentialText: {
+                type: String,
+                default: () => 'Potential'
+            },
+            language: {
+                type: String
             },
             identifiedGaps: {
                 type: Array,
@@ -311,6 +342,9 @@
                 type: Number,
                 default: () => 5
             },
+            prescriptionTitle: {
+                type: String
+            },
             prescriptionHeader: {
                 type: String,
                 default: () => 'You can take immediate, effective action to address the critical shortcomings we\'ve identified'
@@ -450,6 +484,18 @@
             //     })
             //     return modules
             // },
+            whatUgetText: function () {
+                return whatUGet[this.language]
+            },
+            reviewSelectionLabel: function () {
+                return reviewSelectionText[this.language]
+            },
+            selectedText: function () {
+                return selectedText[this.language]
+            },
+            notSelectedText: function () {
+                return notSelectedText[this.language]
+            },
             descSelect: function () {
                 return this.selectedRec.length / this.recommendations.length
             },
@@ -494,6 +540,15 @@
             availableRecommendations: function () {
                 return this.recommendations.length - this.moduleState
             },
+            pickedRecommendations: function () {
+                let pickedRecommendations = []
+                this.recommendations.forEach(d => {
+                    if (this.recommendationSelected[d.id]) {
+                        pickedRecommendations.push(d.name)
+                    }
+                })
+                return pickedRecommendations
+            }
         },
         mounted: function () {
             console.log('rendering', this.category, this.recommendations)
@@ -576,7 +631,11 @@
                 this.state = this.state + 1
                 console.log('statestate', this.state)
                 if (this.state === 4) {
-                    this.$emit('lastStep', this.category)
+                    console.log('recommendations', this.recommendations, this.selectedRecommendations)
+                    this.$emit('lastStep', this.category, {
+                        segment: this.category,
+                        moduleName: this.pickedRecommendations
+                    })
                 }
             },
             initializeRecommendationSelected: function () {
@@ -586,7 +645,7 @@
                 console.log('ccscscscscs', button)
                 this.recommendationSelected[rec.rank] = !this.recommendationSelected[rec.rank]
                 this.changeModules = !this.changeModules
-                console.log('ccscscscscs', this.recommendationSelected)
+                console.log('ccscscscscs')
             }
         }
     }
@@ -701,9 +760,9 @@
     .pageElement {
         width: 50%;
         flex-basis: 50%;
-        min-height: 760px;
-        height: 760px;
-        max-height: 760px;
+        min-height: 800px;
+        height: 800px;
+        max-height: 800px;
     }
     .chartHolder {
         /*padding-top: 56px;*/
@@ -769,11 +828,11 @@
         border-top: 1px solid #CDCDCD;
         border-bottom: 1px solid #CDCDCD;
         padding-bottom: 3px;
-        max-height: 400px;
+        max-height: 310px;
         overflow-y: auto;
     }
     .review-container {
-        max-height: 310px;
+        max-height: 265px;
         overflow-y: auto;
     }
 

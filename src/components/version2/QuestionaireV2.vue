@@ -1,5 +1,4 @@
 <template>
-
     <div class="questionHolder">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <div class="questionCarousel" :key="category">
@@ -9,6 +8,7 @@
                 <QuestionCardV2
                     :question="question"
                     :inactive="selectedIndex !== i"
+                    :language="language"
                     :index="i"
                     @selection="questionSelected"
                     @inactiveClick="selectedIndex = i"
@@ -18,7 +18,7 @@
                 <div class="proceed" :class="{ 'show': selectedIndex === questions.length}">
 <!--                    <button @click="convertToCsv(output, filename)">-->
                     <button @click="proceedToResults">
-                        <p class="proceedText">Submit Survey</p>
+                        <p class="proceedText">{{ submitSurveyText }}</p>
                         <i class="material-icons icon infoIcon" style="font-size: 26px;">arrow_forward</i>
                     </button>
                 </div>
@@ -36,6 +36,7 @@ import QuestionCardV2 from './QuestionCardV2'
 // const FileSystem = require("fs")
 import { upload } from '../../assets/js/fileupload'
 import { submitJob } from '../../assets/js/jobservice.js'
+import {submitSurveyText} from "../../copy/copy";
 // eslint-disable-next-line no-unused-vars
 import saveAs from 'file-saver'
 
@@ -52,10 +53,10 @@ export default {
             type: Array,
             required: true
         },
-        // category: {
-        //     type: String,
-        //     required: true
-        // },
+        language: {
+            type: String,
+            required: true
+        },
         margin: {
             type: Object,
             default: () => ({
@@ -73,6 +74,11 @@ export default {
             // this.selectedIndex = 0
             // this.arrangeQuestions()
             this.$emit('categoryChange', this.category)
+        }
+    },
+    computed: {
+        submitSurveyText: function () {
+            return submitSurveyText[this.language]
         }
     },
     data: () => {
@@ -132,7 +138,7 @@ export default {
         this.arrangeQuestions()
     },
     mounted: function () {
-        this.category = this.questions[0].type
+        this.category = this.questions[0].label
         this.initializeValues()
         this.arrangeQuestions()
     },
@@ -238,7 +244,7 @@ export default {
         questionSelected: function (response, index, type, module,question) {
             this.selectedIndex = this.selectedIndex + 1
             if (this.selectedIndex < this.questions.length) {
-                this.category = this.questions[this.selectedIndex].type
+                this.category = this.questions[this.selectedIndex].label
             }
             console.log('questionSelected..', question)
             this.$emit('selection', response, index, type, module)

@@ -2,9 +2,9 @@
   <div id="app">
 <!--    <img alt="Vue logo" src="./assets/logo.png">-->
 <!--    <HelloWorld msg="Welcome to Your Vue.js App"/>-->
-    <div class="bigHolder">
-        <router-view></router-view>
-    </div>
+<!--    <div class="bigHolder">-->
+    <router-view></router-view>
+<!--    </div>-->
   </div>
 </template>
 
@@ -26,7 +26,9 @@
   /*color: #2c3e50;*/
   /*margin-top: 60px;*/
 }
-
+.card {
+    border: none !important;
+}
 .material-icons {
     font-family: 'Material Icons';
     font-weight: normal;

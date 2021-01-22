@@ -95,6 +95,18 @@
                 type: String,
                 default: () => 'Overall'
             },
+            currentText: {
+                type: String,
+                default: () => 'Current'
+            },
+            targetText: {
+                type: String,
+                default: () => 'Target'
+            },
+            potentialText: {
+                type: String,
+                default: () => 'Potential'
+            },
             duration: {
                 type: Number,
                 default: () => 500
@@ -162,18 +174,18 @@
         computed: {
             xAxisRange: function () {
                 if (this.chartState === 'current') {
-                    return ['Current']
+                    return [this.currentText]
                 }
                 if (this.chartState === 'transition') {
-                    return ['Target']
+                    return [this.targetText]
                 }
-                return ['Current', 'Target']
+                return [this.currentText, this.targetText]
             },
             markerData: function () {
                 if (this.chartState === 'current') {
                     return [
                         {
-                        name: 'Current',
+                        name: this.currentText,
                         score: this.lineScores.current
                         }
                     ]
@@ -181,23 +193,23 @@
                 if (this.chartState === 'transition') {
                     return [
                         {
-                            name: 'Current',
+                            name: this.currentText,
                             score: this.lineScores.current
                         }, {
-                            name: 'Target',
+                            name: this.targetText,
                             score: this.lineScores.selected
                         }, {
-                            name: 'Potential',
+                            name: this.potentialText,
                             score: this.targetScore
                         },
                     ]
                 }
                 return [
                     {
-                        name: 'Current',
+                        name: this.currentText,
                         score: this.lineScores.current
                     }, {
-                        name: 'Target',
+                        name: this.targetText,
                         score: this.lineScores.selected
                     }
                 ]
@@ -367,7 +379,7 @@
                     .text(this.yAxisLabel)
 
                 this.currentG
-                    .attr('transform', `translate(${this.xAxisScale('Current')},0)`)
+                    .attr('transform', `translate(${this.xAxisScale(this.currentText)},0)`)
 
                 this.currentBar = this.currentG
                     .append('rect')
@@ -479,7 +491,7 @@
                     .attr('x', this.width)
                     .attr('fill-opacity', 1)
                     .attr('y', d => {
-                        if (d.name === 'Target' && this.chartState === 'transition' && (d.score === this.lineScores.current || d.score === this.lineScores.potential)) {
+                        if (d.name === this.targetText && this.chartState === 'transition' && (d.score === this.lineScores.current || d.score === this.lineScores.potential)) {
                             return this.yAxisScale(d.score)
                         }
                         return this.yAxisScale(d.score) - 16
@@ -513,7 +525,7 @@
                     .attr('x', this.width + 8)
                     .attr('y', d => this.yAxisScale(d.score) - 14)
                     .attr('fill-opacity', d => {
-                        if (d.name === 'Target' && this.chartState === 'transition' && (d.score === this.lineScores.current || d.score === this.lineScores.potential)) {
+                        if (d.name === this.targetText && this.chartState === 'transition' && (d.score === this.lineScores.current || d.score === this.lineScores.potential)) {
                             return 0
                         }
                         return 1
@@ -571,7 +583,7 @@
             },
             renderDiffChart: function () {
                 let diffBars = [...Array(this.availableRecommendations).keys()]
-                console.log('yAxiDIUFFFCHARTRs', this.yAxis)
+
                 this.xAxisG
                     .transition()
                     .duration(this.duration)
@@ -609,11 +621,11 @@
                 this.currentG
                     .transition()
                     .duration(this.duration)
-                    .attr('transform', `translate(${this.xAxisScale('Target')},0)`)
+                    .attr('transform', `translate(${this.xAxisScale(this.targetText)},0)`)
                 this.targetG
                     .transition()
                     .duration(this.duration)
-                    .attr('transform', `translate(${this.xAxisScale('Target')},0)`)
+                    .attr('transform', `translate(${this.xAxisScale(this.targetText)},0)`)
 
                 this.currentBar
                     .transition()
@@ -756,11 +768,11 @@
                 this.currentG
                     .transition()
                     .duration(this.duration)
-                    .attr('transform', `translate(${this.xAxisScale('Current')},0)`)
+                    .attr('transform', `translate(${this.xAxisScale(this.currentText)},0)`)
                 this.targetG
                     .transition()
                     .duration(this.duration)
-                    .attr('transform', `translate(${this.xAxisScale('Target')},0)`)
+                    .attr('transform', `translate(${this.xAxisScale(this.targetText)},0)`)
 
                 this.currentBar
                     .transition()

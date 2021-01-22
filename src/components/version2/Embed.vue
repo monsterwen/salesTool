@@ -1,150 +1,35 @@
 <template>
     <div class="wrapper-div">
-
-        <!-- The Modal -->
-        <div class="landing-wrapper" id="wrapper">
-        <div class="header-container">
-                <div class="header-curve">
-                    <img
-                            width="100%"
-                            :src="require('../components/BrierlyCurve.svg')">
-                </div>
-                <div class="header-curve header-flex">
-                    <div class="items-wrapper">
-                        <div class="header-items">
-                            <div class="header-content header-element header-left">
-                                <div class="header-image">
-                                    <img width="100%"
-                                         class="survey-preview"
-                                        :src="require('../assets/svg/b-logo-vert-tag.svg')">
-                                </div>
-                            </div>
-                            <div class="header-content header-text header-element">
-                                <div class="header-headline header-text-section">
-                                    <p>Assess your program health</p>
-                                </div>
-                                <div class="header-subhead header-text-section">
-                                    <p>Identify shortcomings and opportunities in your <br> customer loyalty and engagement programming</p>
-                                </div>
-                                <div class="header-button header-text-section">
-                                    <button class="signup-button"
-                                            v-on:click="scrollToSignUp()">Take the Assessment</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-<!--            </div>-->
-        </div>
-        <div class="dimension-header">
-            <div class="dimension-title">
-                <p>The Loyalty Capability Diagnostic Tool</p>
-            </div>
-            <div class="dimension-desc">
-                <p>Visualize opportunities to elevate your loyalty programme effectiveness and value with Brierley's F.A.S.T track Modules</p>
-            </div>
-        </div>
-        <div class="dimension-container" id="fast-video">
-            <div class="video-content">
-                <div class="video-container">
-                    <iframe width="100%" height="630" src="https://www.youtube.com/embed/1kqJN1-OQkU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-<!--                    <div class="video-placeholder">-->
-<!--                        <div class="button-holder">-->
-<!--                            <button class="play-button">-->
-<!--                                <i class="material-icons" style="font-size: 48px; color: rgba(0,0,0,0.5)">play_arrow</i>-->
-<!--                            </button>-->
-<!--                        </div>-->
-<!--                    </div>-->
-                </div>
-            </div>
-        </div>
-        <div class="dimension-container" id="matureAss">
-        </div>
-        <div class="dimension-header">
-            <div class="dimension-title">
-                <p>The Key Dimensions</p>
-            </div>
-            <div class="dimension-desc">
-                <p>The Loyalty Capability Diagnostic Tool tests your loyalty capabilities across two dimensions</p>
-            </div>
-        </div>
-        <div class="dimension-container" id="analytics">
-            <div class="dimension-content">
-                <div class="dimension-text dimension-side dimension-left">
-                    <div class="dimension-wrapper">
-                        <div class="dimension-headline">
-                            <p>Analytics</p>
-                        </div>
-                        <div class="dimension-subhead">
-                            <p>Can my business make sense of data and identify trends?</p>
-                        </div>
-                        <div class="dimension-body">
-                            <p>Ability to aquire and properly analyze large amounts of consumer data is crucial for a business to stay on the cutting
-                                edge of business trends, illuminate customer characteristics, and ensure program health.
-                                The analytical ability of a business can be the difference between success and failure of a product. </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="dimension-side dimension-right">
-                    <div class="dimension-image">
-                        <img class="dimension-png" :src="require('../assets/svg/analytics.svg')">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="dimension-container" id="strategy">
-            <div class="dimension-content">
-                <div class="dimension-side dimension-left">
-                    <div class="dimension-image">
-                        <img class="dimension-png" :src="require('../assets/svg/customerEx/customerExp.svg')">
-                    </div>
-                </div>
-                <div class="dimension-text dimension-side dimension-right">
-                    <div class="dimension-wrapper">
-                        <div class="dimension-headline">
-                            <p>Strategy</p>
-                        </div>
-                        <div class="dimension-subhead">
-                            <p>Can my business effectively synthesize analytics and insight to optimise program health?</p>
-                        </div>
-                        <div class="dimension-body">
-                            <p>Being able to craft a viable plan that sets realistic goals and outlines the resources to execute it is essential in developing a differentiated programme. Describing and directing an appropriate directionof travel that positions the
-                                evolution of the proposition for all stakeholders over the long term is key for success.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="spacer"></div>
         <div class="dimension-container signup-container">
             <div class="signup-content" v-if="!displayQuestionaire">
                 <SignUpField
-                        @submitted="displayQuestionaire = true"
-                    ></SignUpField>
+                        @submitted="signUpSubmit"
+                ></SignUpField>
             </div>
             <div class="questionaire-content" :class="{ 'questionnaireMode': questionnaireMode, 'resultMode': !questionnaireMode}" v-if="displayQuestionaire">
                 <FASTModule>
                     <template v-slot:interface>
                         <FASTInterfaceV2
-                            @goToResults="questionnaireMode=false"></FASTInterfaceV2>
+                                :job-key="jobKey"
+                                :language="language"
+                                @goToResults="questionnaireMode=false"></FASTInterfaceV2>
                     </template>
                 </FASTModule>
             </div>
         </div>
-<!--            <FASTModule></FASTModule>-->
-
-    </div>
     </div>
 </template>
 <script>
-    import FASTModule from "../Views/FASTModule";
-    import SignUpField from "./SignUpField";
-    import FASTInterfaceV2 from "./version2/FASTInterfaceV2";
+    import FASTModule from "../../Views/FASTModule";
+    import SignUpField from "../SignUpField";
+    import FASTInterfaceV2 from "./FASTInterfaceV2";
+    import { signUp } from '../../assets/js/jobservice'
+
     // import BrierleyLogo from "./BrierleyLogo";
     // import * as d3 from 'd3'
 
     export default {
-        name: 'Test',
+        name: 'Embed',
         components:  {
             SignUpField,
             FASTModule,
@@ -156,6 +41,10 @@
             signupContainer: null,
             displayQuestionaire: false,
             questionnaireMode: true,
+            signedUp: false,
+            signUpError: false,
+            jobKey: '',
+            language: 'en'
         }),
         mounted: function () {
             this.signupContainer = document.getElementsByClassName('.signup-container')
@@ -170,6 +59,21 @@
                 let signupContainer = document.getElementsByClassName('signup-container')
                 console.log('scrollingto', signupContainer)
                 signupContainer[0].scrollIntoView({ behavior: 'smooth', block: 'center' })
+            },
+            signUpSubmit: function (payload, language) {
+                this.jobKey = payload.jobKey
+                this.language = language
+                console.log('[ayload', payload)
+                signUp(payload)
+                    .catch(err => {
+                        this.signUpError = true
+                        alert('error signing up' + err)
+                    })
+                    .then(response => {
+                        console.log(response)
+                        this.displayQuestionaire = true
+                        this.signedUp = true
+                    })
             }
             // populateModalElements: function () {
             //   this.signupModal = d3.select('.signup-modal')
@@ -238,7 +142,7 @@
         flex-basis: 100%;
         height: 0em;
         padding-bottom: 37.5%;
-        background: linear-gradient(to right, #009FBC, #A5BB00);
+        /*background: linear-gradient(to right, #009FBC, #A5BB00);*/
     }
     .items-wrapper {
         width: 100%;
@@ -460,7 +364,7 @@
         margin: 0 auto;
         display: flex;
         flex-flow: row wrap;
-    }
+    }F
     .questionaire-content {
         width: 100%;
         flex-basis: 100%;

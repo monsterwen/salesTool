@@ -3,6 +3,7 @@ import App from './App.vue'
 import VueRouter from 'vue-router'
 // import SignUp from './components/signup'
 import FASTModule from './Views/FASTModule'
+import Embed from "./components/version2/Embed";
 // import Intro from './components/intro'
 // import JQuery from 'jquery'
 import Test from './components/test'
@@ -12,11 +13,6 @@ Vue.config.productionTip = false
 
 const router = new VueRouter({
   routes: [
-    // {
-    //   path: '/',
-    //   name: 'SignUp',
-    //   component: SignUp,
-    // },
     {
       path: '/test',
       name: 'test',
@@ -26,6 +22,11 @@ const router = new VueRouter({
       path: '/fast',
       name: 'FASTModule',
       component: FASTModule
+    },
+    {
+      path: '/embed',
+      name: 'FASTModule',
+      component: Embed
     }]
 })
 new Vue({

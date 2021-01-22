@@ -37,12 +37,12 @@
 }
 .fastModule {
     width: 100%;
-    min-height: 67vh;
+    min-height: 700px;
     height: auto;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    padding: 0 26px 0 26px;
+    /*padding: 0 26px 0 26px;*/
 }
 .fastTitle {
     width: 100%;

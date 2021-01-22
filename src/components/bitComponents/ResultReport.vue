@@ -9,11 +9,11 @@
             <div class="result-score">
                 <slot name="score"></slot>
             </div>
-            <div class="result-score-collapse pl-2">
-                <span class="result-score-button">
-                    <i class="material-icons icon">info</i>
-                </span>
-            </div>
+<!--            <div class="result-score-collapse pl-2">-->
+<!--                <span class="result-score-button">-->
+<!--                    <i class="material-icons icon">info</i>-->
+<!--                </span>-->
+<!--            </div>-->
         </div>
         <div class="result-gap-description" style="width: 100%">
             <p><slot name="score-desc"></slot></p>
