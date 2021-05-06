@@ -31,7 +31,6 @@
                 </div>
 
                 <div style="text-align: left" class="wrap-input1 validate-input">
-                    <label style="text-align: left" for="industry">Industry:</label>
                     <select v-model="industry" class="input1" id="industry">
                         <option value="Accommodation">Accommodation</option>
                         <option value="Accommodation and Food Services">Accommodation and Food Services</option>
@@ -53,7 +52,7 @@ Wholesale Electronic Markets and Agents and Brokers">
                     <label style="display: inline" for="checkbox" > </label>
                 </div>
                 <div style="margin-top: 10px" class="container-contact1-form-btn">
-                    <router-link to="/fast">
+                    <router-link to="/test">
                     <button type="" id="submit"  v-on:click="insertUser()" class="contact1-form-btn">
                                 <span>Start the Assessment!</span>
                     </button>

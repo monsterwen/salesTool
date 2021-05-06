@@ -10,7 +10,7 @@
         name: 'RadarChart',
         props: {
             radarChartValues: {
-                type: Object,
+                type: Array,
                 required: true
             },
             maxValue: {
@@ -50,15 +50,14 @@
                 default: () => 20
             },
             score: {
-                type: Number,
-                default: () => 0
+                type: Object
             },
             margin: {
                 type: Object,
                 default: () => {
                     return {
                         top: 32,
-                        right: 24,
+                        right: 6,
                         bottom: 24,
                         left: 24
                     }
@@ -66,42 +65,43 @@
             },
             scoreRange: {
                 type: Array,
-                default: () => [0, 200, 500]
+                default: () => [0, 249, 250, 349, 350, 500]
             },
             colorRange: {
                 type: Array,
-                default: () => ['#D83737', '#FFBF00', '#A5BB00']
+                default: () => ['#D83737','#D83737','#FFBF00','#FFBF00','#A5BB00','#A5BB00']
             }
         },
         watch: {
             radarChartData: function () {
-                this.initializeValues()
-                this.transformRadarChart()
             },
             radarChartValues: function () {
                 console.log('radarChartVa;llues', this.radarChartValues)
-                this.radarChartData = [{
-                        axis: 'Analysis',
-                        key: 'analysis',
-                        value: this.radarChartValues.analysis
-                    }, {
-                        axis: 'Insight',
-                        key: 'insight',
-                        value: this.radarChartValues.insight
-                    }, {
-                        axis: 'Strategy',
-                        key: 'strategy',
-                        value: this.radarChartValues.strategy
-                    }, {
-                        axis: 'Technology / Efficiency & Systems',
-                        key: 'tes',
-                        value: this.radarChartValues.tes
-                    }, {
-                        axis: 'Customer Experience',
-                        key: 'custexp',
-                        value: this.radarChartValues.custexp
-                    }
-                ]
+                this.radarChartData = this.radarChartValues
+                this.initializeValues()
+                this.transformRadarChart()
+                // this.radarChartData = [{
+                //         axis: 'Analysis',
+                //         key: 'analysis',
+                //         value: this.radarChartValues.analysis
+                //     }, {
+                //         axis: 'Insight',
+                //         key: 'insight',
+                //         value: this.radarChartValues.insight
+                //     }, {
+                //         axis: 'Strategy',
+                //         key: 'strategy',
+                //         value: this.radarChartValues.strategy
+                //     }, {
+                //         axis: 'Technology / Efficiency & Systems',
+                //         key: 'tes',
+                //         value: this.radarChartValues.tes
+                //     }, {
+                //         axis: 'Customer Experience',
+                //         key: 'custexp',
+                //         value: this.radarChartValues.custexp
+                //     }
+                // ]
                 // this.initializeValues()
                 // this.transformRadarChart()
             }
@@ -124,33 +124,38 @@
                 feMergeNode_2: null,
                 //
                 overallMaturityScore: 0,
-                radarChartData: [
+                radarChartData: [[
                     {
                         axis: 'Analysis',
                         key: 'analysis',
+                        type: 'pre',
                         value: 0
                     },
                     {
                         axis: 'Insight',
                         key: 'insight',
+                        type: 'pre',
                         value: 0
                     },
                     {
                         axis: 'Strategy',
                         key: 'strategy',
+                        type: 'pre',
                         value: 0
                     },
                     {
                         axis: 'Technology / Efficiency & Systems',
                         key: 'tes',
+                        type: 'pre',
                         value: 0
                     },
                     {
                         axis: 'Customer Experience',
                         key: 'custexp',
+                        type: 'pre',
                         value: 0
                     }
-                ],
+                ]],
                 measures: [],
                 measureNum: 0,
                 //
@@ -178,8 +183,8 @@
             initializeValues: function () {
                 let data = this.radarChartData
                 let margin = this.margin
-
-                let measures =  data.map(d => d.axis)
+                console.log('datadatadata', data)
+                let measures =  data[0].map(d => d.axis)
                 let measureNum = measures.length
 
                 let div = d3.select('#radar-chart-holder')
@@ -217,30 +222,33 @@
 
                 let svg = div
                     .append('svg')
-                    .attr('class', 'radarChartSVG')
                     .attr('id', 'radar-chart-svg')
+                    .style('overflow', 'visible')
+
+                svg
+                    .classed('radarChartSVG', true)
 
                 let radarG = svg
                     .append('g')
                     .attr('id', 'radar-group')
                     // .attr('transform', `translate(${width / 2 + margin.left},${height / 2 + margin.top}`)
 
-                let filter = radarG
-                    .append('defs')
-                    .append('filter')
-                    .attr('id', 'glow')
-                let feGaussianBlur = filter
-                    .append('feGaussianBlur')
-                    .attr('stdDeviation', '3')
-                    .attr('result', 'coloredBlur')
-                let feMerge = filter
-                    .append('feMerge')
-                let feMergeNode_1 = feMerge
-                    .append('feMergeNode')
-                    .attr('in', 'coloredBlur')
-                let feMergeNode_2 = feMerge
-                    .append('feMergeNode')
-                    .attr('in', 'SourceGraphic')
+                // let filter = radarG
+                //     .append('defs')
+                //     .append('filter')
+                //     .attr('id', 'glow')
+                // let feGaussianBlur = filter
+                //     .append('feGaussianBlur')
+                //     .attr('stdDeviation', '3')
+                //     .attr('result', 'coloredBlur')
+                // let feMerge = filter
+                //     .append('feMerge')
+                // let feMergeNode_1 = feMerge
+                //     .append('feMergeNode')
+                //     .attr('in', 'coloredBlur')
+                // let feMergeNode_2 = feMerge
+                //     .append('feMergeNode')
+                //     .attr('in', 'SourceGraphic')
 
                 let axisG = radarG
                     .append('g')
@@ -263,26 +271,27 @@
                 this.axisG = axisG
                 this.blogG = blobG
                 this.tooltip = tooltip
-                this.filter = filter
-                this.feGaussianBlur = feGaussianBlur
-                this.feMerge = feMerge
-                this.feMergeNode_1 = feMergeNode_1
-                this.feMergeNode_2 = feMergeNode_2
+                // this.filter = filter
+                // this.feGaussianBlur = feGaussianBlur
+                // this.feMerge = feMerge
+                // this.feMergeNode_1 = feMergeNode_1
+                // this.feMergeNode_2 = feMergeNode_2
             },
             transformRadarChart: function () {
                 let margin = this.margin
-                let width = this.width
-                let height = this.height
+                // let width = this.width
+                // let height = this.height
 
                 let maxValue = this.maxValue
                 let radius = this.radius
                 let radian = this.radian
 
                 this.svg
-                    .attr('width', width + margin.left + margin.right)
-                    .attr('height', height + margin.top + margin.bottom)
+                    .attr('width', `${margin.left + radius * 2 + margin.right}`)
+                    .attr('height', `${margin.top + radius * 2 + margin.bottom}`)
+
                 this.radarG
-                    .attr('transform', `translate(${width / 2 + margin.left},${height / 2 + margin.top})`)
+                    .attr('transform', `translate(${radius + margin.left},${radius + margin.top})`)
 
                 let colorScale = d3.scaleLinear()
                     .domain(this.scoreRange)
@@ -309,7 +318,7 @@
                 // let radarG = this.radarG
                 let axisG = this.axisG
                 let blobG = this.blogG
-                let tooltip = this.tooltip
+                // let tooltip = this.tooltip
 
                 let radius = this.radius
                 let radian = this.radian
@@ -352,7 +361,7 @@
                     .style('stroke', 'none')
                     .attr('r', radius)
                     .style('fill-opacity', gridOpacity / 2)
-                    .style('filter', 'url(#glow)')
+                    // .style('filter', 'url(#glow)')
 
                 let chartGrid = axisG
                     .selectAll('.gridLevels')
@@ -375,7 +384,7 @@
                     .style('stroke', '#CDCDCD')
                     .attr('r', d => (radius / gridLevels) * d)
                     .style('fill-opacity', gridOpacity)
-                    .style('filter', 'url(#glow)')
+                    // .style('filter', 'url(#glow)')
 
                 let chartLabels = axisG
                     .selectAll('.axisLabel')
@@ -431,9 +440,10 @@
                     .text(d => d)
                     .call(this.wrap, wrapWidth)
 
+                console.log('radarDASTA, ', data)
                 let radarArea = blobG
                     .selectAll('.radarArea')
-                    .data([data])
+                    .data(data)
                 radarArea
                     .exit()
                     .remove()
@@ -446,13 +456,16 @@
                     .transition()
                     .duration(200)
                     .attr('d', d => radarLine(d))
-                    .style('fill', colorScale(this.score))
+                    .style('fill', d => {
+                        console.log('fillll', this.score, d, d.type)
+                        return colorScale(this.score[d[0].type])
+                    })
                     .style('fill-opacity', areaOpacity)
-                    .style('filter', 'url(#glow)')
+                    // .style('filter', 'url(#glow)')
 
                 let radarPath = blobG
                     .selectAll('.radarLine')
-                    .data([data])
+                    .data(data)
                 radarPath
                     .exit()
                     .remove()
@@ -466,14 +479,27 @@
                     .duration(200)
                     .attr('d', d => radarLine(d))
                     .style('stroke-width', `${lineWidth}px`)
-                    .style('stroke', colorScale(this.score))
+                    .style('stroke', d => colorScale(this.score[d[0].type]))
                     .style('fill', 'none')
-                    .style('filter', 'url(#glow)')
+                    // .style('filter', 'url(#glow)')
                     // .style('')
 
-                let radarPoints = blobG
-                    .selectAll('.radarPoint')
+                let radarPointGs = blobG
+                    .selectAll('.radarPointG')
                     .data(data)
+                radarPointGs
+                    .exit()
+                    .remove()
+                radarPointGs
+                    .enter()
+                    .append('g')
+                    .attr('class', 'radarPointG')
+                let radarPoints = radarPointGs
+                    .selectAll('.radarPoint')
+                    .data(d => {
+                        console.log('dddddd', d)
+                        return d
+                    })
                 radarPoints
                     .exit()
                     .remove()
@@ -484,51 +510,54 @@
                     .attr('class', 'radarPoint')
                 radarPoints
                     .transition()
-                    .duration(200)
+                    .duration(300)
                     .attr('r', pointRadius)
-                    .attr('cx', (d, i) => radiusScale(d.value) * Math.cos(radian * i - Math.PI/2))
+                    .attr('cx', (d, i) => {
+                        console.log('point on a line', d, radian, i)
+                        return radiusScale(d.value) * Math.cos(radian * i - Math.PI/2)
+                    })
                     .attr('cy', (d, i) => radiusScale(d.value) * Math.sin(radian * i - Math.PI/2))
-                    .style('fill', colorScale(this.score))
+                    .style('fill', d => colorScale(this.score[d.type]))
                     .style('fill-opacity', 0.8)
-                    .style('filter', 'url(#glow)')
+                    // .style('filter', 'url(#glow)')
 
-                let tooltipPoints = blobG
-                    .selectAll('.tooltipPoint')
-                    .data(data)
-                tooltipPoints
-                    .exit()
-                    .remove()
-                tooltipPoints = tooltipPoints
-                    .enter()
-                    .append('circle')
-                    .merge(tooltipPoints)
-                    .attr('class', 'tooltipPoint')
-                tooltipPoints
-                    .transition()
-                    .duration(200)
-                    .attr('r', pointRadius * 2)
-                    .attr('cx', (d, i) => radiusScale(d.value) * Math.cos(radian * i - Math.PI/2))
-                    .attr('cy', (d, i) => radiusScale(d.value) * Math.sin(radian * i - Math.PI/2))
-                    .style('fill-opacity', 0)
-                tooltipPoints
-                    .on('mouseover', function (d) {
-                        let text = d3.select(this)
-                        let x = parseFloat(text.attr('cx')) - 8
-                        let y = parseFloat(text.attr('cy')) - 8
-
-                        tooltip
-                            .classed('hidden', false)
-                        tooltip
-                            .transition()
-                            .duration(200)
-                            .attr('x', x)
-                            .attr('y', y)
-                            .text(d3.format('.2f')(d.value))
-                    })
-                    .on('mouseout', function () {
-                        tooltip
-                            .classed('hidden', true)
-                    })
+                // let tooltipPoints = blobG
+                //     .selectAll('.tooltipPoint')
+                //     .data(data)
+                // tooltipPoints
+                //     .exit()
+                //     .remove()
+                // tooltipPoints = tooltipPoints
+                //     .enter()
+                //     .append('circle')
+                //     .merge(tooltipPoints)
+                //     .attr('class', 'tooltipPoint')
+                // tooltipPoints
+                //     .transition()
+                //     .duration(200)
+                //     .attr('r', pointRadius * 2)
+                //     .attr('cx', (d, i) => radiusScale(d.value) * Math.cos(radian * i - Math.PI/2))
+                //     .attr('cy', (d, i) => radiusScale(d.value) * Math.sin(radian * i - Math.PI/2))
+                //     .style('fill-opacity', 0)
+                // tooltipPoints
+                //     .on('mouseover', function (d) {
+                //         let text = d3.select(this)
+                //         let x = parseFloat(text.attr('cx')) - 8
+                //         let y = parseFloat(text.attr('cy')) - 8
+                //
+                //         tooltip
+                //             .classed('hidden', false)
+                //         tooltip
+                //             .transition()
+                //             .duration(200)
+                //             .attr('x', x)
+                //             .attr('y', y)
+                //             .text(d3.format('.2f')(d.value))
+                //     })
+                //     .on('mouseout', function () {
+                //         tooltip
+                //             .classed('hidden', true)
+                //     })
             },
             wrapLabels: function (group, width) {
                 // console.log('text', text, text.text())
@@ -613,8 +642,9 @@
     width: 100%;
     height: 100%;
 }
-/*.radarChartSVG {*/
-/*    width: 100%;*/
-/*    height: 100%;*/
-/*}*/
+.radarChartSVG {
+    /*width: 100%;*/
+    /*height: 100%;*/
+    overflow: visible;
+}
 </style>

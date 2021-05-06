@@ -2,7 +2,7 @@
     <div class="logo-container" :id="containerId">
 
         <svg xmlns="http://www.w3.org/2000/svg"
-             height="54"
+             height="46"
              viewBox="0 0 1920 570">
             <g class="logo-group">
                 <g class="logo-top">
@@ -65,7 +65,7 @@
             </g>
             <g class="text-group">
                 <path id="Selection #1"
-                      fill="black" stroke="black" stroke-width="1"
+                      :fill="textFill" :stroke="textFill" stroke-width="1"
                       d="M 517.00,211.00
              C 517.00,211.00 517.00,368.00 517.00,368.00
                517.00,368.00 607.00,368.00 607.00,368.00
@@ -212,6 +212,10 @@
             bottomLogoFill: {
                 type: String,
                 default: () => '#009FBC'
+            },
+            textFill: {
+                type: String,
+                default: () => 'black'
             },
             containerId: {
                 type: String,

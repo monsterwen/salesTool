@@ -39,7 +39,7 @@
             },
             colorRange: {
                 type: Array,
-                default: () => ['#D83737', '#FFBF00', '#A5BB00']
+                default: () => ['#D83737','#D83737','#FFBF00','#FFBF00','#A5BB00','#A5BB00']
             }
         },
         watch: {
@@ -59,23 +59,32 @@
             colorScale: null
         }),
         mounted: function () {
+            window.addEventListener('resize', this.updateMeter)
         },
         methods: {
             createMeterElements: function () {
                 let div = d3
                     .select(`#${this.questionKey}`)
                     .select('.questionMeter')
-
+                if (!div.node()) {
+                    setTimeout(() => {
+                        div = d3
+                            .select(`#${this.questionKey}`)
+                            .select('.questionMeter')
+                        console.log('timeeededeeed', this.questionKey, div)
+                    },1000)
+                }
+                console.log('doiiiivd', this.questionKey, div)
                 let dimensions = div.node().getBoundingClientRect()
                 let width = dimensions.width
                 let height = dimensions.height
                 console.log('width', width)
                 let progressScale = d3.scaleLinear()
                     .domain([0, this.questionTotal])
-                    .range([0, width])
+                    .range([0, 100])
 
                 let colorScale = d3.scaleLinear()
-                    .domain([0, 40, 100])
+                    .domain([0, 49, 50, 69, 70, 100])
                     .range(this.colorRange)
                 let svg = div
                     .append('svg')
@@ -104,17 +113,11 @@
                 this.rect = rect
             },
             updateMeter: function () {
-                console.log('updatemeter', this.progressScale.range(), this.questionTotal)
-                let dimensions = this.meterDiv.node().getBoundingClientRect()
-                let width = dimensions.width
-
-                this.progressScale.range([0, width])
-
                 this.rect
                     .transition()
                     .duration(300)
                     .attr('fill', 'rgba(252,205,18,0.98)')
-                    .attr('width', this.progressScale(this.questionNumber))
+                    .attr('width', `${this.progressScale(this.questionNumber)}%`)
                     .transition()
                     .duration(300)
                     .attr('fill', this.colorScale(this.categoryScore))
@@ -139,7 +142,7 @@
     background-color: #d7d7d7;
 }
 .selected {
-    background-color: #b7b7b7;
+    background-color: #dcdcdc;
 }
 
 .questionName {
@@ -155,6 +158,11 @@
     vertical-align: middle;
     display: table-cell;
     cursor: pointer;
+}
+@media (max-width: 1400px) {
+    .questionName p {
+        font-size: 14px;
+    }
 }
 .questionMeter {
     flex-basis: 12px;

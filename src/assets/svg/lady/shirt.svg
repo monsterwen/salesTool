@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+              "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="65.8764mm" height="65.8764mm"
+     viewBox="0 0 389 389">
+  <path id="shirt"
+        fill="none" stroke="black" stroke-width="1"
+        d="M 291.64,110.06
+           C 291.67,110.14 293.48,85.57 291.35,81.91
+             291.35,81.91 292.50,74.28 292.45,74.36
+             292.55,72.18 295.45,66.91 296.04,66.48
+             296.04,66.48 304.26,68.09 304.26,68.09
+             305.74,71.17 302.23,103.17 304.65,107.04
+             304.65,107.04 291.64,110.06 291.64,110.06 Z" />
+</svg>

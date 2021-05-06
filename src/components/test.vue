@@ -1,131 +1,540 @@
 <template>
-    <div>
-    <div id="wrapper">
-        <div id="header-wrapper">
-            <BrierleyLogo></BrierleyLogo>
-            <div id="" class="">
-<!--                <div id="menu">-->
-<!--                    <ul>-->
-<!--                        <li class="current_page_item"><a href="#" accesskey="1" title="">Homepage</a></li>-->
-<!--                        <li><a href="#" accesskey="2" title="">Our Clients</a></li>-->
-<!--                        <li><a href="#" accesskey="3" title="">About Us</a></li>-->
-<!--                        <li><a href="#" accesskey="4" title="">Careers</a></li>-->
-<!--                        <li><a href="#" accesskey="5" title="">Contact Us</a></li>-->
-<!--                    </ul>-->
-<!--                </div>-->
-            </div>
-        </div>
-        <div class="container">
+    <div class="wrapper-div">
 
-                    <img class="" :src="require('../assets/images/TE-Title-Assessment.png')"
-                    style="height:100%; width: 100%;">
-
-        </div>
-        <div id="extra" class="container">
-            <div class="title">
-                <span class="">The Brierley loyalty capability assessment tool serves as a guide to calibrating your current brand loyalty and capability posture across 5 key dimensions and XX separate points. The aim is to help you identify gaps and opportunities in respect of existing customer loyalty and engagement programming and provide stimulus for positive adaptation and change informed by Brierley’s suite of flexible and on-demand FAST modules.</span>
-
-            </div>
-
-            <div id="three-column">
-                <div class="boxA card">
-                    <div class="box card"> <span class="fa fa-cloud-download"></span>
-                        <p>Your score on our 5 point loyalty maturity curve providing a view of your current loyalty capability ranging from Basic to Emerging to Sophisticated.</p>
+        <!-- The Modal -->
+        <div class="landing-wrapper" id="wrapper">
+        <div class="header-container">
+                <div class="header-curve">
+                    <img
+                            width="100%"
+                            :src="require('../components/BrierlyCurve.svg')">
+                </div>
+                <div class="header-curve header-flex">
+                    <div class="items-wrapper">
+                        <div class="header-items">
+                            <div class="header-content header-element header-left">
+                                <div class="header-image">
+                                    <img width="100%"
+                                         class="survey-preview"
+                                        :src="require('../assets/svg/b-logo-vert-tag.svg')">
+                                </div>
+                            </div>
+                            <div class="header-content header-text header-element">
+                                <div class="header-headline header-text-section">
+                                    <p>Assess your program health</p>
+                                </div>
+                                <div class="header-subhead header-text-section">
+                                    <p>Identify shortcomings and opportunities in your <br> customer loyalty and engagement programming</p>
+                                </div>
+                                <div class="header-button header-text-section">
+                                    <button class="signup-button"
+                                            v-on:click="scrollToSignUp()">Take the Assessment</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="boxB">
-                    <div class="box"> <span class="fa fa-cogs"></span>
-                        <p>A recommendation of key activities and initiatives that will advance or develop current programme effectiveness and and inform a roadmap to elevate the current maturity score.</p>
+<!--            </div>-->
+        </div>
+        <div class="dimension-header">
+            <div class="dimension-title">
+                <p>The Loyalty Capability Diagnostic Tool</p>
+            </div>
+            <div class="dimension-desc">
+                <p>Visualize opportunities to elevate your loyalty programme effectiveness and value with Brierley's F.A.S.T track Modules</p>
+            </div>
+        </div>
+        <div class="dimension-container" id="fast-video">
+            <div class="video-content">
+                <div class="video-container">
+                    <iframe width="100%" height="630" src="https://www.youtube.com/embed/1kqJN1-OQkU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<!--                    <div class="video-placeholder">-->
+<!--                        <div class="button-holder">-->
+<!--                            <button class="play-button">-->
+<!--                                <i class="material-icons" style="font-size: 48px; color: rgba(0,0,0,0.5)">play_arrow</i>-->
+<!--                            </button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                </div>
+            </div>
+        </div>
+        <div class="dimension-container" id="matureAss">
+        </div>
+        <div class="dimension-header">
+            <div class="dimension-title">
+                <p>The Key Dimensions</p>
+            </div>
+            <div class="dimension-desc">
+                <p>The Loyalty Capability Diagnostic Tool tests your loyalty capabilities across two dimensions</p>
+            </div>
+        </div>
+        <div class="dimension-container" id="analytics">
+            <div class="dimension-content">
+                <div class="dimension-text dimension-side dimension-left">
+                    <div class="dimension-wrapper">
+                        <div class="dimension-headline">
+                            <p>Analytics</p>
+                        </div>
+                        <div class="dimension-subhead">
+                            <p>Can my business make sense of data and identify trends?</p>
+                        </div>
+                        <div class="dimension-body">
+                            <p>Ability to aquire and properly analyze large amounts of consumer data is crucial for a business to stay on the cutting
+                                edge of business trends, illuminate customer characteristics, and ensure program health.
+                                The analytical ability of a business can be the difference between success and failure of a product. </p>
+                        </div>
                     </div>
                 </div>
-                <div class="boxC">
-                    <div class="box"> <span class="fa fa-user"></span>
-                        <p> Access to the Brierley team who will be keen to work with you to provide the best possible loyalty solution for your business.</p>
+                <div class="dimension-side dimension-right">
+                    <div class="dimension-image">
+                        <img class="dimension-png" :src="require('../assets/svg/analytics.svg')">
                     </div>
                 </div>
             </div>
-<!--            <ul class="actions">-->
-<!--                <li><a href="#" class="button">Start Assessment</a></li>-->
-<!--            </ul>-->
         </div>
-        <section class="table">
-            <!--for demo wrap-->
-            <h1>Key Dimensions</h1>
-            <div class="tbl-header">
-                <table cellpadding="0" cellspacing="0" border="0">
-                    <thead>
-                    <tr>
-                        <th style="width:20%">Dimension</th>
-                        <th style="width:80%">Discription</th>
-                    </tr>
-                    </thead>
-                </table>
+        <div class="dimension-container" id="strategy">
+            <div class="dimension-content">
+                <div class="dimension-side dimension-left">
+                    <div class="dimension-image">
+                        <img class="dimension-png" :src="require('../assets/svg/customerEx/customerExp.svg')">
+                    </div>
+                </div>
+                <div class="dimension-text dimension-side dimension-right">
+                    <div class="dimension-wrapper">
+                        <div class="dimension-headline">
+                            <p>Strategy</p>
+                        </div>
+                        <div class="dimension-subhead">
+                            <p>Can my business effectively synthesize analytics and insight to optimise program health?</p>
+                        </div>
+                        <div class="dimension-body">
+                            <p>Being able to craft a viable plan that sets realistic goals and outlines the resources to execute it is essential in developing a differentiated programme. Describing and directing an appropriate directionof travel that positions the
+                                evolution of the proposition for all stakeholders over the long term is key for success.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="tbl-content">
-                <table cellpadding="0" cellspacing="0" border="0">
-                    <tbody>
-                    <tr>
-                        <td style="width:20%">Analysis</td>
-                        <td style="width:80%">How well is the business set up to make sense of data and identify trends?</td>
-                    </tr>
-                    <tr>
-                        <td style="width:20%">Insight</td>
-                        <td style="width:80%">Is the business able to turn knowledge into action?</td>
-
-                    </tr>
-                    <tr>
-                        <td style="width:20%">Strategy</td>
-                        <td style="width:80%">Is the business effectively synthesising analytics and insight to continually evaluate and optimise the programme and communications?</td>
-                    </tr>
-                    <tr>
-                        <td style="width:20%">Technology</td>
-                        <td style="width:80%">Is programme success supported by best in class tooling ?</td>
-                    </tr>
-                    <tr>
-                        <td style="width:20%">CX</td>
-                        <td style="width:80%">Is the customer engaged and does scope exist to delight throughout the journey? </td>
-
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-
-        <!-- follow me template -->
-
-        <div class="alert info">
-            <span class="closebtn">&times;</span>
-            To start the assessment process answer the questions on the "Questionnaire" by choosing the rating that applies to your company.Note that for those features that do not apply to your business, please select N/A.
         </div>
-            <FASTModule></FASTModule>
-<div class="container">
-    <span>result</span>
-</div>
+        <div class="spacer"></div>
+        <div class="dimension-container signup-container">
+            <div class="signup-content" v-if="!displayQuestionaire">
+                <SignUpField
+                        @submitted="displayQuestionaire = true"
+                    ></SignUpField>
+            </div>
+            <div class="questionaire-content" :class="{ 'questionnaireMode': questionnaireMode, 'resultMode': !questionnaireMode}" v-if="displayQuestionaire">
+                <FASTModule>
+                    <template v-slot:interface>
+                        <FASTInterfaceV2
+                            @goToResults="questionnaireMode=false"></FASTInterfaceV2>
+                    </template>
+                </FASTModule>
+            </div>
+        </div>
+<!--            <FASTModule></FASTModule>-->
 
     </div>
     </div>
 </template>
+<script>
+    import FASTModule from "../Views/FASTModule";
+    import SignUpField from "./SignUpField";
+    import FASTInterfaceV2 from "./version2/FASTInterfaceV2";
+    // import BrierleyLogo from "./BrierleyLogo";
+    // import * as d3 from 'd3'
+
+    export default {
+        name: 'Test',
+        components:  {
+            SignUpField,
+            FASTModule,
+            FASTInterfaceV2
+        },
+        data: () => ({
+            briefDesk: true,
+            signupModal: null,
+            signupContainer: null,
+            displayQuestionaire: false,
+            questionnaireMode: true,
+        }),
+        mounted: function () {
+            this.signupContainer = document.getElementsByClassName('.signup-container')
+            // window.onclick = (event) => {
+            //     if (event.target === signupContainer) {
+            //         this.displayModal = false
+            //     }
+            // }
+        },
+        methods: {
+            scrollToSignUp: function () {
+                let signupContainer = document.getElementsByClassName('signup-container')
+                console.log('scrollingto', signupContainer)
+                signupContainer[0].scrollIntoView({ behavior: 'smooth', block: 'center' })
+            }
+            // populateModalElements: function () {
+            //   this.signupModal = d3.select('.signup-modal')
+            //
+            // },
+            // displayModal: function () {
+            //
+            // }
+        }
+    }
+</script>
 <style>
-    @import '../assets/css/default.css';
-    @import '../assets/css/fonts.css';
-    .banner-text{
-        margin-top: 10px;
+    /*@import '../assets/css/default.css';*/
+    /*@import '../assets/css/fonts.css';*/
+    .signup-modal {
+        position: fixed; /* Stay in place */
+        z-index: 1000; /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        animation-name: fadeIn;
+        animation-duration: 0.4s
+    }
+    .modal-hidden {
+        display: none;
+    }
+    .modal-content {
+        position: fixed;
+        bottom: 0;
+        background-color: #fefefe;
+        width: 100%;
+        -webkit-animation-name: slideIn;
+        -webkit-animation-duration: 0.4s;
+        animation-name: slideIn;
+        animation-duration: 0.4s
+    }
+
+    .spacer {
+        width: 100%;
+        flex-basis: 100%;
+        height: 48px;
+    }
+    .landing-wrapper {
+        display: flex;
+        flex-flow: row wrap;
+    }
+    .header-flex {
+        display: flex;
+        align-items: center;
+        vertical-align: center;
+    }
+    .header-wrapper {
+        width: 100%;
+        flex-basis: 100%;
+        background: #48922a;
+        text-align: left;
+    }
+    .header-container {
+        position: relative;
+        width: 100%;
+        flex-basis: 100%;
+        height: 0em;
+        padding-bottom: 37.5%;
+        background: linear-gradient(to right, #009FBC, #A5BB00);
+    }
+    .items-wrapper {
+        width: 100%;
+        height: 60%;
+        max-height: 300px;
+    }
+    .header-items {
+        height: 100%;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 1800px;
+        /*margin-top: 10%;*/
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
         text-align: center;
     }
-    .alert {
-        padding: 20px;
-        background-color: #f44336;
-        color: white;
-        opacity: 1;
-        transition: opacity 0.6s;
-        margin-bottom: 15px;
+    .header-element {
+        width: 100%;
+        flex-basis: 100%;
+        height: 100%;
+        display: flex;
     }
-
-    .alert.success {background-color: #4CAF50;}
-    .alert.info {background-color: #2196F3;}
-    .alert.warning {background-color: #ff9800;}
-
+    .header-curve {
+        width: 100%;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+    }
+    .header-left {
+        width: 45%;
+        flex-basis: 45%;
+        justify-content: flex-end;
+        border-right: 0.5px solid #FFFFFF;
+    }
+    .header-right {
+        width: 55%;
+        flex-basis: 55%;
+        justify-content: flex-end;
+        border-left: 0.5px solid #FFFFFF;
+    }
+    .header-content {
+        /*width: 50%;*/
+        /*flex-basis: 50%;*/
+        height: 100%;
+    }
+    .header-text {
+        display: flex;
+        flex-flow: row wrap;
+    }
+    .header-text-section {
+        width: 100%;
+        flex-basis: 100%;
+    }
+    .header-image {
+        width: 70%;
+        height: auto;
+        margin-left: 20%;
+        margin-right: 10%;
+        border-right: 0.5px;
+    }
+    .header-headline {
+        color: #ffffff;
+        font-weight: 700;
+        text-align: left;
+        margin-left: 5%;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+    }
+    .header-headline p {
+        color: #ffffff;
+        font-weight: 700;
+        text-align: left;
+        font-size: 61px;
+        line-height: 66px;
+    }
+    .header-subhead {
+        color: #ffffff;
+        font-size: 45px;
+        line-height: 50px;
+        text-align: left;
+        margin-left: 5%;
+    }
+    .header-subhead p {
+        font-weight: lighter;
+        color: #ffffff;
+        text-align: left;
+    }
+    @media (max-width: 1400px){
+        .header-headline {
+            color: #ffffff;
+            font-weight: 700;
+            text-align: left;
+            margin-left: 3%;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+        .header-headline p {
+            color: #ffffff;
+            font-weight: 700;
+            text-align: left;
+            font-size: 52px;
+            line-height: 57px;
+        }
+        .header-subhead {
+            color: #ffffff;
+            font-size: 36px;
+            line-height: 37px;
+            text-align: left;
+            margin-left: 3%;
+        }
+        .header-subhead p {
+            font-weight: lighter;
+            color: #ffffff;
+            text-align: left;
+        }
+    }
+    /*.survey-preview {*/
+    /*    box-shadow: 0px 0px 20px 2px #ffffff;*/
+    /*}*/
+    .dimension-header {
+        margin-top: 48px;
+        margin-bottom: 36px;
+        width: 100%;
+        flex-basis: 100%;
+    }
+    .dimension-title {
+        font-size: 56px;
+        font-weight: bold;
+    }
+    .dimension-title p {
+        margin-top: 12px;
+        margin-bottom: 0;
+        line-height: 130%;
+    }
+    .dimension-desc {
+        font-size: 36px;
+        font-weight: normal;
+        margin: 0 auto;
+        max-width: 80%;
+    }
+    .dimension-container {
+        width: 100%;
+        flex-basis: 100%;
+    }
+    .dimension-content {
+        width: 100%;
+        flex-basis: 100%;
+        max-width: 1600px;
+        margin: 0 auto;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+    }
+    .dimension-side {
+        width: 50%;
+        flex-basis: 50%;
+    }
+    .dimension-left {
+        border-right: 0.5px solid #CDCDCD;
+        padding-right: 48px;
+        justify-content: flex-end;
+    }
+    .dimension-left p {
+        text-align: right;
+    }
+    .dimension-right {
+        border-left: 0.5px solid #CDCDCD;
+        padding-left: 48px;
+        justify-content: flex-start;
+    }
+    .dimension-right p {
+        text-align: left;
+    }
+    .dimension-text {
+        display: flex;
+        align-items: center;
+    }
+    .header-button {
+        margin-left: calc(5% + 12px);
+        text-align: left;
+    }
+    .signup-button {
+        box-sizing: border-box;
+        -webkit-appearance: none;
+        display: inline-block;
+        text-align: center;
+        line-height: inherit;
+        font-size: 12px;
+        color: rgb(255, 255, 255);
+        background-color: rgba(255, 255, 255, 0.3);
+        cursor: pointer;
+        width: fit-content;
+        height: fit-content;
+        border-radius: 10px;
+        padding-left: 8px;
+        padding-right: 8px;
+        padding-top: 16px;
+        padding-bottom: 16px;
+        min-width: 152px;
+        font-weight: bold;
+        transition: 0.2s cubic-bezier(0.1, 0.7, 1.0, 0.1);
+    }
+    .signup-button:hover {
+        color: rgba(0, 0, 0, 0.6);
+        background-color: rgba(255, 255, 255, 0.8);
+    }
+    .signup-container {
+        /*background-color: rgb(236, 238, 239);*/
+        /*background: linear-gradient(right, #009FBC, #A5BB00);*/
+    }
+    .signup-content {
+        width: 100%;
+        flex-basis: 100%;
+        max-width: 550px;
+        margin: 0 auto;
+        display: flex;
+        flex-flow: row wrap;
+    }
+    .questionaire-content {
+        width: 100%;
+        flex-basis: 100%;
+        margin: 0 auto;
+        display: flex;
+        flex-flow: row wrap;
+        /*min-height: 50vh;*/
+    }
+    .questionnaireMode {
+        max-width: 600px;
+    }
+    .resultMode {
+        max-width: 1400px;
+    }
+    /*.dimension-left .dimension-text {*/
+    /*    justify-content: flex-end;*/
+    /*}*/
+    /*.dimension-right .dimension-text {*/
+    /*    justify-content: flex-start;*/
+    /*}*/
+    .dimension-headline p {
+        font-size: 34px;
+        font-weight: bold;
+        line-height: 37px;
+        margin-top: 12px;
+        margin-bottom: 12px;
+    }
+    .dimension-subhead {
+        margin: 12px 0;
+    }
+    .dimension-subhead p {
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 37px;
+    }
+    .dimension-body {
+        width: 100%;
+        max-width: 500px;
+    }
+    .dimension-left .dimension-body {
+        margin-left: auto;
+    }
+    .dimension-body p {
+        font-size: 18px;
+        line-height: 1.6em;
+        font-weight: 300;
+    }
+    .dimension-content {
+        height: 44vh;
+        min-height: 440px;
+        max-height: 550px;
+    }
+    .video-content {
+        width: 100%;
+        flex-basis: 100%;
+        max-width: 1600px;
+        margin: 0 auto;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        height: auto;
+    }
+    .dimension-image {
+        height: 100%;
+        width: auto;
+        display: flex;
+        justify-content: flex-start;
+    }
+    .dimension-left .dimension-image {
+        justify-content: flex-end;
+    }
+    .dimension-png {
+        height: calc(100% - 24px);
+    }
     .closebtn {
         margin-left: 15px;
         color: white;
@@ -141,83 +550,45 @@
         color: black;
     }
 
-    h1{
-        font-size: 30px;
-        color: #fff;
-        text-transform: uppercase;
-        font-weight: 300;
-        text-align: center;
-        margin-bottom: 15px;
+    .wrapper-div {
+        /*padding-bottom: 25vh;*/
+        background-color: #ffffff;
     }
-    table{
-        width:100%;
-        table-layout: fixed;
+    .video-container {
+        width: 60%;
+        height: 100%;
     }
-    .tbl-header{
-        background-color: rgba(255,255,255,0.3);
+    .video-placeholder {
+        width: 100%;
+        height: 0;
+        padding-bottom: 56.25%;
+        border-radius: 6px;
+        background: linear-gradient(top, rgba(0, 159, 188, 0.7), rgba(165, 187, 0, 0.7));
+        position: relative;
     }
-    .tbl-content{
-        height:300px;
-        overflow-x:auto;
-        margin-top: 0px;
-        border: 1px solid rgba(255,255,255,0.3);
+    .button-holder {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
-    th{
-        padding: 20px 15px;
-        text-align: left;
-        font-weight: 500;
-        font-size: 12px;
-        color: #fff;
-        text-transform: uppercase;
+    .play-button {
+        border-radius: 100%;
+        width: 72px;
+        height: 72px;
+        background-color: rgba(255, 255, 255, 0.5);
     }
-    td{
-        padding: 15px;
-        text-align: left;
-        vertical-align:middle;
-        font-weight: 300;
-        font-size: 12px;
-        color: #fff;
-        border-bottom: solid 1px rgba(255,255,255,0.1);
-    }
-
-
     /* demo styles */
 
     @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
-    .table{
-        background: -webkit-linear-gradient(left, #C1D82C, #C1D82C);
-        background: linear-gradient(to right, #C1D82C, #C1D82C);
-        font-family: 'Roboto', sans-serif;
-    }
     section{
         margin: 50px;
     }
 
-
-    /* follow me template */
-    .made-with-love {
-        margin-top: 40px;
-        padding: 10px;
-        clear: left;
-        text-align: center;
-        font-size: 10px;
-        font-family: arial;
-        color: #fff;
-    }
-    .made-with-love i {
-        font-style: normal;
-        color: #F50057;
-        font-size: 14px;
-        position: relative;
-        top: 2px;
-    }
-    .made-with-love a {
-        color: #fff;
-        text-decoration: none;
-    }
-    .made-with-love a:hover {
-        text-decoration: underline;
-    }
 
 
     /* for custom scrollbar for webkit browser*/
@@ -232,22 +603,10 @@
         -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
     }
 </style>
-<script>
-    const close = document.getElementsByClassName("closebtn");
-    let i;
-
-    for (i = 0; i < close.length; i++) {
-        close[i].onclick = function(){
-            const div = this.parentElement;
-            div.style.opacity = "0";
-            setTimeout(function(){ div.style.display = "none"; }, 600);
-        }
-    }
-</script>
-<script>
-    import FASTModule from "../Views/FASTModule";
-    import BrierleyLogo from "./BrierleyLogo";
-    export default {
-        components:  {FASTModule, BrierleyLogo}
-    }
-</script>
+<!--<script>-->
+<!--    import FASTModule from "../Views/FASTModule";-->
+<!--    import BrierleyLogo from "./BrierleyLogo";-->
+<!--    export default {-->
+<!--        components:  {FASTModule, BrierleyLogo}-->
+<!--    }-->
+<!--</script>-->

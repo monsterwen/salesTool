@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+              "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="65.8764mm" height="65.8764mm"
+     viewBox="0 0 389 389">
+  <path id="man-neck"
+        fill="#f0b97e" stroke="#f0b97e" stroke-width="1"
+        d="M 248.70,199.04
+           C 249.22,196.57 248.13,195.43 248.74,192.65
+             248.74,192.65 251.91,184.70 251.91,184.70
+             251.91,184.70 256.61,184.17 256.61,184.17
+             255.43,187.13 255.66,195.29 255.96,198.83
+             255.96,198.91 248.70,199.04 248.70,199.04 Z" />
+</svg>

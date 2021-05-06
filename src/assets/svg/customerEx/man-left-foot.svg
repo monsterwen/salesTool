@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+              "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="79.5936mm" height="79.5936mm"
+     viewBox="0 0 470 470">
+  <path id="man-left-foot"
+        fill="none" stroke="black" stroke-width="1"
+        d="M 163.00,210.00
+           C 164.57,207.49 164.64,205.14 165.00,205.00
+             166.07,204.24 166.13,203.24 166.00,203.33
+             166.00,203.33 164.53,203.00 164.53,203.00
+             164.60,203.11 162.94,204.09 162.36,203.89
+             162.61,204.13 163.01,204.66 163.30,205.00
+             163.92,206.00 163.00,210.00 163.00,210.00 Z" />
+</svg>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+              "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="65.8764mm" height="65.8764mm"
+     viewBox="0 0 389 389">
+  <path id="left-arm"
+        fill="none" stroke="black" stroke-width="1"
+        d="M 300.84,75.41
+           C 302.13,74.06 301.80,69.22 295.62,71.00
+             294.67,71.18 285.84,81.22 281.73,82.91
+             280.16,83.28 273.52,80.81 272.64,79.91
+             271.81,80.58 271.89,82.80 272.73,83.27
+             272.73,83.27 279.91,87.44 282.27,87.55
+             286.31,87.10 300.84,75.41 300.84,75.41 Z" />
+</svg>

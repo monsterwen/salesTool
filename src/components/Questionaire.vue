@@ -13,7 +13,7 @@
                     @inactiveClick="selectedIndex = i"
                 ></QuestionCard>
             </div>
-            <div class="questionContainer" style="background-color: #2c3e50">
+            <div class="questionContainer" style="background-color: rgba(0,0,0,0)">
             </div>
         </div>
     </div>
@@ -22,6 +22,12 @@
 <script>
 import * as d3 from 'd3'
 import QuestionCard from './QuestionCard'
+// const JSONToCSV = require("json2csv").parse
+// const FileSystem = require("fs")
+import {upload} from '../assets/js/fileupload.js'
+import {submitJob} from '../assets/js/jobservice.js'
+// eslint-disable-next-line no-unused-vars
+import saveAs from 'file-saver'
 
 export default {
 name: 'Questionaire',
@@ -554,6 +560,7 @@ responses: {
 'na': 0
 },
 },
+    output: [],
 scores: {
 analysis: 0,
 insight: 0,
@@ -657,14 +664,82 @@ resetCarosel: function () {
 // this.questionCarousel.selectAll('.actualQuestion').remove()
 this.$emit('reload', this.category)
 },
-questionSelected: function (response, index, type) {
-this.selectedIndex = this.selectedIndex + 1
-console.log('questionSelected', response, index, type)
-this.$emit('selection', response, index, type)
+    convertToCsv: function (output, filename) {
+        // eslint-disable-next-line no-unused-vars
+        const data = JSON.stringify(output)
+        // parse data
+        console.log('output',output)
+        var parsed = ''
+        var question = "Question"
+        var response = "Response"
+        parsed += question +','
+        parsed += response
+        parsed += '\n'
+        for(var i=0;i<output.length;i++) {
+            parsed += output[i].question+','
+            parsed += output[i].response
+            parsed += '\n'
+        }
+        console.log('parsed',parsed)
+        // eslint-disable-next-line no-unused-vars
+        // eslint-disable-next-line no-unused-vars
+        var blob = new Blob([parsed], {
+            type: "text/plain;charset=utf-8"
+        });
+        this.uploadfile(blob,filename)
+    },
+    questionSelected: function (response, index, type, module,question) {
+        this.selectedIndex = this.selectedIndex + 1
+        console.log('questionSelected..', question)
+        this.$emit('selection', response, index, type, module)
+        this.output.push({question,response})
+        console.log("output", this.output)
+    if(module == "CX/MX Journey Mapping" && index == 5) {
+        // 1. convert to csv
+        console.log("inside question select")
+        var filename = "output" + new Date().getTime()+'.txt'
+        this.$emit('selection', response, index, type, module)
+        this.convertToCsv(this.output, filename)
+    }
 // this.questions[index].response = response
 // this.calculateScores()
 // console.log('questionSelected', this.questions)
-}
+},
+uploadfile: function (blob, filename) {
+        const formData = new FormData()
+        formData.append('file', blob, filename)
+    upload(formData)
+        .catch(err => {
+            alert('There was an error uploading the file.  Please try again.' + err.message.toString())
+        })
+        .then((response) => {
+            console.log('successfully uploaded file to HDFS')
+            console.log(response)
+            this.submit(filename)
+        })
+    },
+    submit: function (fileName) {
+        var jobObj = {
+            'app': "sales",
+            'jobId': fileName,
+            'delimiter': ",",
+            'fileLocation': 'hdfs:///user/admin/' + fileName,
+
+        }
+        submitJob(jobObj)
+            .catch(err => {
+                alert('Problem submitting job to server.  ' + err.message.toString())
+            })
+            .then((response) => {
+               // alert('Form Submitted!')
+                // wait 30 sec
+                var timer = setInterval(() => {
+                    this.$emit('getrecom',fileName,timer)
+                }, 10000);
+                //this.$emit('getrecom',fileName)
+                console.log(response)
+            })
+    }
 }
 }
 </script>

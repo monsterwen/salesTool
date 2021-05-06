@@ -639,10 +639,10 @@
             },
             questionSelected: function (response, index) {
                 this.selectedIndex = this.selectedIndex + 1
-                console.log('questionSelected', response, index)
+               // console.log('questionSelected', response, index)
                 this.questions[index].response = response
                 this.calculateScores()
-                console.log('questionSelected', this.questions)
+               // console.log('questionSelected', this.questions)
             },
             calculateScores: function () {
                 let questions = this.questions
